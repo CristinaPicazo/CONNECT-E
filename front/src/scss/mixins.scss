@@ -1,0 +1,106 @@
+@use 'variables.scss';
+
+@mixin buttons {
+    width: 140px;
+    height: 50px;
+    border-radius: 45px;
+    border-color: variables.$backgroundButtonHover;
+    color: variables.$fontColor;
+    box-shadow: 0px 5px 5px 5px darken(variables.$backgroundColor, 20%);
+    transition: all 1s;
+
+    a {
+        text-decoration: none;
+        color: variables.$fontColor;
+    }
+
+    &:hover {
+        background-color: variables.$backgroundButtonHover;
+        box-shadow: 0px 15px 20px variables.$backgroundButtonHover;
+        transform: translateY(-7px) scale(1.1);
+
+        a {
+            color: variables.$fontColorHover;
+        }
+    }
+}
+
+@mixin generalBackground {
+    font-family: variables.$geneneralFont;
+    color: variables.$fontColor;
+    background: variables.$backgroundColor;
+    size: variables.$fontSize;
+    background-image: variables.$backgroundImage;
+    background-repeat: no-repeat;
+    background-size: contain, cover;
+    height: 100vh;
+}
+
+@mixin footer {
+    .footerButtons {
+        @include buttons;
+        align-self: end;
+    }
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+@mixin navBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+    background-color: variables.$backgroundColor;
+    box-shadow: 0px 5px 5px 5px darken(variables.$backgroundColor, 20%);
+    transition: all 1s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    a {
+        text-decoration: none;
+        color: variables.$fontColor;
+    }
+
+    :hover {
+        transform: translateY(-7px) scale(1.1);
+
+        a {
+            color: variables.$fontColorHover;
+        }
+    }
+}
+
+@mixin signUp {
+    height: 100vh;
+    display: flex;
+
+    .signUpForm {
+        margin: auto;
+        padding: 10%;
+        border: 1px solid black;
+
+        h2 {
+            text-align: center;
+            font-size: 3em;
+        }
+
+        label {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        input {
+            width: 100%;
+            border: 1px solid black;
+            padding: 10px;
+        }
+    }
+}
