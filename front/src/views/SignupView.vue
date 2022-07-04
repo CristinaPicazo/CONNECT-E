@@ -34,7 +34,7 @@ export default {
 <style lang="scss">
 @use "../scss/mixins.scss";
 body{
-  @include mixins.generalBackground;
+  @include mixins.generalView;
   .signUp{
     @include mixins.signUp;
     .homeButton{

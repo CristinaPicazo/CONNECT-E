@@ -33,7 +33,7 @@ export default {
 <style lang="scss">
   @use "../src/scss/mixins.scss";
   body{
-    @include mixins.generalBackground;
+    @include mixins.generalView;
     .navBar{
       @include mixins.navBar;
     }

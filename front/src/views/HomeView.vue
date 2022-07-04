@@ -1,9 +1,7 @@
 <template>
-  <div class="home">
-      <button type="button" class="btn homeButton"><router-link to="/login" tag="button">Login</router-link></button>
-      <button type="button" class="btn homeButton"><router-link to="/signup" tag="button">Signup</router-link></button>
-      <button type="button" class="btn btn-primary">Primary</button>
-
+  <div class="home d-flex justify-content-around">
+      <button type="button" class="btn homeButton btn-ligh align-self-center"><router-link to="/login" tag="button">Login</router-link></button>
+      <button type="button" class="btn homeButton align-self-center"><router-link to="/signup" tag="button">Signup</router-link></button>
   </div>
 </template>
 
@@ -16,16 +14,13 @@ export default {
 <style lang="scss">
 @use "../scss/mixins.scss";
 body{
-  @include mixins.generalBackground;
+  @include mixins.generalView;
   .home{
-    // background-color: blue;
     height: 100vh;
-    display: flex;
-    justify-content: space-between;
     .homeButton{
       @include mixins.buttons;
       font-size: 18px;
-      align-self: center;
+      // align-self: center;
     }
   }
 
