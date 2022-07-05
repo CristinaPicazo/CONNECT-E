@@ -1,19 +1,25 @@
 <template>
-<div class="signUp">
-  <form class="signUpForm">
-    <h2>Sign Up</h2>
-    <label for="email">Email:</label>
-    <input type="email" v-model="email" required>
-   
-    <label for="password">Password:</label>
-    <input type="password" v-model="password" required>
-   
-    <label for="user">Nickname:</label>
-    <input type="text" v-model="user" required>
-
-    <button class="homeButton" @click="signup">Sign Up</button>
-  </form>
+    <div>
+  <form 
+  class="forms"
+    @submit.prevent="checkForm"
+    action="/post"
+    method="post">
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" v-model="email" required>
   </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" v-model="password" required>
+  </div>
+  <div class="mb-3">
+    <label for="user" class="form-label">User</label>
+    <input type="user" class="form-control" id="user" aria-describedby="userHelp" v-model="user" required>
+  </div>
+  <button type="submit" @click="signup" value="Submit" class="btn buttons align-self-center">Submit</button>
+</form>
+    </div>
 </template>
  
 <script>
@@ -23,10 +29,6 @@ export default {
             email: '',
             password: '',
             user: '',
-            role: 'developer',
-            terms: false,
-            tempTopic: '',
-            topics: []
         }
     }
 }
@@ -37,7 +39,7 @@ body{
   @include mixins.generalView;
   .signUp{
     @include mixins.signUp;
-    .homeButton{
+    .buttons{
       @include mixins.buttons;
     }
   }

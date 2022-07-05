@@ -15,10 +15,12 @@
         color: variables.$fontColor;
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
         background-color: variables.$backgroundButtonHover;
         box-shadow: 0px 15px 20px variables.$backgroundButtonHover;
         transform: translateY(-7px) scale(1.1);
+        color: variables.$fontColorHover;
 
         a {
             color: variables.$fontColorHover;
@@ -104,4 +106,39 @@
             padding: 10px;
         }
     }
+}
+
+@mixin forms {
+
+    input:focus {
+        outline: 8px ridge variables.$borderColor;
+        border-radius: 2rem;
+    }
+
+    input {
+        border-radius: 2rem;
+        outline: solid variables.$borderColor;
+    }
+
+    margin: auto;
+    padding: 10%;
+    border: 1px solid black;
+
+    h2 {
+        text-align: center;
+        font-size: 3em;
+    }
+
+    label {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    input {
+        width: 100%;
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+
 }

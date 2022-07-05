@@ -1,6 +1,11 @@
 <template>
 <div>
-  <nav class="navBar">
+  <!-- <nav class="navBar"> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <img class="navbar-brand" src="images/icon.png"/>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
     <router-link to="/">Home</router-link>
     <router-link :to="{name: 'Signup'}">Signup</router-link>
     <router-link :to="{name: 'Login'}">Login</router-link>

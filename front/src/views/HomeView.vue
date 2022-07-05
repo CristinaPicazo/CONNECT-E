@@ -1,7 +1,7 @@
 <template>
   <div class="home d-flex justify-content-around">
-      <button type="button" class="btn homeButton btn-ligh align-self-center"><router-link to="/login" tag="button">Login</router-link></button>
-      <button type="button" class="btn homeButton align-self-center"><router-link to="/signup" tag="button">Signup</router-link></button>
+      <button type="button" class="btn buttons btn-ligh align-self-center"><router-link to="/login" tag="button">Login</router-link></button>
+      <button type="button" class="btn buttons align-self-center"><router-link to="/signup" tag="button">Signup</router-link></button>
   </div>
 </template>
 
@@ -17,10 +17,9 @@ body{
   @include mixins.generalView;
   .home{
     height: 100vh;
-    .homeButton{
+    .buttons{
       @include mixins.buttons;
       font-size: 18px;
-      // align-self: center;
     }
   }
 
