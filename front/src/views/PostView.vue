@@ -1,5 +1,5 @@
-<template>
-<div class="post">
+<template> 
+<div class="post forms p-5">
   <h1>Main Page</h1>
     <div v-if="error">{{ error }}</div>
     <div v-if="posts.length">
@@ -26,6 +26,10 @@ export default {
     }
 </script>
 
-<style>
+<style lang="scss">
+ @use "../scss/mixins.scss";
+  .forms{
+    @include mixins.forms;
+  }
 
 </style>

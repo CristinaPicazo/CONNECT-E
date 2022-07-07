@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="sign">
   <form 
-  class="forms"
+  class="forms p-5"
     @submit.prevent="checkForm"
     action="/post"
     method="post">
@@ -34,16 +34,13 @@ export default {
 }
 </script> 
 <style lang="scss">
-@use "../scss/mixins.scss";
-body{
-  @include mixins.generalView;
-  .signUp{
-    @include mixins.signUp;
+ @use "../scss/mixins.scss";
+.sign{
+  .forms{
+    @include mixins.forms;
     .buttons{
       @include mixins.buttons;
     }
   }
 }
-
- 
 </style>

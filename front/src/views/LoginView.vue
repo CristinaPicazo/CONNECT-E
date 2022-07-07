@@ -1,20 +1,20 @@
 <template>
-    <div>
-  <form 
-  class="forms"
-    @submit.prevent="checkForm"
-    action="/post"
-    method="post">
-    <div class="mb-3">
-      <label for="email" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" v-model="email" required>
-  </div>
-  <div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" v-model="password" required>
-  </div>
-  <button type="submit" value="Submit" class="btn buttons align-self-center">Submit</button>
-</form>
+    <div class="sign">
+      <form 
+      class="forms p-5" 
+        @submit.prevent="checkForm"
+        action="/post"
+        method="post">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" v-model="email" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" v-model="password" required>
+      </div>
+      <button type="submit" value="Submit" class="btn buttons align-self-center">Submit</button>
+    </form>
     </div>
 </template>
  
@@ -68,8 +68,7 @@ export default {
  
 <style lang="scss">
  @use "../scss/mixins.scss";
-body{
-  @include mixins.generalView;
+.sign{
   .forms{
     @include mixins.forms;
     .buttons{

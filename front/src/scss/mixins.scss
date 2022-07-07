@@ -34,9 +34,10 @@
     background: variables.$backgroundColor;
     size: variables.$fontSize;
     background-image: variables.$backgroundImage;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: contain;
     background-position: center;
+    background-size: 300px;
 }
 
 @mixin footer {
@@ -72,7 +73,8 @@
         color: variables.$fontColor;
     }
 
-    :hover {
+    :hover,
+    :focus {
         transform: translateY(-7px) scale(1.1);
 
         a {
@@ -109,6 +111,11 @@
 }
 
 @mixin forms {
+    border-radius: 45px;
+    border-color: variables.$backgroundButtonHover;
+    color: variables.$fontColor;
+    box-shadow: 0px 5px 5px 5px darken(variables.$backgroundColor, 20%);
+    background-color: variables.$backgroundButton;
 
     input:focus {
         outline: 8px ridge variables.$borderColor;

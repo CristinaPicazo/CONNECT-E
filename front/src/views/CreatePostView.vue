@@ -1,5 +1,5 @@
 <template>
-  <div class="createPost">
+  <div class="createPost forms p-5">
       <h2>New Post</h2>
       <label for="title">Title</label>
       <input type="text" v-model="title" placeholder="Title">
@@ -47,4 +47,9 @@ export default {
 }
 </script>
 <style lang="scss">
+ @use "../scss/mixins.scss";
+  .forms{
+    @include mixins.forms;
+  }
+
 </style>

@@ -23,6 +23,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+ @use "../scss/mixins.scss";
+  .forms{
+    @include mixins.forms;
+  }
 
 </style>
