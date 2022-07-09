@@ -5,6 +5,7 @@ import LoginView from '../views/LoginView.vue'
 import PostView from '../views/PostView.vue'
 import PostDetailsView from '../views/PostDetailsView.vue'
 import CreatePostView from '../views/CreatePostView.vue'
+import ProfileView from '../views/ProfileView.vue'
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
     path: '/new',
     name: 'CreatePost',
     component: CreatePostView,
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: ProfileView,
   },
   //catch 404
   {

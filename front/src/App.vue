@@ -6,25 +6,14 @@
     <router-link :to="{name: 'Login'}">Login</router-link>
     <router-link :to="{name: 'Post'}">Post</router-link>
     <router-link :to="{name: 'CreatePost'}">New</router-link>
+    <router-link :to="{name: 'Profile'}">Profile</router-link>
   </nav>
     <router-view/>
   </div>
 </template>
 
 <script>
-export default {
-  methods: {
-    redirect(){
-      this.$router.push({name: 'Home'})
-    },
-    back(){
-      this.$router.go(-1)
-    },
-    forward(){
-      this.$router.go(1)
-    }
-  }
-}
+
 </script>
 
 <style lang="scss">

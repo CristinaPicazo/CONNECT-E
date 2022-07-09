@@ -1,8 +1,9 @@
 <template>
-  <div class="createPost forms p-5">
+  <div class="createPost post forms p-5 m-5">
       <h2>New Post</h2>
       <label for="title">Title</label>
       <input type="text" v-model="title" placeholder="Title">
+      
       <label for="body">Body</label>
       <input type="text" v-model="body" placeholder="Body"> 
  
