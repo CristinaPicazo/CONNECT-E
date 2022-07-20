@@ -1,14 +1,21 @@
 <template>
   <div class="home">
-      <button type="button" class="btn buttons"><router-link to="/login" tag="button">Login</router-link></button>
-      <button type="button" class="btn buttons"><router-link to="/signup" tag="button">Signup</router-link></button>
+      <button @click="goToLogin()" type="button" class="btn buttons"><router-link to="/login" tag="button">Login</router-link></button>
+      <button @click="goToSignup()" type="button" class="btn buttons"><router-link to="/signup" tag="button">Signup</router-link></button>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'HomeView',
+  methods: {
+    goToLogin() {
+      this.$router.push('/login');
+    },
+    goToSignup() {
+      this.$router.push('/signup');
+    }
+  }
 }
 </script>
 <style lang="scss">

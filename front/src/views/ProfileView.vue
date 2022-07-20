@@ -1,34 +1,43 @@
 <template>
-    <div class="profile">
-  <form class="forms p-5">
-    <div class="mb-3">
-        <h2 for="user" class="form-label">User</h2>
-        <p id="user" aria-describedby="user">{{user}}</p>
-    </div>
-    <div class="mb-3">
-      <h2 for="email" class="form-label">Email</h2>
-    <p type="email" id="email" aria-describedby="email">{{email}}</p>
+  <div class="container">
+    <header class="jumbotron">
+      <h3>
+        <strong>{{currentUser.username}}</strong> Profile
+      </h3>
+    </header>
+    <p>
+      <strong>Token:</strong>
+      {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
+    </p>
+    <p>
+      <strong>Id:</strong>
+      {{currentUser.id}}
+    </p>
+    <p>
+      <strong>Email:</strong>
+      {{currentUser.email}}
+    </p>
+    <strong>Authorities:</strong>
+    <ul>
+      <li v-for="role in currentUser.roles" :key="role">{{role}}</li>
+    </ul>
   </div>
-  <div class="mb-3">
-    <h2 for="password" class="form-label">Password</h2>
-    <p type="password" id="password" aria-describedby="password">{{password}}</p>
-  </div>
-  <button type="button" @click="deleteUser" class="btn buttons align-self-center">Delete account</button>
-</form>
-    </div>
 </template>
- 
 <script>
 export default {
-    data() {
-        return {
-            email: 'email',
-            password: 'password',
-            user: 'user',
-        }
+  name: 'Profile',
+  computed: {
+    currentUser() {
+      return this.$useStore.state.auth.user;
     }
-}
-</script> 
+  },
+  mounted() {
+    if (!this.currentUser) {
+      this.$router.push('/login');
+    }
+  }
+};
+</script>
 <style lang="scss">
  @use "../scss/mixins.scss";
 .profile{

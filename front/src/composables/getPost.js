@@ -6,14 +6,11 @@ const getPost = (id) => {
 
     const load = async () => {
         try {
-            console.log('id:', id)
-            let data = await fetch('http://localhost:3000/posts/' + id)
-            console.log('data:', data)
+            let data = await fetch('http://localhost:3002/posts/' + id)
             if (!data.ok) {
                 throw Error('no post available')
             }
             post.value = await data.json()
-            console.log('post.value:', post.value)
         } catch (err) {
             error.value = err.message
             console.log(error.value)

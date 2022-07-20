@@ -1,22 +1,28 @@
 <template>
-  <div class="createPost post forms p-5 m-5">
+  <div class="createPost">
+    <form class="post forms p-5 m-5" @submit.prevent="checkForm" action="/post" method="post">
       <h2>New Post</h2>
-      <label for="title">Title</label>
-      <input type="text" v-model="title" placeholder="Title">
-      
-      <label for="body">Body</label>
-      <input type="text" v-model="body" placeholder="Body"> 
- 
-        <label>Topics (use commas to separate topics)</label>
-        <input type="text" v-model="tempTopic" @keyup="addTopic">
-        <div v-for="topic in topics" :key="topic">
-            <span @click="deleteTopic(topic)">{{ topic }}</span>
-        </div>  
+      <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" aria-describedby="titleHelp" v-model="title" required>
+      </div>
+
+      <div class="mb-3">
+          <label for="body" class="form-label">Body</label>
+        <textarea  type="text" class="form-control" id="body" aria-describedby="bodyHelp" v-model="body" rows="3" required>Body</textarea>
+      </div>
+
+      <div class="mb-3">
+          <label for="body" class="form-label">Multimedia</label>
+        <input type="file" class="form-control" id="file" aria-describedby="fileHelp" ref="file" v-on:change="onChangeFileUpload()">
+      </div>
+              <button type="submit" value="Submit" class="btn buttons align-self-center">Submit</button>
+    </form>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import {ref} from 'vue';
 
 export default {
   name: 'CreatePost',
@@ -51,6 +57,10 @@ export default {
  @use "../scss/mixins.scss";
   .forms{
     @include mixins.forms;
+    .buttons{
+      @include mixins.buttons;
+      margin: 10px auto;
+    }
   }
 
 </style>

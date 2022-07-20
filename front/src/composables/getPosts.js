@@ -1,12 +1,12 @@
-import { ref } from 'vue'
+// import ref from 'vue'
 
 const getPosts = () => {
-    const posts = ref([])
-    const error = ref(null)
+    const posts = []
+    const error = null
 
     const load = async () => {
         try {
-            let data = await fetch('http://localhost:3000/posts')
+            let data = await fetch('http://localhost:3002/posts')
             if (!data.ok) {
                 throw Error('no data available')
             }

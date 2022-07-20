@@ -117,12 +117,14 @@
     box-shadow: 0px 5px 5px 5px darken(variables.$backgroundColor, 20%);
     background-color: variables.$backgroundButton;
 
-    input:focus {
+    input:focus,
+    textarea:focus {
         outline: 8px ridge variables.$borderColor;
         border-radius: 2rem;
     }
 
-    input {
+    input,
+    textarea {
         border-radius: 2rem;
         outline: solid variables.$borderColor;
     }
@@ -146,6 +148,51 @@
         border: 1px solid black;
         padding: 10px;
     }
+}
+
+@mixin posts {
+    border-radius: 45px;
+    border-color: variables.$backgroundButtonHover;
+    color: variables.$fontColor;
+    box-shadow: 0px 5px 5px 5px darken(variables.$backgroundColor, 20%);
+    background-color: variables.$backgroundButton;
 
 
+    margin: auto;
+    padding: 10%;
+    border: 1px solid black;
+
+
+    h2 {
+        text-align: center;
+        font-size: 3em;
+    }
+
+
+    .individual-cards {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20px;
+        width: 100%;
+        height: 100%;
+
+        &:hover,
+        &:focus {
+            background-color: variables.$backgroundButtonHover;
+            box-shadow: 0px 15px 20px variables.$backgroundButtonHover;
+            transform: translateY(-7px) scale(1.1);
+            color: variables.$fontColorHover;
+
+            a {
+                color: variables.$fontColorHover;
+            }
+        }
+    }
+
+    .not-read {
+        background-color: lighten(variables.$backgroundButtonHover,45%);
+    }
 }
