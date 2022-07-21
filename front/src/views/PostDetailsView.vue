@@ -1,10 +1,11 @@
 <template>
-  <div v-if="error">{{ error }}</div>
+<div>postdetailsview</div>
+  <!-- <div v-if="error">{{ error }}</div>
   <div v-if="post" class="post">
   <h3>{{ post.title }}</h3>
   <p>{{ post.body }}</p>
   <p>{{ post.author }}</p>
-  </div>
+  </div> -->
 </template>
 
 <script>

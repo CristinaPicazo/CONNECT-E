@@ -1,60 +1,59 @@
-import { createRouter } from 'vue-router'
-import { createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import SignupView from '../views/SignupView.vue'
-import LoginView from '../views/LoginView.vue'
-import PostView from '../views/PostView.vue'
-import PostDetailsView from '../views/PostDetailsView.vue'
-import CreatePostView from '../views/CreatePostView.vue'
-import ProfileView from '../views/ProfileView.vue'
-import useAuthStore from '../store/auth.store';
+import { createRouter } from "vue-router";
+import { createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import SignupView from "../views/SignupView.vue";
+import LoginView from "../views/LoginView.vue";
+import PostView from "../views/PostView.vue";
+import PostDetailsView from "../views/PostDetailsView.vue";
+import CreatePostView from "../views/CreatePostView.vue";
+import ProfileView from "../views/ProfileView.vue";
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  linkActiveClass: 'active',
+  linkActiveClass: "active",
   routes: [
     {
-      path: '/',
-      name: 'Home',
-      component: HomeView
+      path: "/",
+      name: "Home",
+      component: HomeView,
     },
     {
-      path: '/signup',
-      name: 'Signup',
-      component: SignupView
+      path: "/signup",
+      name: "Signup",
+      component: SignupView,
     },
     {
-      path: '/login',
-      name: 'Login',
-      component: LoginView
+      path: "/login",
+      name: "Login",
+      component: LoginView,
     },
     {
-      path: '/post',
-      name: 'Post',
-      component: PostView
+      path: "/posts",
+      name: "PostView",
+      component: PostView,
     },
     {
-      path: '/post/:id',
-      name: 'PostDetails',
+      path: "/posts/:id",
+      name: "PostDetails",
       component: PostDetailsView,
-      props: true
+      props: true,
     },
     {
-      path: '/new',
-      name: 'CreatePost',
+      path: "/new",
+      name: "CreatePost",
       component: CreatePostView,
     },
     {
-      path: '/profile',
-      name: 'Profile',
+      path: "/profile",
+      name: "Profile",
       component: ProfileView,
     },
     //catch 404
     {
-      path: '/:catchAll(.*)',
-      redirect: '/'
-    }
-  ]
+      path: "/:catchAll(.*)",
+      redirect: "/",
+    },
+  ],
 });
 
 // ***** TO ACTIVATE AFTER ADDING TOKEN *****
@@ -70,4 +69,3 @@ export const router = createRouter({
 //     return '/login';
 //   }
 // });
-

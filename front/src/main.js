@@ -3,10 +3,6 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import { router } from './router'
 // setup fake backend
-import fakeBackend from './services/fake-backend';
-fakeBackend();
-
-import useAuthStore from "./store/auth.store";
 import BootstrapVue3 from 'bootstrap-vue-3'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
@@ -24,7 +20,6 @@ pinia.use(({ store }) => {
 app.use(router)
 app.use(pinia)
 // app.use(useStore)
-app.use(useAuthStore())
 app.use(BootstrapVue3)
 app.component("font-awesome-icon", FontAwesomeIcon)
 app.mount('#app')

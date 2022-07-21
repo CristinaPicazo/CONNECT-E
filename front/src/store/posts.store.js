@@ -4,7 +4,7 @@ import axios from "axios"
 
 export const usePostsStore = defineStore("post", {
     state: () => ({
-        posts: ['hola']
+        posts: []
     }),
     getters: {
         getPosts(state) {
@@ -14,8 +14,9 @@ export const usePostsStore = defineStore("post", {
     actions: {
         async fetchPosts() {
             try {
-                const data = await axios.get('http://localhost:3002/posts')
-                this.posts = data.data
+                const posts = await fetch('http://localhost:3002/posts')
+                console.log('posts:', posts)
+                this.posts = posts.data
             }
             catch (error) {
                 alert(error)
