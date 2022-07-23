@@ -2,11 +2,11 @@
   <div>
     <nav class="navBar navbar-expand-lg navbar-light bg-light">
       <router-link to="/">Home</router-link>
-      <router-link :to="{ name: 'Login' }">Login</router-link>
-      <router-link :to="{ name: 'Signup' }">Signup</router-link>
-      <router-link :to="{ name: 'PostView' }">Post</router-link>
-      <router-link :to="{ name: 'CreatePost' }">New</router-link>
-      <router-link :to="{ name: 'Profile' }">Profile</router-link>
+      <router-link :to="{ name: 'LoginView' }">Login</router-link>
+      <router-link :to="{ name: 'SignupView' }">Signup</router-link>
+      <router-link :to="{ name: 'PostsView' }">Post</router-link>
+      <router-link :to="{ name: 'CreatePostView' }">New</router-link>
+      <router-link :to="{ name: 'ProfileView' }">Profile</router-link>
     </nav>
     <router-view />
   </div>

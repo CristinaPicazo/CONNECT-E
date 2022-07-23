@@ -35,6 +35,7 @@
 
 <script>
 export default {
+  name: "LoginView",
   data() {
     return {
       email: null,

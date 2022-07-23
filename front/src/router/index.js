@@ -3,7 +3,7 @@ import { createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import SignupView from "../views/SignupView.vue";
 import LoginView from "../views/LoginView.vue";
-import PostView from "../views/PostView.vue";
+import PostsView from "../views/PostsView.vue";
 import PostDetailsView from "../views/PostDetailsView.vue";
 import CreatePostView from "../views/CreatePostView.vue";
 import ProfileView from "../views/ProfileView.vue";
@@ -14,38 +14,38 @@ export const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "Home",
+      name: "HomeView",
       component: HomeView,
     },
     {
       path: "/signup",
-      name: "Signup",
+      name: "SignupView",
       component: SignupView,
     },
     {
       path: "/login",
-      name: "Login",
+      name: "LoginView",
       component: LoginView,
     },
     {
       path: "/posts",
-      name: "PostView",
-      component: PostView,
+      name: "PostsView",
+      component: PostsView,
     },
     {
       path: "/posts/:id",
-      name: "PostDetails",
+      name: "PostDetailsView",
       component: PostDetailsView,
       props: true,
     },
     {
       path: "/new",
-      name: "CreatePost",
+      name: "CreatePostView",
       component: CreatePostView,
     },
     {
       path: "/profile",
-      name: "Profile",
+      name: "ProfileView",
       component: ProfileView,
     },
     //catch 404

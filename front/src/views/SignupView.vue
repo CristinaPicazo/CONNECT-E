@@ -32,7 +32,7 @@
 </template>
 <script>
 export default {
-  name: "Signup",
+  name: "SignupView",
   data() {
     return {
       username: "cris",
