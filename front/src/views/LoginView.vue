@@ -38,8 +38,8 @@ export default {
   name: "LoginView",
   data() {
     return {
-      email: null,
-      password: null,
+      email: "cris@gmail.com",
+      password: "cris",
       errorMessage: "",
     };
   },

@@ -1,19 +1,13 @@
 @use 'variables.scss';
 
 @mixin buttons {
-    width: 140px;
-    height: 50px;
+    // width: 140px;
+    // height: 50px;
     border-radius: 45px;
-    border-color: variables.$backgroundButtonHover;
-    color: variables.$fontColor;
+    // border-color: variables.$backgroundButtonHover;
+    // color: variables.$fontColor;
     box-shadow: 0px 5px 5px 5px darken(variables.$backgroundColor, 20%);
     transition: all 1s;
-    background-color: variables.$backgroundButton;
-
-    a {
-        text-decoration: none;
-        color: variables.$fontColor;
-    }
 
     &:hover,
     &:focus {
