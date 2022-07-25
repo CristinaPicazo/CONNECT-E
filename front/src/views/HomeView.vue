@@ -3,7 +3,7 @@
     <button
       @click="goToLogin()"
       type="button"
-      class="btn buttons bg-white mb-5 shadow-danger rounded rounded-pill"
+      class="btn buttons bg-white mb-5 rounded rounded-pill"
     >
       <router-link
         to="/login"
@@ -15,7 +15,7 @@
     <button
       @click="goToSignup()"
       type="button"
-      class="btn buttons bg-white mb-5 shadow-danger rounded rounded-pill"
+      class="btn buttons bg-white mb-5 rounded rounded-pill"
     >
       <router-link
         to="/signup"

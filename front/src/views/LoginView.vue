@@ -1,36 +1,42 @@
 <template>
-  <div class="sign">
-    <form class="forms p-5" @submit.prevent="onSubmit">
-      <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input
-          name="email"
-          type="email"
-          class="form-control"
-          id="email"
-          aria-describedby="emailHelp"
-          v-model="email"
-          required
-        />
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          name="password"
-          type="password"
-          class="form-control"
-          id="password"
-          aria-describedby="passwordHelp"
-          v-model="password"
-          required
-        />
-      </div>
-      <button type="submit" value="Submit" class="btn align-self-center">
-        Submit
-      </button>
-      {{ errorMessage }}
-    </form>
-  </div>
+  <form
+    class="forms p-5 bg-white mb-5 rounded-3 border border-danger"
+    @submit.prevent="onSubmit"
+  >
+    <h2 class="text-danger text-center">Login</h2>
+    <div class="mb-3">
+      <label for="email" class="text-danger form-label">Email address</label>
+      <input
+        name="email"
+        type="email"
+        class="form-control border-3 border-danger"
+        id="email"
+        aria-describedby="emailHelp"
+        v-model="email"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="password" class="text-danger form-label">Password</label>
+      <input
+        name="password"
+        type="password"
+        class="form-control border-3 border-danger"
+        id="password"
+        aria-describedby="passwordHelp"
+        v-model="password"
+        required
+      />
+    </div>
+    <button
+      type="submit"
+      value="Submit"
+      class="text-danger btn buttons bg-white rounded rounded-pill col-12"
+    >
+      Submit
+    </button>
+    {{ errorMessage }}
+  </form>
 </template>
 
 <script>

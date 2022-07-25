@@ -1,29 +1,44 @@
 <template>
-  <form @submit.prevent="handleSubmit">
-    <div class="form-group">
-      <label for="username">Username</label>
+  <form
+    class="forms p-5 bg-white mb-5 rounded-3 border border-danger"
+    @submit.prevent="handleSubmit"
+  >
+    <h2 class="text-danger text-center">Sign up</h2>
+
+    <div class="form-group mb-3">
+      <label for="username" class="text-danger form-label">Username</label>
       <input
         id="username"
         type="text"
-        class="form-control"
+        class="form-control border-3 border-danger"
         v-model="username"
       />
     </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email" type="email" class="form-control" v-model="email" />
+    <div class="form-group mb-3">
+      <label for="email" class="text-danger form-label">Email</label>
+      <input
+        id="email"
+        type="email"
+        class="form-control border-3 border-danger"
+        v-model="email"
+      />
     </div>
-    <div class="form-group">
-      <label for="password">Password</label>
+    <div class="form-group mb-3">
+      <label for="password" class="text-danger form-label">Password</label>
       <input
         id="password"
         type="password"
-        class="form-control"
+        class="form-control border-3 border-danger"
         v-model="password"
       />
     </div>
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">Sign Up</button>
+    <div class="form-group align-self-center">
+      <button
+        type="submit"
+        class="text-danger btn buttons bg-white rounded rounded-pill col-12"
+      >
+        Sign Up
+      </button>
     </div>
   </form>
   <div v-if="message" class="alert">
