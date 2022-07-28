@@ -49,10 +49,10 @@ export const router = createRouter({
       component: ProfileView,
     },
     //catch 404
-    {
-      path: "/:catchAll(.*)",
-      redirect: "/",
-    },
+    // {
+    //   path: "/:catchAll(.*)",
+    //   redirect: "/",
+    // },
   ],
 });
 
