@@ -1,58 +1,52 @@
 <template>
-  <div class="createPost">
-    <form
-      class="post forms p-5 m-5"
-      @submit.prevent="checkForm"
-      action="/post"
-      method="post"
-    >
-      <h2>New Post</h2>
-      <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          aria-describedby="titleHelp"
-          v-model="title"
-          required
-        />
-      </div>
+  <form
+    class="forms p-5 bg-white mb-5 rounded-3 border border-danger"
+    @submit.prevent="handleSubmit"
+  >
+    <h2 class="text-danger text-center display-1 fw-bold">New Post</h2>
 
-      <div class="mb-3">
-        <label for="body" class="form-label">Body</label>
-        <textarea
-          type="text"
-          class="form-control"
-          id="body"
-          aria-describedby="bodyHelp"
-          v-model="body"
-          rows="3"
-          required
-        >
-Body</textarea
-        >
-      </div>
-
-      <div class="mb-3">
-        <label for="body" class="form-label">Multimedia</label>
-        <input
-          type="file"
-          class="form-control"
-          id="file"
-          aria-describedby="fileHelp"
-          ref="file"
-          v-on:change="onChangeFileUpload()"
-        />
-      </div>
+    <div class="form-group mb-3">
+      <label for="title" class="text-danger form-label">Title</label>
+      <input
+        id="title"
+        type="text"
+        class="form-control border-3 border-danger"
+        v-model="title"
+        required
+      />
+    </div>
+    <div class="form-group mb-3">
+      <label for="body" class="text-danger form-label">Body</label>
+      <textarea
+        id="body"
+        type="body"
+        class="form-control border-3 border-danger"
+        rows="4"
+        v-model="body"
+        spellcheck="true"
+        required
+      ></textarea>
+    </div>
+    <div class="form-group mb-3">
+      <label for="multimedia" class="text-danger form-label">Multimedia</label>
+      <input
+        id="Multimedia"
+        type="file"
+        class="form-control border-3 border-danger"
+        ref="file"
+      />
+    </div>
+    <div class="form-group align-self-center">
       <button
         type="submit"
-        value="Submit"
-        class="btn buttons align-self-center"
+        class="text-danger btn buttons bg-white rounded rounded-pill col-12"
       >
         Submit
       </button>
-    </form>
+    </div>
+  </form>
+  <div v-if="message" class="alert">
+    {{ message }}
   </div>
 </template>
 
@@ -62,26 +56,32 @@ import { ref } from "vue";
 export default {
   name: "CreatePostView",
   setup() {
-    let id = ref(1);
-    let title = ref("My journey with Vue");
-    let body = ref("Body of the book");
-    let user = ref("Michael");
-
-    return { id, title, body, user };
+    let id = Math.floor(Math.random() * 10) + new Date().getTime();
+    let user = "";
+    let title = "";
+    let body = "";
+    let multimedia = "";
+    return { id, user, title, body, multimedia };
   },
   methods: {
-    addTopic(e) {
-      if (e.key === "," && this.tempTopic) {
-        if (!this.topics.includes(this.tempTopic)) {
-          this.topics.push(this.tempTopic);
-        }
-        this.tempTopic = "";
-      }
-    },
-    deleteTopic(topic) {
-      this.topics = this.topics.filter((item) => {
-        return topic !== item;
-      });
+    handleSubmit() {
+      const newPost = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: this.id,
+          user: this.user,
+          title: this.title,
+          body: this.body,
+          multimedia: this.multimedia,
+        }),
+      };
+
+      fetch("http://localhost:3002/posts", newPost)
+        .then((res) => res.json())
+        .then(() => {
+          return this.$router.push("/posts");
+        });
     },
   },
 };

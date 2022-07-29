@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav
-      class="justify-content-around position-fixed fixed-top align-items-center navBar navbar-expand-lg navbar-light bg-light d-flex"
+      class="justify-content-around fixed-top align-items-center navBar navbar-expand-lg navbar-light bg-light d-flex"
     >
       <router-link to="/" class="text-danger text-decoration-none"
         >Home</router-link

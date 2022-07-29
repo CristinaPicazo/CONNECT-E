@@ -3,11 +3,7 @@
 </template>
 
 <script>
-import { ref, onMounted, computed } from "vue";
-//import posts store
-// import { usePostsStore } from "../store/posts.store";
 import { router } from "../router";
-// import PostsStore from "../store/posts.store";
 import GetPosts from "../composables/getPosts.vue";
 
 export default {
@@ -18,7 +14,7 @@ export default {
 
 <style lang="scss">
 @use "../scss/mixins.scss";
-.posts {
-  @include mixins.posts;
+.forms {
+  @include mixins.forms;
 }
 </style>

@@ -1,12 +1,14 @@
 <template>
-  <div class="posts card p-5">
+  <div
+    class="forms posts p-5 bg-white rounded-3 border border-danger text-danger text-center"
+  >
+    <h2 class="display-1 fw-bold">Posts</h2>
     <div class="card-body">
-      <h2><u>Posts</u></h2>
       <p v-if="isLoading">Loading...</p>
       <div class="cards" v-for="post in posts" :key="post.id">
         <GetPost :post="post.id" />
         <a @click="goToPostDetail(post.id)">
-          <div class="posts card-body p-5 individual-cards">
+          <div class="p-5 mb-5 rounded-3 border border-danger">
             <h5 class="card-title">
               <u>{{ post.title }}</u>
             </h5>

@@ -3,15 +3,15 @@
     class="forms p-5 bg-white mb-5 rounded-3 border border-danger"
     @submit.prevent="handleSubmit"
   >
-    <h2 class="text-danger text-center">Sign up</h2>
+    <h2 class="text-danger text-center display-1 fw-bold">Sign up</h2>
 
     <div class="form-group mb-3">
-      <label for="username" class="text-danger form-label">Username</label>
+      <label for="user" class="text-danger form-label">User</label>
       <input
-        id="username"
+        id="user"
         type="text"
         class="form-control border-3 border-danger"
-        v-model="username"
+        v-model="user"
       />
     </div>
     <div class="form-group mb-3">
@@ -46,19 +46,22 @@
   </div>
 </template>
 <script>
+import { ref } from "vue";
+
 export default {
   name: "SignupView",
+  setup() {
+    let id = Math.floor(Math.random() * 10) + new Date().getTime();
+    let user = "";
+    let email = "";
+    let password = "";
+    return { id, user, email, password };
+  },
   data() {
     return {
-      username: "cris",
-      password: "cris",
-      email: "cris@gmail.com",
-      loggedIn: false,
-
       emailRegex: RegExp(
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       ),
-      message: "",
     };
   },
   mounted() {
@@ -70,9 +73,29 @@ export default {
     handleSubmit() {
       const isEmailValid = this.emailRegex.test(this.email);
       if (!isEmailValid) {
-        this.message = "Email is not valid";
-        return;
+        return (this.message = "Email is not valid");
       }
+      const newUser = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: this.id,
+          user: this.user,
+          email: this.email,
+          password: this.password,
+        }),
+      };
+
+      fetch("http://localhost:3003/users", newUser)
+        .then((res) => res.json())
+        .then(() => {
+          let userLogin = {
+            user: this.user,
+            email: this.email,
+          };
+          localStorage.setItem(this.id, JSON.stringify(userLogin));
+          return this.$router.push("/posts");
+        });
     },
   },
 };

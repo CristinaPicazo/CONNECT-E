@@ -3,7 +3,7 @@
     class="forms p-5 bg-white mb-5 rounded-3 border border-danger"
     @submit.prevent="onSubmit"
   >
-    <h2 class="text-danger text-center">Login</h2>
+    <h2 class="text-danger text-center display-1 fw-bold">Login</h2>
     <div class="mb-3">
       <label for="email" class="text-danger form-label">Email address</label>
       <input
@@ -35,27 +35,37 @@
     >
       Submit
     </button>
-    {{ errorMessage }}
+    <p>{{ errorMessage }}</p>
   </form>
 </template>
 
 <script>
 export default {
   name: "LoginView",
-  data() {
-    return {
-      email: "cris@gmail.com",
-      password: "cris",
-      errorMessage: "",
-    };
+  setup() {
+    let email = "";
+    let password = "";
+    let errorMessage = "";
+    return { email, password, errorMessage };
   },
   methods: {
     onSubmit() {
-      if (this.email == "cris@gmail.com" && this.password == "cris") {
-        this.$router.push("/posts");
-      } else {
-        this.errorMessage = "Email or password is incorrect";
-      }
+      fetch("http://localhost:3003/users")
+        .then((response) => response.json())
+        .then((data) => {
+          data.forEach((user) => {
+            if (user.email == this.email && user.password == this.password) {
+              let userLogin = {
+                user: user.user,
+                email: user.email,
+              };
+              localStorage.setItem(user.id, JSON.stringify(userLogin));
+              this.$router.push("/posts");
+            } else {
+              this.errorMessage = "Email or password is incorrect";
+            }
+          });
+        });
     },
   },
 };

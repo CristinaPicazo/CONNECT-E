@@ -1,16 +1,17 @@
 <template>
-  <div class="posts card p-5">
+  <div class="forms posts p-5 bg-white rounded-3 border border-danger text-danger text-center">
     <div class="card-body">
-      <h2><u>Post</u></h2>
+      <h2 class="display-1 fw-bold">{{ post.title }}</h2>
       <p v-if="isLoading">Loading...</p>
       <div class="cards">
         <div class="posts card-body p-5 individual-cards">
-          <h5 class="card-title">
-            <u>{{ post.title }}</u>
-          </h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ post.user }}</h6>
+          <h6 class="card-subtitle mb-2 text-muted">by {{ post.user }}</h6>
           <p class="card-text">{{ post.body }}</p>
-          <source class="multimedia" src="{{ post.multimedia }}" type="multimedia"/>
+          <source
+            class="multimedia"
+            src="{{ post.multimedia }}"
+            type="multimedia"
+          />
         </div>
       </div>
     </div>

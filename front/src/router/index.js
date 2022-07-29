@@ -48,11 +48,11 @@ export const router = createRouter({
       name: "ProfileView",
       component: ProfileView,
     },
-    //catch 404
-    // {
-    //   path: "/:catchAll(.*)",
-    //   redirect: "/",
-    // },
+    // catch 404
+    {
+      path: "/:catchAll(.*)",
+      redirect: "/",
+    },
   ],
 });
 
@@ -60,12 +60,12 @@ export const router = createRouter({
 
 // router.beforeEach(async (to) => {
 //   // redirect to login page if not logged in and trying to access a restricted page
-//   const publicPages = ['/', '/login', '/signup'];
+//   const publicPages = ["/", "/login", "/signup"];
 //   const authRequired = !publicPages.includes(to.path);
 //   const auth = useAuthStore();
 
 //   if (authRequired && !auth.user) {
 //     auth.returnUrl = to.fullPath;
-//     return '/login';
+//     return "/login";
 //   }
 // });
