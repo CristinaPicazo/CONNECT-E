@@ -1,5 +1,5 @@
 <template>
-  <div
+  <form
     class="forms p-5 bg-white mb-5 rounded-3 border border-danger text-danger text-center"
     @submit.prevent="deleteAccount"
   >
@@ -16,7 +16,7 @@
     >
       Delete account
     </button>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -26,30 +26,36 @@ export default {
   name: "ProfileView",
   data() {
     return {
-      user: window.localStorage.getItem("user"),
       id: "",
-      // user: "",
+      user: "",
       email: "",
     };
   },
-  // onMounted() {
-  //   id = localStorage.getItem(keyName);
-  //   console.log("this.id:", this.id);
-  //   user = localStorage.getItem("user");
-  //   console.log("this.user:", this.user);
-  //   email = localStorage.getItem("email");
-  //   console.log("this.email:", this.email);
-  // },
+
+  mounted() {
+    let id = window.localStorage.key(0);
+    let localStorageUser = JSON.parse(localStorage.getItem(id));
+
+    this.id = id;
+    this.user = localStorageUser.user;
+    this.email = localStorageUser.email;
+  },
   methods: {
     deleteAccount() {
-      console.log("$route.params.id:", $route.params.id);
-      fetch("http://localhost:3003/users/" + this.$route.params.id, {
+      console.log("delete account");
+      console.log("id", this.id);
+      fetch("http://localhost:3003/users/" + this.id, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-        .then((response) => response.json())
-        .then((data) => {
-          this.$router.push("/signup");
-        });
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => this.$router.push("/signup"));
+
+      localStorage.removeItem(this.id);
     },
   },
 };

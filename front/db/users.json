@@ -1,22 +1,10 @@
 {
   "users": [
     {
-      "id": 1659104952738,
-      "user": "3",
-      "email": "3@mail.com",
-      "password": "3333"
-    },
-    {
       "id": 1659105068440,
       "user": "Cris",
       "email": "cris@gmail.com",
       "password": "cris"
-    },
-    {
-      "id": 1659110459656,
-      "user": "8",
-      "email": "8@gmail.com",
-      "password": "8888"
     },
     {
       "id": 1659110512952,
