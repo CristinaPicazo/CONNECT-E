@@ -40,12 +40,13 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   name: "LoginView",
   setup() {
     let email = "";
     let password = "";
-    let errorMessage = "";
+    let errorMessage = ref("");
     return { email, password, errorMessage };
   },
   methods: {

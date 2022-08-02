@@ -1,20 +1,22 @@
 <template>
-  <div class="forms posts p-5 bg-white rounded-3 border border-danger text-danger text-center">
-    <div class="card-body">
-      <h2 class="display-1 fw-bold">{{ post.title }}</h2>
-      <p v-if="isLoading">Loading...</p>
-      <div class="cards">
-        <div class="posts card-body p-5 individual-cards">
-          <h6 class="card-subtitle mb-2 text-muted">by {{ post.user }}</h6>
-          <p class="card-text">{{ post.body }}</p>
-          <source
-            class="multimedia"
-            src="{{ post.multimedia }}"
-            type="multimedia"
-          />
-        </div>
-      </div>
+  <div
+    class="m-5 p-2 min-vh-50 bg-white rounded-3 border border-danger text-danger text-center text-wrap"
+  >
+    <!-- <div class="card-body mw-40"> -->
+    <h2 class="display-1 fw-bold mw-40">{{ post.title }}</h2>
+    <p v-if="isLoading">Loading...</p>
+    <!-- <div class="cards"> -->
+    <div class="posts p-5 individual-cards">
+      <h6 class="card-subtitle mb-2 text-muted">by {{ post.user }}</h6>
+      <p class="text-justify">{{ post.body }}</p>
+      <source
+        class="multimedia"
+        src="{{ post.multimedia }}"
+        type="multimedia"
+      />
     </div>
+    <!-- </div> -->
+    <!-- </div> -->
   </div>
 </template>
 
@@ -35,12 +37,13 @@ export default {
       fetch("http://localhost:3002/posts/" + this.$route.params.id)
         .then((response) => response.json())
         .then((data) => {
-          (this.post = data), (this.isLoading = false);
+          (this.post = data), (this.isLoading = false), this.post.read.push(id);
         });
     },
   },
   mounted() {
     this.getPost();
+    let id = window.localStorage.key(0);
   },
 };
 </script>

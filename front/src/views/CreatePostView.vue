@@ -28,12 +28,13 @@
       ></textarea>
     </div>
     <div class="form-group mb-3">
-      <label for="multimedia" class="text-danger form-label">Multimedia</label>
+      <label for="file" class="text-danger form-label">Multimedia</label>
       <input
-        id="Multimedia"
+        id="file"
         type="file"
         class="form-control border-3 border-danger"
         ref="file"
+        @change="handleFile"
       />
     </div>
     <div class="form-group align-self-center">
@@ -60,10 +61,20 @@ export default {
     let user = "";
     let title = "";
     let body = "";
-    let multimedia = "";
-    return { id, user, title, body, multimedia };
+    let file = "";
+    let read = "";
+    return { id, user, title, body, file, read };
+  },
+  mounted() {
+    let id = window.localStorage.key(0);
+    let localStorageUser = JSON.parse(localStorage.getItem(id));
+    this.user = localStorageUser.user;
   },
   methods: {
+    handleFile() {
+      this.file = this.$refs.file.files[0];
+      this.file = file;
+    },
     handleSubmit() {
       const newPost = {
         method: "POST",
@@ -73,7 +84,7 @@ export default {
           user: this.user,
           title: this.title,
           body: this.body,
-          multimedia: this.multimedia,
+          file: this.file,
         }),
       };
 

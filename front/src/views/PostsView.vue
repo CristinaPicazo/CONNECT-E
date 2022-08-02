@@ -14,7 +14,7 @@ export default {
 
 <style lang="scss">
 @use "../scss/mixins.scss";
-.forms {
+[data-container] {
   @include mixins.forms;
 }
 </style>

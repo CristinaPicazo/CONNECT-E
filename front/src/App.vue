@@ -31,63 +31,28 @@
         class="text-danger text-decoration-none"
         >Profile</router-link
       >
+      <a @click="LogOut" class="text-danger text-decoration-none">LogOut</a>
     </nav>
     <router-view />
   </div>
 </template>
-<!-- <template>
-  <div id="app">
-    <nav class="navbar navbar-expand navbar-light bg-light">
-      <div class="navbar-nav mr-auto">
-        <li class="nav-item">
-        <router-link to="/" class="nav-link">Home</router-link>
-        </li>
-         <li class="nav-item">
-          <router-link :to="{name: 'Login'}" class="nav-link">
-            Login
-          </router-link>
-        </li>
-      </div> -->
-<!-- <li class="nav-item">
-          <router-link v-if="currentUser" :to="{name: 'Post'}" class="nav-link">User</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link v-if="currentUser" :to="{name: 'Post'}" class="nav-link">User</router-link>
-        </li>
-      </div>
-      <div v-if="!currentUser" class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <router-link :to="{name: 'Signup'}" class="nav-link">
-            <font-awesome-icon icon="user-plus" /> Sign Up
-          </router-link>
-        </li> -->
-<!-- <li class="nav-item">
-          <router-link :to="{name: 'Signup'}" class="nav-link">
-            Signup
-          </router-link>
-        </li> -->
 
-<!-- <div v-if="currentUser" class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <router-link :to="{name: 'Profile'}" class="nav-link">
-            <font-awesome-icon icon="user" />
-            {{ currentUser.username }}
-          </router-link>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" @click.prevent="logOut">
-            <font-awesome-icon icon="sign-out-alt" /> LogOut
-          </a>
-        </li>
-      </div> -->
-<!-- </nav>
-    <div class="container">
-      <router-view />
-    </div>
-  </div>
-</template> -->
 <script>
 import { RouterLink, RouterView } from "vue-router";
+export default {
+  name: "NavBar",
+  components: {
+    RouterLink,
+    RouterView,
+  },
+  methods: {
+    LogOut() {
+      localStorage.removeItem(window.localStorage.key(0));
+      // localStorage.removeItem("token");
+      this.$router.push("/");
+    },
+  },
+};
 </script>
 <style lang="scss">
 @use "../src/scss/mixins.scss";
