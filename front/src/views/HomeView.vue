@@ -1,26 +1,29 @@
 <template>
-  <div class="home">
+  <div
+    data-home
+    class="vh-100 d-flex flex-column flex-sm-row align-items-center"
+  >
     <button
       @click="goToLogin()"
       type="button"
-      class="btn buttons bg-white mb-5 rounded rounded-pill"
+      class="m-5 p-3 w-50 my-auto btn bg-white rounded rounded-pill"
     >
       <router-link
         to="/login"
         tag="button"
-        class="text-danger p-5 text-decoration-none"
+        class="text-danger text-decoration-none"
         >Login</router-link
       >
     </button>
     <button
       @click="goToSignup()"
       type="button"
-      class="btn buttons bg-white mb-5 rounded rounded-pill"
+      class="m-5 p-3 w-50 my-auto btn bg-white rounded rounded-pill"
     >
       <router-link
         to="/signup"
         tag="button"
-        class="text-danger p-5 text-decoration-none"
+        class="text-danger text-decoration-none"
         >Signup</router-link
       >
     </button>
@@ -42,12 +45,9 @@ export default {
 </script>
 <style lang="scss">
 @use "../scss/mixins.scss";
-.home {
-  display: flex;
-  flex-direction: column;
-  .buttons {
+[data-home] {
+  button {
     @include mixins.buttons;
-    // margin: 30px auto;
     font-size: 18px;
   }
 }

@@ -1,7 +1,8 @@
 <template>
   <div>
     <nav
-      class="justify-content-around fixed-top align-items-center navBar navbar-expand-lg navbar-light bg-light d-flex"
+      data-navBar
+      class="p-4 justify-content-around d-inline-block align-top align-items-center navbar-expand-lg navbar-light bg-light d-flex"
     >
       <router-link to="/" class="text-danger text-decoration-none"
         >Home</router-link
@@ -58,13 +59,8 @@ export default {
 @use "../src/scss/mixins.scss";
 html {
   body {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     @include mixins.generalView;
-    .navBar {
+    [data-navBar] {
       @include mixins.navBar;
     }
   }

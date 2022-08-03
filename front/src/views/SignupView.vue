@@ -1,6 +1,7 @@
 <template>
   <form
-    class="forms p-5 bg-white mb-5 rounded-3 border border-danger"
+    data-sign
+    class="mt-5 m-sm-5 p-5 bg-white mb-5 rounded-3 border border-danger"
     @submit.prevent="handleSubmit"
   >
     <h2 class="text-danger text-center display-1 fw-bold">Sign up</h2>
@@ -12,6 +13,7 @@
         type="text"
         class="form-control border-3 border-danger"
         v-model="user"
+        required
       />
     </div>
     <div class="form-group mb-3">
@@ -21,6 +23,7 @@
         type="email"
         class="form-control border-3 border-danger"
         v-model="email"
+        required
       />
     </div>
     <div class="form-group mb-3">
@@ -30,19 +33,23 @@
         type="password"
         class="form-control border-3 border-danger"
         v-model="password"
+        required
       />
     </div>
     <div class="form-group align-self-center">
       <button
         type="submit"
-        class="text-danger btn buttons bg-white rounded rounded-pill col-12"
+        class="text-danger btn bg-white rounded rounded-pill col-12"
       >
         Sign Up
       </button>
     </div>
   </form>
-  <div v-if="message" class="alert">
-    {{ message }}
+  <div
+    v-if="errorMessage != ''"
+    class="bg-danger text-white m-2 p-4 text-center rounded rounded-pill"
+  >
+    <p>{{ errorMessage }}</p>
   </div>
 </template>
 <script>
@@ -55,7 +62,8 @@ export default {
     let user = "";
     let email = "";
     let password = "";
-    return { id, user, email, password };
+    let errorMessage = ref("");
+    return { id, user, email, password, errorMessage };
   },
   data() {
     return {
@@ -72,8 +80,8 @@ export default {
   methods: {
     handleSubmit() {
       const isEmailValid = this.emailRegex.test(this.email);
-      if (!isEmailValid) {
-        return (this.message = "Email is not valid");
+      if (!isEmailValid || this.user.length < 3 || this.password.length < 3) {
+        return (this.errorMessage = "Minimum 3 characters required");
       }
       const newUser = {
         method: "POST",
@@ -102,12 +110,10 @@ export default {
 </script>
 <style lang="scss">
 @use "../scss/mixins.scss";
-.sign {
-  .forms {
-    @include mixins.forms;
-    .buttons {
-      @include mixins.buttons;
-    }
+[data-sign] {
+  @include mixins.forms;
+  button {
+    @include mixins.buttons;
   }
 }
 </style>

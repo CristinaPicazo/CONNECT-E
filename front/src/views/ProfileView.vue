@@ -1,6 +1,7 @@
 <template>
   <form
-    class="forms p-5 bg-white mb-5 rounded-3 border border-danger text-danger text-center"
+    data-profile
+    class="mt-5 m-sm-5 p-5 bg-white mb-5 rounded-3 border border-danger text-danger text-center"
     @submit.prevent="deleteAccount"
   >
     <h2 class="display-1 fw-bold">Profile</h2>
@@ -62,11 +63,10 @@ export default {
 </script>
 <style lang="scss">
 @use "../scss/mixins.scss";
-.forms {
+[data-profile] {
   @include mixins.forms;
   .buttons {
     @include mixins.buttons;
-    margin: 10px auto;
   }
 }
 </style>

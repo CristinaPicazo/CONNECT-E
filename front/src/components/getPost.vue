@@ -1,6 +1,7 @@
 <template>
   <div
-    class="m-5 p-2 min-vh-50 bg-white rounded-3 border border-danger text-danger text-center text-wrap"
+    data-post
+    class="p-2 bg-white rounded-3 border border-danger text-danger text-center text-wrap"
   >
     <!-- <div class="card-body mw-40"> -->
     <h2 class="display-1 fw-bold mw-40">{{ post.title }}</h2>
@@ -8,7 +9,7 @@
     <!-- <div class="cards"> -->
     <div class="posts p-5 individual-cards">
       <h6 class="card-subtitle mb-2 text-muted">by {{ post.user }}</h6>
-      <p class="text-justify">{{ post.body }}</p>
+      <p class="text-justify text-break">{{ post.body }}</p>
       <source
         class="multimedia"
         src="{{ post.multimedia }}"
@@ -37,7 +38,7 @@ export default {
       fetch("http://localhost:3002/posts/" + this.$route.params.id)
         .then((response) => response.json())
         .then((data) => {
-          (this.post = data), (this.isLoading = false), this.post.read.push(id);
+          (this.post = data), (this.isLoading = false);
         });
     },
   },
@@ -48,4 +49,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+@use "../scss/mixins.scss";
+[data-post] {
+  margin: 10rem 5rem !important;
+  @include mixins.forms;
+}
+</style>

@@ -1,4 +1,4 @@
-$geneneralFont: 'Trebuchet MS', sans-serif;
+$geneneralFont: "Trebuchet MS", sans-serif;
 $fontSize: 18px;
 $fontColor: red;
 $fontColorHover: white;
@@ -8,3 +8,4 @@ $backgroundImage: url("../assets/icon-above-font.png");
 $buttonBackground: rgb(203, 203, 203);
 $backgroundButtonHover: red;
 $borderColor: red;
+$box-shadow: 0px 5px 5px 5px darken($backgroundColor, 20%);

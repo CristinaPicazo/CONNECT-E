@@ -4,7 +4,7 @@
 
 <script>
 import { router } from "../router";
-import GetPosts from "../composables/getPosts.vue";
+import GetPosts from "../components/getPosts.vue";
 
 export default {
   name: "PostsView",
@@ -12,9 +12,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@use "../scss/mixins.scss";
-[data-container] {
-  @include mixins.forms;
-}
-</style>
+<style lang="scss"></style>

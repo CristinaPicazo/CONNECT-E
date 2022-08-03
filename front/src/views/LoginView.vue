@@ -1,6 +1,7 @@
 <template>
   <form
-    class="forms p-5 bg-white mb-5 rounded-3 border border-danger"
+    data-login
+    class="mt-5 m-sm-5 p-5 bg-white mb-5 rounded-3 border border-danger"
     @submit.prevent="onSubmit"
   >
     <h2 class="text-danger text-center display-1 fw-bold">Login</h2>
@@ -31,11 +32,16 @@
     <button
       type="submit"
       value="Submit"
-      class="text-danger btn buttons bg-white rounded rounded-pill col-12"
+      class="text-danger btn bg-white rounded rounded-pill col-12"
     >
       Submit
     </button>
-    <p>{{ errorMessage }}</p>
+    <div
+      v-if="errorMessage != ''"
+      class="bg-danger text-white m-2 p-4 text-center rounded rounded-pill"
+    >
+      <p>{{ errorMessage }}</p>
+    </div>
   </form>
 </template>
 
@@ -74,12 +80,10 @@ export default {
 
 <style lang="scss">
 @use "../scss/mixins.scss";
-.sign {
-  .forms {
-    @include mixins.forms;
-    .buttons {
-      @include mixins.buttons;
-    }
+[data-login] {
+  @include mixins.forms;
+  button {
+    @include mixins.buttons;
   }
 }
 </style>

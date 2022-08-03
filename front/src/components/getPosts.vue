@@ -1,13 +1,15 @@
 <template>
   <div
-    data-container
-    class="mt-5 p-2 bg-white rounded-3 border border-danger text-danger text-center"
+    data-posts
+    class="mt-5 m-md-5 p-md-5 bg-white rounded-3 border border-danger text-danger text-center"
   >
     <h2 class="display-1 fw-bold">Posts</h2>
-    <div class="card-body d-flex flex-wrap w-30 justify-content-around">
+    <div
+      class="flex-column d-flex flex-md-row flex-md-wrap w-30 justify-content-around"
+    >
       <p v-if="anyPost">There isn't any post</p>
       <p v-if="isLoading">Loading...</p>
-      <div class="cards w-30 p-1" v-for="post in posts" :key="post.id">
+      <div class="w-sm-30 p-1" v-for="post in posts" :key="post.id">
         <GetPost :post="post.id" />
         <a @click="goToPostDetail(post.id)">
           <div class="posts h-100 p-5 rounded-3 border border-danger">
@@ -48,7 +50,7 @@ export default {
           //   this.anyPost = false;
           this.posts = data;
           this.isLoading = false;
-          this.currentId = "1659105068440"
+          this.currentId = "1659105068440";
           // }
         });
     },
@@ -65,4 +67,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+@use "../scss/mixins.scss";
+[data-posts] {
+  // margin: 10rem 5rem !important;
+  @include mixins.forms;
+}
+</style>

@@ -1,6 +1,7 @@
 <template>
   <form
-    class="forms p-5 bg-white mb-5 rounded-3 border border-danger"
+    data-new-post
+    class="mt-5 m-sm-5 p-5 bg-white mb-5 rounded-3 border border-danger"
     @submit.prevent="handleSubmit"
   >
     <h2 class="text-danger text-center display-1 fw-bold">New Post</h2>
@@ -99,9 +100,9 @@ export default {
 </script>
 <style lang="scss">
 @use "../scss/mixins.scss";
-.forms {
+[data-new-post] {
   @include mixins.forms;
-  .buttons {
+  button {
     @include mixins.buttons;
     margin: 10px auto;
   }

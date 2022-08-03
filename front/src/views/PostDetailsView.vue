@@ -3,13 +3,13 @@
 </template>
 
 <script>
-import GetPost from "../composables/getPost.vue";
+import GetPost from "../components/getPost.vue";
 
 export default {
   name: "PostDetailsView",
   components: { GetPost },
 };
-// import GetPosts from "../composables/getPosts.vue";
+// import GetPosts from "../components/getPosts.vue";
 </script>
 
 <style lang="scss">
