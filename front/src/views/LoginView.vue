@@ -56,8 +56,8 @@ export default {
     return { email, password, errorMessage };
   },
   methods: {
-    onSubmit() {
-      fetch("http://localhost:3003/users")
+    async onSubmit() {
+      await fetch("http://localhost:3003/users")
         .then((response) => response.json())
         .then((data) => {
           data.forEach((user) => {

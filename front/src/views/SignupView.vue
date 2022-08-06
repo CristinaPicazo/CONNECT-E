@@ -78,7 +78,7 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
+    async handleSubmit() {
       const isEmailValid = this.emailRegex.test(this.email);
       if (!isEmailValid || this.user.length < 3 || this.password.length < 3) {
         return (this.errorMessage = "Minimum 3 characters required");
@@ -94,7 +94,7 @@ export default {
         }),
       };
 
-      fetch("http://localhost:3003/users", newUser)
+      await fetch("http://localhost:3003/users", newUser)
         .then((res) => res.json())
         .then(() => {
           let userLogin = {

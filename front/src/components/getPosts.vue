@@ -7,12 +7,14 @@
     <div
       class="flex-column d-flex flex-md-row flex-md-wrap w-30 justify-content-around"
     >
-      <p v-if="anyPost">There isn't any post</p>
       <p v-if="isLoading">Loading...</p>
+      <p v-if="isPostListEmpty">There isn't any post</p>
+      <p v-if="errorMessage != ''">{{ errorMessage }}</p>
       <div class="w-sm-30 p-1" v-for="post in posts" :key="post.id">
-        <GetPost :post="post.id" />
-        <a @click="goToPostDetail(post.id)">
-          <div class="posts h-100 p-5 rounded-3 border border-danger">
+        <a :href="`http://localhost:3002/posts/${post.id}`">
+          <div
+            class="h-100 p-5 rounded-3 border border-danger hover:border-primary"
+          >
             <h5 class="card-title">
               <u>{{ post.title }}</u>
             </h5>
@@ -26,51 +28,58 @@
 </template>
 
 <script>
-import { router } from "../router";
-import { computed } from "vue";
+import { getCurrentUser } from "../store/user";
+
 export default {
   name: "GetPosts",
   data() {
     return {
       posts: [],
-      isLoading: false,
-      // anyPost: false,
+      isLoading: true,
+      user: null,
+      errorMessage: "",
     };
   },
   methods: {
     getPosts() {
-      this.isLoading = true;
       fetch("http://localhost:3002/posts")
         .then((response) => response.json())
         .then((data) => {
-          // console.log('data:', data)
-          // if (!data.length) {
-          //   this.anyPost = true;
-          // } else {
-          //   this.anyPost = false;
           this.posts = data;
           this.isLoading = false;
-          this.currentId = "1659105068440";
-          // }
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          return (this.errorMessage = error);
         });
     },
-    goToPostDetail(id) {
-      this.$router.push("/posts/" + id);
-    },
+    //check overflow
     snippet(body) {
       return body.substring(0, 20) + "...";
     },
   },
+  computed: {
+    isPostListEmpty() {
+      return this.posts.length == 0;
+    },
+  },
   mounted() {
+    //backend
+    this.user = getCurrentUser();
     this.getPosts();
   },
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @use "../scss/mixins.scss";
+a {
+  color: red;
+  &:visited {
+    color: purple;
+  }
+}
 [data-posts] {
-  // margin: 10rem 5rem !important;
   @include mixins.forms;
 }
 </style>

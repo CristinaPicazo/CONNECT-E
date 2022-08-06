@@ -1,23 +1,19 @@
 <template>
   <div
     data-post
-    class="p-2 bg-white rounded-3 border border-danger text-danger text-center text-wrap"
+    class="mt-5 m-sm-5 p-5 bg-white mb-5 rounded-3 border border-danger text-break text-center text-danger"
   >
-    <!-- <div class="card-body mw-40"> -->
-    <h2 class="display-1 fw-bold mw-40">{{ post.title }}</h2>
     <p v-if="isLoading">Loading...</p>
-    <!-- <div class="cards"> -->
-    <div class="posts p-5 individual-cards">
-      <h6 class="card-subtitle mb-2 text-muted">by {{ post.user }}</h6>
-      <p class="text-justify text-break">{{ post.body }}</p>
+    <div class="form-group mb-3">
+      <h2 class="display-1 fw-bold">{{ post.title }}</h2>
+      <h6 class="card-subtitle mb-5 text-muted">by {{ post.user }}</h6>
+      <p>{{ post.body }}</p>
       <source
         class="multimedia"
         src="{{ post.multimedia }}"
         type="multimedia"
       />
     </div>
-    <!-- </div> -->
-    <!-- </div> -->
   </div>
 </template>
 
@@ -30,21 +26,24 @@ export default {
     return {
       post: [],
       isLoading: false,
+      userId: "",
     };
   },
   methods: {
-    getPost() {
+    async getPost() {
       this.isLoading = true;
-      fetch("http://localhost:3002/posts/" + this.$route.params.id)
+      await fetch("http://localhost:3002/posts/" + this.$route.params.id)
         .then((response) => response.json())
         .then((data) => {
-          (this.post = data), (this.isLoading = false);
+          (this.post = data),
+            (this.isLoading = false),
+            this.post.read.push(this.userId);
         });
     },
   },
   mounted() {
     this.getPost();
-    let id = window.localStorage.key(0);
+    this.userId = window.localStorage.key(0);
   },
 };
 </script>
@@ -52,7 +51,6 @@ export default {
 <style lang="scss">
 @use "../scss/mixins.scss";
 [data-post] {
-  margin: 10rem 5rem !important;
   @include mixins.forms;
 }
 </style>

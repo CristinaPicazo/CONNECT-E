@@ -63,12 +63,13 @@ export default {
     let title = "";
     let body = "";
     let file = "";
-    let read = "";
-    return { id, user, title, body, file, read };
+    let read = [];
+    let userId = "";
+    return { id, user, title, body, file, read, userId };
   },
   mounted() {
-    let id = window.localStorage.key(0);
-    let localStorageUser = JSON.parse(localStorage.getItem(id));
+    this.userId = window.localStorage.key(0);
+    let localStorageUser = JSON.parse(localStorage.getItem(this.userId));
     this.user = localStorageUser.user;
   },
   methods: {
@@ -77,6 +78,7 @@ export default {
       this.file = file;
     },
     handleSubmit() {
+      this.read.push(this.id);
       const newPost = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -86,6 +88,7 @@ export default {
           title: this.title,
           body: this.body,
           file: this.file,
+          read: this.read,
         }),
       };
 

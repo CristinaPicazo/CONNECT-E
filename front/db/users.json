@@ -1,44 +1,22 @@
 {
   "users": [
     {
-      "id": 1659105068440,
+      "id": 1659710110903,
+      "user": "Cristina",
+      "email": "cris2@gmail.com",
+      "password": "2222"
+    },
+    {
+      "id": 1659781663708,
       "user": "Cris",
       "email": "cris@gmail.com",
       "password": "cris"
     },
     {
-      "id": 1659110512952,
-      "user": "9",
-      "email": "9@gmail.com",
-      "password": "9999"
-    },
-    {
-      "id": 1659271926640,
-      "user": "newUser",
-      "email": "newUser@gmail.com",
-      "password": "new"
-    },
-    {
-      "email": {},
-      "password": {},
-      "id": 1659271926641
-    },
-    {
-      "email": "cris@gmail.com",
-      "password": "cris",
-      "id": 1659271926642
-    },
-    {
-      "id": 1659388290987,
-      "user": "cristina2",
-      "email": "cristina2@gmail.com",
-      "password": "cris"
-    },
-    {
-      "id": 1659455378311,
-      "user": "8",
-      "email": "cris@gmail.com",
-      "password": ""
+      "id": 1659795968999,
+      "user": "Cris 3",
+      "email": "cris3@gmail.com",
+      "password": "333"
     }
   ]
 }

@@ -32,7 +32,9 @@
         class="text-danger text-decoration-none"
         >Profile</router-link
       >
-      <a @click="LogOut" class="text-danger text-decoration-none">LogOut</a>
+      <a @click="LogOut" class="text-danger text-decoration-none"
+        >LogOut</a
+      >
     </nav>
     <router-view />
   </div>

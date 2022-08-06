@@ -42,10 +42,10 @@ export default {
     this.email = localStorageUser.email;
   },
   methods: {
-    deleteAccount() {
+    async deleteAccount() {
       console.log("delete account");
       console.log("id", this.id);
-      fetch("http://localhost:3003/users/" + this.id, {
+      await fetch("http://localhost:3003/users/" + this.id, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
