@@ -108,7 +108,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style scoped lang="scss">
 @use "../scss/mixins.scss";
 [data-sign] {
   @include mixins.forms;

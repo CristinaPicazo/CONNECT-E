@@ -10,18 +10,32 @@
       <p v-if="isLoading">Loading...</p>
       <p v-if="isPostListEmpty">There isn't any post</p>
       <p v-if="errorMessage != ''">{{ errorMessage }}</p>
-      <div class="w-sm-30 p-1" v-for="post in posts" :key="post.id">
-        <a :href="`http://localhost:3002/posts/${post.id}`">
-          <div
-            class="h-100 p-5 rounded-3 border border-danger hover:border-primary"
-          >
-            <h5 class="card-title">
-              <u>{{ post.title }}</u>
-            </h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ post.user }}</h6>
-            <p>{{ snippet(post.body) }}</p>
-          </div>
-        </a>
+      <div
+        class="w-sm-30 p-1 col col-md-4"
+        v-for="post in posts"
+        :key="post.id"
+      >
+        <!-- <a class="text-decoration-none" :href="`http://localhost:3002/posts/${post.id}`"> -->
+        <router-link
+          active-class="active-link"
+          exact-active-class="exact-active-link"
+          :to="`/posts/${post.id}`"
+        >
+          <a href="`/posts/${post.id}`" class="active-link exact-active-link">
+            <div
+              class="h-100 p-5 rounded-3 border border-danger bg-danger text-white"
+            >
+              <h5 class="card-title">
+                <u>{{ post.title }}</u>
+              </h5>
+              <h6 class="card-subtitle mb-2">by {{ post.user }}</h6>
+              <p class="text-truncate">
+                {{ post.body }}
+              </p>
+            </div>
+          </a>
+        </router-link>
+        <!-- </a> -->
       </div>
     </div>
   </div>
@@ -53,10 +67,6 @@ export default {
           return (this.errorMessage = error);
         });
     },
-    //check overflow
-    snippet(body) {
-      return body.substring(0, 20) + "...";
-    },
   },
   computed: {
     isPostListEmpty() {
@@ -73,13 +83,11 @@ export default {
 
 <style scoped lang="scss">
 @use "../scss/mixins.scss";
-a {
-  color: red;
-  &:visited {
-    color: purple;
-  }
-}
 [data-posts] {
   @include mixins.forms;
+  // .active-link {
+  //   color: blue;
+  //   background-color: purple;
+  // }
 }
 </style>

@@ -35,9 +35,7 @@ export default {
       await fetch("http://localhost:3002/posts/" + this.$route.params.id)
         .then((response) => response.json())
         .then((data) => {
-          (this.post = data),
-            (this.isLoading = false),
-            this.post.read.push(this.userId);
+          (this.post = data), (this.isLoading = false);
         });
     },
   },
@@ -48,7 +46,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @use "../scss/mixins.scss";
 [data-post] {
   @include mixins.forms;

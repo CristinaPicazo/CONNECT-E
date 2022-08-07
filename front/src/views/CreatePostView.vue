@@ -63,9 +63,7 @@ export default {
     let title = "";
     let body = "";
     let file = "";
-    let read = [];
-    let userId = "";
-    return { id, user, title, body, file, read, userId };
+    return { id, user, title, body, file };
   },
   mounted() {
     this.userId = window.localStorage.key(0);
@@ -78,7 +76,6 @@ export default {
       this.file = file;
     },
     handleSubmit() {
-      this.read.push(this.id);
       const newPost = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -88,7 +85,6 @@ export default {
           title: this.title,
           body: this.body,
           file: this.file,
-          read: this.read,
         }),
       };
 
@@ -101,7 +97,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style scoped lang="scss">
 @use "../scss/mixins.scss";
 [data-new-post] {
   @include mixins.forms;

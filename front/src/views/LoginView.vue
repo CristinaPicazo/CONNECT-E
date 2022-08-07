@@ -78,7 +78,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @use "../scss/mixins.scss";
 [data-login] {
   @include mixins.forms;

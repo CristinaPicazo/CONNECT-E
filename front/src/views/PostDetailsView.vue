@@ -12,7 +12,7 @@ export default {
 // import GetPosts from "../components/getPosts.vue";
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @use "../scss/mixins.scss";
 .forms {
   @include mixins.forms;

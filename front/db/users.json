@@ -17,6 +17,12 @@
       "user": "Cris 3",
       "email": "cris3@gmail.com",
       "password": "333"
+    },
+    {
+      "id": 1659859873591,
+      "user": "Cris2",
+      "email": "cris2@gmail.com",
+      "password": "2222"
     }
   ]
 }
