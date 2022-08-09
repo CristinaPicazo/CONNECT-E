@@ -54,6 +54,8 @@
 </template>
 <script>
 import { ref } from "vue";
+// import { useAuthStore } from "../store/auth";
+// const authSore = useAuthStore();
 
 export default {
   name: "SignupView",

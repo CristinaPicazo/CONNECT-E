@@ -15,13 +15,15 @@
         v-for="post in posts"
         :key="post.id"
       >
-        <!-- <a class="text-decoration-none" :href="`http://localhost:3002/posts/${post.id}`"> -->
-        <router-link
-          active-class="active-link"
-          exact-active-class="exact-active-link"
-          :to="`/posts/${post.id}`"
+        <a
+          href="`http://localhost:3002/posts/${post.id}`"
+          class="text-decoration-none active-link exact-active-link"
         >
-          <a href="`/posts/${post.id}`" class="active-link exact-active-link">
+          <router-link
+            active-class="active-link"
+            exact-active-class="exact-active-link"
+            :to="`/posts/${post.id}`"
+          >
             <div
               class="h-100 p-5 rounded-3 border border-danger bg-danger text-white"
             >
@@ -33,9 +35,8 @@
                 {{ post.body }}
               </p>
             </div>
-          </a>
-        </router-link>
-        <!-- </a> -->
+          </router-link>
+        </a>
       </div>
     </div>
   </div>
@@ -89,5 +90,16 @@ export default {
   //   color: blue;
   //   background-color: purple;
   // }
+  a:visited {
+    background-color: aquamarine !important;
+  }
+  .active-link:visited {
+    color: blue;
+    background-color: purple !important;
+  }
+  .exact-active-link:visited {
+    color: pink;
+    background-color: orange !important;
+  }
 }
 </style>
