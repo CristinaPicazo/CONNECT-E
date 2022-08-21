@@ -17,4 +17,9 @@ const pool = new Pool({
 //   "INSERT INTO users (u_user, u_email, u_password) VALUES ('u_user', 'u_email', 'u_password')"
 // );
 
+// pool.query("SELECT * FROM users WHERE u_email = $1 AND u_password = $2",['crissdd@gmail.com', '2222'], (err, res) => {
+//   console.log(err, res);
+//   pool.end();
+// });
+
 module.exports = { pool };

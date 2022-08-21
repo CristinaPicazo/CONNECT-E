@@ -28,37 +28,24 @@ const login = (req, res) => {
       "SELECT * FROM users WHERE u_email = $1 AND u_password = $2",
       [u_email, u_password],
       (err, res) => {
-        console.log('res:', res)
         if (err) throw err;
-        console.log("res");
       }
     );
     res.status(200).json({
-      message: "User logged in successfully",
+      message: "Login successfully",
+      body: {
+        user: res.rows[0],
+      },
     });
   } catch (error) {
     res.status(500).json({
-      message: "Error logging in user",
+      message: "Error creating user",
     });
   }
 };
 
-// const login = async (req, res) => {
-//   try {
-//     const { u_email, u_password } = req.body;
-//     const userLogin = await pool.query(
-//       "SELECT * FROM users WHERE u_email=$1 AND u_password=$2",
-//       [u_email, u_password]
-//     ).rows;
-//     res.status(200).json({
-//       message: "User logged in successfully",
-//       user: userLogin[0],
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       message: "Error logging in user",
-//     });
-//   }
-// };
+//TODO: if user not found, return error
+
+// if (res.rows.length < 1) return console.log("no response");
 
 module.exports = { signup, login };
