@@ -1,12 +1,13 @@
-const { pool } = require("../database/keys");
+const { client  } = require("../database/keys");
 
-const signup = async (req, res) => {
+const signup = async (req, res, err) => {
   const { u_user, u_email, u_password } = req.body;
   try {
-    pool.query(
+    client.query(
       "INSERT INTO users (u_user, u_email, u_password) VALUES ($1, $2, $3)",
       [u_user, u_email, u_password]
     );
+    if (err) throw err;
     res.status(200).json({
       message: "User created successfully",
       u_user: u_user,
@@ -16,7 +17,7 @@ const signup = async (req, res) => {
   } catch (error) {
     console.log("error:", error);
     if (error.code == "23505") {
-      res.status(500).json({
+      res.status(300).json({
         message: "User already exists",
         error,
       });
@@ -29,12 +30,12 @@ const signup = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { u_email, u_password } = req.body;
+  const { email, password } = req.body;
   try {
     const newUser = await (
-      await pool.query(
+      await client.query(
         "SELECT * FROM users WHERE u_email = $1 AND u_password = $2",
-        [u_email, u_password]
+        [email, password]
       )
     ).rows;
     if (newUser.length > 0) {

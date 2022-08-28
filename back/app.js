@@ -3,11 +3,11 @@ const { userRouter } = require("./routes/userRouter");
 const { postRouter } = require("./routes/postRouter");
 
 // settings
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4200;
 
 // routes
 app.use("/", userRouter);
-app.use("/", postRouter);
+app.use("/posts", postRouter);
 
 // listen
 app.listen(port, () => {

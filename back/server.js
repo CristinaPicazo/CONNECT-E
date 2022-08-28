@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const urlencoded = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
@@ -14,6 +15,6 @@ app.use(express.urlencoded({ extended: true })); //true for pictures
 app.use(fileUpload({ useTempFiles: true }));
 app.use(bodyParser.json());
 app.use(history());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
 
 module.exports = { app };
