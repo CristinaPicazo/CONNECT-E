@@ -1,12 +1,17 @@
 const { Client } = require("pg");
 
 const client = new Client({
-  user: process.env.USER,
-  host: process.env.HOST,
   database: process.env.DATABASE,
-  password: process.env.PASSWORD,
+  host: process.env.HOST,
   port: process.env.PORTDB || 5432,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
 });
+
+// client
+//   .connect()
+//   .then(() => console.log('connected'))
+//   .catch(err => console.error('connection error', err.stack))
 
 // client.query("SELECT * FROM users", (err, res) => {
 //   console.log(err, res);

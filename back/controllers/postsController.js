@@ -22,17 +22,19 @@ const getPosts = async (req, res) => {
 };
 
 const getSPostById = async (req, res) => {
-    const p_id = req.params.p_id;
-try {
-    const post = await (await client.query('SELECT * FROM posts WHERE p_id=$1', [p_id])).rows[0];
-    res.status(200).json({post});
-} catch (error) {
+  const p_id = req.params.p_id;
+  try {
+    const post = await (
+      await client.query("SELECT * FROM posts WHERE p_id=$1", [p_id])
+    ).rows[0];
+    res.status(200).json({ post });
+  } catch (error) {
     res.status(500).json({
-        message: 'An error has ocurred',
-        error
-    })
-}
-}
+      message: "An error has ocurred",
+      error,
+    });
+  }
+};
 
 //TODO: Error 500
 const newPost = async (req, res) => {
@@ -57,17 +59,19 @@ const newPost = async (req, res) => {
   }
 };
 
-  const profile = async (req, res) => {
-    const u_id = req.params.u_id;
-try {
-    const post = await (await client.query('SELECT * FROM posts WHERE u_id=$1', [u_id])).rows[0];
-    res.status(200).json({post});
-} catch (error) {
+const profile = async (req, res) => {
+  const u_id = req.params.u_id;
+  try {
+    const post = await (
+      await client.query("SELECT * FROM posts WHERE u_id=$1", [u_id])
+    ).rows[0];
+    res.status(200).json({ post });
+  } catch (error) {
     res.status(500).json({
-        message: 'An error has ocurred',
-        error
-    })
-}
-}
+      message: "An error has ocurred",
+      error,
+    });
+  }
+};
 
 module.exports = { getPosts, getSPostById, newPost, profile };
