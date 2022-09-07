@@ -8,6 +8,8 @@ const client = new Client({
   password: process.env.PASSWORD,
 });
 
+client.connect();
+
 // client
 //   .connect()
 //   .then(() => console.log('connected'))
@@ -36,15 +38,10 @@ const client = new Client({
 //   client.end();
 // });
 
+
 // client.query("SELECT * FROM posts",
 // (err, res) => {
 //   console.log(err, res);
-//   client.end();
-// });
-// client.query("SELECT * FROM posts",
-// (err, res) => {
-//   console.log(err, res);
-//   client.end();
 // });
 
 module.exports = { client };
