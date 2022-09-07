@@ -54,6 +54,7 @@ export const router = createRouter({
       redirect: "/",
     },
   ],
+  linkActiveClass: "active-link",
 });
 
 // ***** TO ACTIVATE AFTER ADDING TOKEN *****

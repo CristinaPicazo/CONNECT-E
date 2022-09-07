@@ -15,28 +15,24 @@
         v-for="post in posts"
         :key="post.id"
       >
-        <a
+        <!-- <a
           href="`http://localhost:3002/posts/${post.id}`"
           class="text-decoration-none active-link exact-active-link"
-        >
-          <router-link
-            active-class="active-link"
-            exact-active-class="exact-active-link"
-            :to="`/posts/${post.id}`"
+        > -->
+        <router-link :to="`/posts/${post.id}`">
+          <div
+            class="h-100 p-5 rounded-3 border border-danger bg-danger text-white"
           >
-            <div
-              class="h-100 p-5 rounded-3 border border-danger bg-danger text-white"
-            >
-              <h5 class="card-title">
-                <u>{{ post.title }}</u>
-              </h5>
-              <h6 class="card-subtitle mb-2">by {{ post.user }}</h6>
-              <p class="text-truncate">
-                {{ post.body }}
-              </p>
-            </div>
-          </router-link>
-        </a>
+            <h5 class="card-title">
+              <u>{{ post.title }}</u>
+            </h5>
+            <h6 class="card-subtitle mb-2">by {{ post.user }}</h6>
+            <p class="text-truncate">
+              {{ post.body }}
+            </p>
+          </div>
+        </router-link>
+        <!-- </a> -->
       </div>
     </div>
   </div>
@@ -57,7 +53,7 @@ export default {
   },
   methods: {
     getPosts() {
-      fetch("http://localhost:3002/posts")
+      fetch("http://localhost:4200/posts")
         .then((response) => response.json())
         .then((data) => {
           this.posts = data;
@@ -90,16 +86,25 @@ export default {
   //   color: blue;
   //   background-color: purple;
   // }
-  a:visited {
-    background-color: aquamarine !important;
-  }
-  .active-link:visited {
-    color: blue;
-    background-color: purple !important;
-  }
-  .exact-active-link:visited {
-    color: pink;
+  // a:visited {
+  //   background-color: aquamarine !important;
+  // }
+  // .active-link:visited {
+  //   color: blue;
+  //   background-color: purple !important;
+  // }
+  // .exact-active-link:visited {
+  //   color: pink;
+  //   background-color: orange !important;
+  // }
+  w-sm-30 router-link {
+    border: 3px solid pink !important;
+    color: pink !important;
     background-color: orange !important;
+    :visited {
+      color: blue;
+      background-color: purple !important;
+    }
   }
 }
 </style>

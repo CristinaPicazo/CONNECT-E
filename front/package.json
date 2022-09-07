@@ -2,6 +2,9 @@
   "name": "vite-project",
   "private": true,
   "version": "0.0.0",
+  "proxy": {
+    "proxy": "http://localhost:3000"
+  },
   "scripts": {
     "start": "vite",
     "dev": "vite",
@@ -23,6 +26,7 @@
     "multer": "^1.4.5-lts.1",
     "pinia": "^2.0.15",
     "vue": "^3.2.25",
+    "vue-axios": "^3.4.1",
     "vue-router": "^4.0.16"
   },
   "devDependencies": {

@@ -57,9 +57,11 @@ export default {
   },
   methods: {
     async onSubmit() {
-      await fetch("http://localhost:3003/users")
+      await fetch("http://localhost:4200/login")
         .then((response) => response.json())
+        console.log('response:', response)
         .then((data) => {
+          console.log('data:', data)
           data.forEach((user) => {
             if (user.email == this.email && user.password == this.password) {
               let userLogin = {
