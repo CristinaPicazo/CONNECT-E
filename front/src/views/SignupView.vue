@@ -54,6 +54,8 @@
 </template>
 <script>
 import { ref } from "vue";
+import axios from "axios";
+
 // import { useAuthStore } from "../store/auth";
 // const authSore = useAuthStore();
 
@@ -74,38 +76,63 @@ export default {
       ),
     };
   },
-  mounted() {
-    if (this.loggedIn) {
-      this.$router.push("/posts");
-    }
-  },
+  // mounted() {
+  //   if (this.loggedIn) {
+  //     this.$router.push("/posts");
+  //   }
+  // },
   methods: {
-    async handleSubmit() {
+    handleSubmit() {
       const isEmailValid = this.emailRegex.test(this.email);
       if (!isEmailValid || this.user.length < 3 || this.password.length < 3) {
         return (this.errorMessage = "Minimum 3 characters required");
-      }
-      const newUser = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: this.id,
-          user: this.user,
-          email: this.email,
-          password: this.password,
-        }),
-      };
-
-      await fetch("http://localhost:3003/users", newUser)
-        .then((res) => res.json())
-        .then(() => {
-          let userLogin = {
+      } else {
+        axios
+          .post("/signup", {
+            id: this.id,
             user: this.user,
             email: this.email,
-          };
-          localStorage.setItem(this.id, JSON.stringify(userLogin));
-          return this.$router.push("/posts");
-        });
+            password: this.password,
+          })
+          .then((data) => {
+            let userDetails = {
+              user: data.data.user,
+              email: data.data.email,
+            };
+            localStorage.setItem(data.data.id, JSON.stringify(userDetails));
+            this.$router.push("/posts");
+          })
+          .catch((error) => {
+            console.log(error);
+            this.errorMessage = "Error";
+          });
+      }
+
+      // const isEmailValid = this.emailRegex.test(this.email);
+      // if (!isEmailValid || this.user.length < 3 || this.password.length < 3) {
+      //   return (this.errorMessage = "Minimum 3 characters required");
+      // }
+      // const newUser = {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({
+      //     id: this.id,
+      //     user: this.user,
+      //     email: this.email,
+      //     password: this.password,
+      //   }),
+      // };
+
+      // await fetch("http://localhost:3003/users", newUser)
+      //   .then((res) => res.json())
+      //   .then(() => {
+      //     let userLogin = {
+      //       user: this.user,
+      //       email: this.email,
+      //     };
+      //     localStorage.setItem(this.id, JSON.stringify(userLogin));
+      //     return this.$router.push("/posts");
+      //   });
     },
   },
 };

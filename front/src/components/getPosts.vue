@@ -40,6 +40,7 @@
 
 <script>
 import { getCurrentUser } from "../store/user";
+import axios from "axios";
 
 export default {
   name: "GetPosts",
@@ -53,16 +54,22 @@ export default {
   },
   methods: {
     getPosts() {
-      fetch("http://localhost:4200/posts")
-        .then((response) => response.json())
-        .then((data) => {
-          this.posts = data;
+      axios
+        .get("/posts")
+        .then((response) => {
+          this.posts = response.data;
           this.isLoading = false;
         })
-        .catch((error) => {
-          this.isLoading = false;
-          return (this.errorMessage = error);
-        });
+      // fetch("http://localhost:4200/posts")
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     this.posts = data;
+      //     this.isLoading = false;
+      //   })
+      //   .catch((error) => {
+      //     this.isLoading = false;
+      //     return (this.errorMessage = error);
+      //   });
     },
   },
   computed: {

@@ -47,6 +47,8 @@
 
 <script>
 import { ref } from "vue";
+import axios from "axios";
+
 export default {
   name: "LoginView",
   setup() {
@@ -56,25 +58,55 @@ export default {
     return { email, password, errorMessage };
   },
   methods: {
-    async onSubmit() {
-      await fetch("http://localhost:4200/login")
-        .then((response) => response.json())
-        console.log('response:', response)
+    onSubmit() {
+      axios
+        .post("/login", {
+          email: this.email,
+          password: this.password,
+        })
         .then((data) => {
-          console.log('data:', data)
-          data.forEach((user) => {
-            if (user.email == this.email && user.password == this.password) {
-              let userLogin = {
-                user: user.user,
-                email: user.email,
-              };
-              localStorage.setItem(user.id, JSON.stringify(userLogin));
-              this.$router.push("/posts");
-            } else {
-              this.errorMessage = "Email or password is incorrect";
-            }
-          });
+          if (data.data.email != undefined) {
+            let userDetails = {
+              user: data.data.user,
+              email: data.data.email,
+            };
+            localStorage.setItem(data.data.id, JSON.stringify(userDetails));
+            this.$router.push("/posts");
+          } else {
+            this.errorMessage = data.data.message;
+          }
+          // response.data.email.forEach((email) => {
+          //   console.log("email:", email);
+          // if (user.email == this.email && user.password == this.password) {
+          //   let userLogin = {
+          //     user: user.user,
+          //     email: user.email,
+          //   };
+          //   localStorage.setItem(user.id, JSON.stringify(userLogin));
+          //   this.$router.push("/posts");
+          // } else {
+          //   this.errorMessage = "Email or password is incorrect";
+          // }
+          // });
         });
+
+      // fetch("http://localhost:4200/login")
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     console.log("data:", data);
+      //     data.forEach((user) => {
+      //       if (user.email == this.email && user.password == this.password) {
+      //         let userLogin = {
+      //           user: user.user,
+      //           email: user.email,
+      //         };
+      //         localStorage.setItem(user.id, JSON.stringify(userLogin));
+      //         this.$router.push("/posts");
+      //       } else {
+      //         this.errorMessage = "Email or password is incorrect";
+      //       }
+      //     });
+      //   });
     },
   },
 };

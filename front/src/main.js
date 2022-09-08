@@ -7,13 +7,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 // import Vue from 'vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-
+import axios from "axios";
+import VueAxios from "vue-axios";
 
 // Vue.use(VueAxios, axios)
 
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = 'http://localhost:4200';
 // Vue.config.productionTip = false
 
 const app = createApp(App);
