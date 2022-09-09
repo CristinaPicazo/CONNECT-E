@@ -9,8 +9,8 @@ const {
 } = require("../controllers/postsController");
 
 //Routes
-postRouter.post("/", getPosts);
-postRouter.post("/:id", getSPostById);
-postRouter.put("/newPost", newPost);
+postRouter.get("/", getPosts);
+postRouter.get("/:id", getSPostById);
+postRouter.post("/newPost", newPost);
 
 module.exports = { postRouter };

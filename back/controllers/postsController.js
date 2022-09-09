@@ -11,10 +11,11 @@ const getPosts = (req, res) => {
         });
       } else {
         res.status(200).json({
-          id: queryResult.rows[0].p_id,
-          body: queryResult.rows[0].p_body,
-          file: queryResult.rows[0].p_file,
-          title: queryResult.rows[0].p_title,
+          queryResult,
+          // id: queryResult.rows.p_id,
+          // body: queryResult.rows.p_body,
+          // file: queryResult.rows.p_file,
+          // title: queryResult.rows.p_title,
         });
       }
     })
@@ -46,31 +47,32 @@ const getSPostById = (req, res) => {
     });
 };
 
-const newPost = (req, res) => {
-  const { p_id, p_body, p_file, fk_u_id, p_title } = req.body;
+const newPost = (req, res, err) => {
+  const { id, title, body, file, userId, readBy, user } = req.body;
   console.log(req.body);
   client
     .query(
-      "INSERT INTO posts (p_id, p_body, p_file, fk_u_id, p_title) VALUES ($1, $2, $3, $4, $5)",
-      [p_id, p_body, p_file, fk_u_id, p_title]
+      "INSERT INTO posts (p_id, p_body, p_file, fk_u_id, p_title, readBy, p_user) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [id, body, file, userId, title, readBy, user]
     )
     .then((queryResult) =>
       res.status(200).json({
         message: "Post created successfully",
-        p_body: p_body,
-        p_file: p_file,
-        fk_u_id: fk_u_id,
-        p_title: p_title,
+        title: queryResult.rows[0].p_title,
+        body: queryResult.rows[0].p_body,
+        user: queryResult.rows[0].p_user,
       })
     )
     .catch((err) => {
       if (err.code == "23505") {
         res.status(200).json({
           message: "Post already added",
+          err,
         });
       } else {
         res.status(500).json({
           message: "Error creating the post",
+          err,
         });
       }
     });
