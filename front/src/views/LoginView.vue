@@ -64,49 +64,18 @@ export default {
           email: this.email,
           password: this.password,
         })
-        .then((data) => {
-          if (data.data.email != undefined) {
+        .then((loginResult) => {
+          if (loginResult.data.email != undefined) {
             let userDetails = {
-              user: data.data.user,
-              email: data.data.email,
+              user: loginResult.data.user,
+              email: loginResult.data.email,
             };
-            localStorage.setItem(data.data.id, JSON.stringify(userDetails));
+            localStorage.setItem(loginResult.data.id, JSON.stringify(userDetails));
             this.$router.push("/posts");
           } else {
-            this.errorMessage = data.data.message;
+            this.errorMessage = loginResult.data.message;
           }
-          // response.data.email.forEach((email) => {
-          //   console.log("email:", email);
-          // if (user.email == this.email && user.password == this.password) {
-          //   let userLogin = {
-          //     user: user.user,
-          //     email: user.email,
-          //   };
-          //   localStorage.setItem(user.id, JSON.stringify(userLogin));
-          //   this.$router.push("/posts");
-          // } else {
-          //   this.errorMessage = "Email or password is incorrect";
-          // }
-          // });
         });
-
-      // fetch("http://localhost:4200/login")
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     console.log("data:", data);
-      //     data.forEach((user) => {
-      //       if (user.email == this.email && user.password == this.password) {
-      //         let userLogin = {
-      //           user: user.user,
-      //           email: user.email,
-      //         };
-      //         localStorage.setItem(user.id, JSON.stringify(userLogin));
-      //         this.$router.push("/posts");
-      //       } else {
-      //         this.errorMessage = "Email or password is incorrect";
-      //       }
-      //     });
-      //   });
     },
   },
 };

@@ -14,7 +14,7 @@
         class="form-control border-3 border-danger"
         v-model="title"
         required
-      />
+      />{{ this.id}}
     </div>
     <div class="form-group mb-3">
       <label for="body" class="text-danger form-label">Body</label>
@@ -54,45 +54,68 @@
 
 <script>
 import { ref } from "vue";
+import axios from "axios";
 
 export default {
   name: "CreatePostView",
-  setup() {
-    let id = Math.floor(Math.random() * 10) + new Date().getTime();
-    let user = "";
-    let title = "";
-    let body = "";
-    let file = "";
-    return { id, user, title, body, file };
+  data() {
+    return {
+      id: Math.floor(Math.random() * 1) + new Date().getTime(),
+      body: "",
+      file: "",
+      userId: "",
+      title: "",
+      user: "",
+      readBy: [],
+    };
   },
   mounted() {
     this.userId = window.localStorage.key(0);
     let localStorageUser = JSON.parse(localStorage.getItem(this.userId));
     this.user = localStorageUser.user;
+    this.readBy.push(this.userId);
   },
   methods: {
-    handleFile() {
-      this.file = this.$refs.file.files[0];
-      this.file = file;
-    },
+    // handleFile() {
+    //   this.file = this.$refs.file.files[0];
+    //   this.file = file;
+    // },
     handleSubmit() {
-      const newPost = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      axios
+        .post("/posts/newPost", {
           id: this.id,
           user: this.user,
           title: this.title,
           body: this.body,
           file: this.file,
-        }),
-      };
-
-      fetch("http://localhost:3002/posts", newPost)
-        .then((res) => res.json())
-        .then(() => {
-          return this.$router.push("/posts");
+          userId: this.userId,
+          readBy: this.readBy,
+        })
+        .then((newPostResult) => {
+          console.log("newPostResult:", newPostResult);
+          this.$router.push("/posts");
+        })
+        .catch((error) => {
+          console.log(error);
+          this.errorMessage = "Error";
         });
+      // const newPost = {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({
+      //     id: this.id,
+      //     user: this.user,
+      //     title: this.title,
+      //     body: this.body,
+      //     file: this.file,
+      //   }),
+      // };
+
+      // fetch("http://localhost:3002/posts", newPost)
+      //   .then((res) => res.json())
+      //   .then(() => {
+      //     return this.$router.push("/posts");
+      //   });
     },
   },
 };

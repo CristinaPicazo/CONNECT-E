@@ -39,7 +39,7 @@ export const router = createRouter({
       props: true,
     },
     {
-      path: "/new",
+      path: "/posts/newPost",
       name: "CreatePostView",
       component: CreatePostView,
     },

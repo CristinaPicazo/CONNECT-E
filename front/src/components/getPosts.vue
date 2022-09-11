@@ -8,31 +8,27 @@
       class="flex-column d-flex flex-md-row flex-md-wrap w-30 justify-content-around"
     >
       <p v-if="isLoading">Loading...</p>
-      <p v-if="isPostListEmpty">There isn't any post</p>
+      <p v-if="!isPostListEmpty">There isn't any post</p>
       <p v-if="errorMessage != ''">{{ errorMessage }}</p>
       <div
+        v-show="!isLoading && isPostListEmpty && errorMessage == ''"
         class="w-sm-30 p-1 col col-md-4"
         v-for="post in posts"
-        :key="post.id"
+        v-bind:key="post.p_id"
       >
-        <!-- <a
-          href="`http://localhost:3002/posts/${post.id}`"
-          class="text-decoration-none active-link exact-active-link"
-        > -->
-        <router-link :to="`/posts/${post.id}`">
+        <router-link :to="`/posts/${post.p_id}`">
           <div
             class="h-100 p-5 rounded-3 border border-danger bg-danger text-white"
           >
             <h5 class="card-title">
-              <u>{{ post.title }}</u>
+              <u>{{ post.p_title }}</u>
             </h5>
-            <h6 class="card-subtitle mb-2">by {{ post.user }}</h6>
+            <h6 class="card-subtitle mb-2">by {{ post.p_user }}</h6>
             <p class="text-truncate">
               {{ post.body }}
             </p>
           </div>
         </router-link>
-        <!-- </a> -->
       </div>
     </div>
   </div>
@@ -48,7 +44,7 @@ export default {
     return {
       posts: [],
       isLoading: true,
-      user: null,
+      isPostListEmpty: false,
       errorMessage: "",
     };
   },
@@ -57,28 +53,22 @@ export default {
       axios
         .get("/posts")
         .then((response) => {
-          this.posts = response.data;
+          this.posts = response.data.queryResult.rows;
+          // this.posts.push(response.data.queryResult.rows);
+          console.log("this.posts.length", this.posts.length);
+          console.log("this.posts:", this.posts);
+          console.log("this.posts[0].p_id:", this.posts[0].p_id);
           this.isLoading = false;
+          if (this.posts.length > 1) return (this.isPostListEmpty = true);
         })
-      // fetch("http://localhost:4200/posts")
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     this.posts = data;
-      //     this.isLoading = false;
-      //   })
-      //   .catch((error) => {
-      //     this.isLoading = false;
-      //     return (this.errorMessage = error);
-      //   });
+        .catch((error) => {
+          this.isLoading = false;
+          this.errorMessage = error.message;
+        });
     },
   },
-  computed: {
-    isPostListEmpty() {
-      return this.posts.length == 0;
-    },
-  },
+
   mounted() {
-    //backend
     this.user = getCurrentUser();
     this.getPosts();
   },
