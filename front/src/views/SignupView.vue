@@ -102,7 +102,7 @@ export default {
               signupResult.data.id,
               JSON.stringify(userDetails)
             );
-            this.$router.push("/posts");
+            this.$router.push("/login");
           })
           .catch((error) => {
             console.log(error);

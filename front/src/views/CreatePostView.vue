@@ -14,7 +14,7 @@
         class="form-control border-3 border-danger"
         v-model="title"
         required
-      />{{ this.id}}
+      />
     </div>
     <div class="form-group mb-3">
       <label for="body" class="text-danger form-label">Body</label>
@@ -73,7 +73,7 @@ export default {
     this.userId = window.localStorage.key(0);
     let localStorageUser = JSON.parse(localStorage.getItem(this.userId));
     this.user = localStorageUser.user;
-    this.readBy.push(this.userId);
+    this.readBy = this.userId;
   },
   methods: {
     // handleFile() {

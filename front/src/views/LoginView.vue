@@ -70,6 +70,7 @@ export default {
               user: loginResult.data.user,
               email: loginResult.data.email,
             };
+            console.log('userDetails:', userDetails)
             localStorage.setItem(loginResult.data.id, JSON.stringify(userDetails));
             this.$router.push("/posts");
           } else {

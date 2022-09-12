@@ -8,10 +8,10 @@
       class="flex-column d-flex flex-md-row flex-md-wrap w-30 justify-content-around"
     >
       <p v-if="isLoading">Loading...</p>
-      <p v-if="!isPostListEmpty">There isn't any post</p>
+      <p v-if="isPostListEmpty">There isn't any post</p>
       <p v-if="errorMessage != ''">{{ errorMessage }}</p>
       <div
-        v-show="!isLoading && isPostListEmpty && errorMessage == ''"
+        v-show="!isLoading && !isPostListEmpty && errorMessage == ''"
         class="w-sm-30 p-1 col col-md-4"
         v-for="post in posts"
         v-bind:key="post.p_id"
@@ -23,9 +23,9 @@
             <h5 class="card-title">
               <u>{{ post.p_title }}</u>
             </h5>
-            <h6 class="card-subtitle mb-2">by {{ post.p_user }}</h6>
+            <h6 class="card-subtitle mb-2">by {{ post.fk_user }}</h6>
             <p class="text-truncate">
-              {{ post.body }}
+              {{ post.p_body }}
             </p>
           </div>
         </router-link>
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import { getCurrentUser } from "../store/user";
 import axios from "axios";
 
 export default {
@@ -54,12 +53,10 @@ export default {
         .get("/posts")
         .then((response) => {
           this.posts = response.data.queryResult.rows;
-          // this.posts.push(response.data.queryResult.rows);
-          console.log("this.posts.length", this.posts.length);
-          console.log("this.posts:", this.posts);
-          console.log("this.posts[0].p_id:", this.posts[0].p_id);
           this.isLoading = false;
-          if (this.posts.length > 1) return (this.isPostListEmpty = true);
+          console.log('response.data.queryResult.rows.length === 0:', response.data.queryResult.rows.length === 0)
+          if (response.data.queryResult.rows.length === 0)
+            return (this.isPostListEmpty = true);
         })
         .catch((error) => {
           this.isLoading = false;
@@ -69,7 +66,6 @@ export default {
   },
 
   mounted() {
-    this.user = getCurrentUser();
     this.getPosts();
   },
 };
