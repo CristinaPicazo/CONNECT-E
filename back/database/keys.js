@@ -38,10 +38,13 @@ client.connect();
 //   client.end();
 // });
 
-
 // client.query("SELECT * FROM posts",
 // (err, res) => {
 //   console.log(err, res);
 // });
+
+// client.query(
+//   "INSERT INTO posts (p_id, p_body, p_file, fk_u_id, p_title, fk_user, p_readby) VALUES (5, 'body','', 2, 'title', 'crist', ARRAY['2'])"
+// );
 
 module.exports = { client };

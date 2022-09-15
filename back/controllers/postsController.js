@@ -1,6 +1,5 @@
 const { client } = require("../database/keys");
 
-//TODO: 404 not found
 const getPosts = (req, res) => {
   client
     .query("SELECT * FROM posts")
@@ -8,14 +7,12 @@ const getPosts = (req, res) => {
       if (queryResult.rowCount < 1) {
         res.status(200).json({
           message: "There isn't any post",
+          queryResult,
         });
       } else {
         res.status(200).json({
+          message: "Posts found",
           queryResult,
-          // id: queryResult.rows.p_id,
-          // body: queryResult.rows.p_body,
-          // file: queryResult.rows.p_file,
-          // title: queryResult.rows.p_title,
         });
       }
     })
@@ -28,15 +25,13 @@ const getPosts = (req, res) => {
 };
 
 const getSPostById = (req, res) => {
+  console.log("by id");
   const id = req.params.id;
   client
     .query("SELECT * FROM posts WHERE p_id=$1", [id])
     .then((queryResult) => {
       res.status(200).json({
-        id: queryResult.rows[0].p_id,
-        body: queryResult.rows[0].p_body,
-        file: queryResult.rows[0].p_file,
-        title: queryResult.rows[0].p_title,
+        queryResult,
       });
     })
     .catch((err) => {
@@ -48,22 +43,24 @@ const getSPostById = (req, res) => {
 };
 
 const newPost = (req, res, err) => {
-  const { id, title, body, file, userId, readBy, user } = req.body;
-  console.log(req.body);
+  let { body, file, userId, title, user, readBy } = req.body;
+  if (file) {
+    file = makeImageUrl(req, file);
+  }
   client
     .query(
-      "INSERT INTO posts (p_id, p_body, p_file, fk_u_id, p_title, readBy, p_user) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-      [id, body, file, userId, title, readBy, user]
+      "INSERT INTO posts (p_body, p_file, fk_u_id, p_title, fk_user, p_readby) VALUES ($1, $2, $3, $4, $5, ARRAY[$6])",
+      [body, file, userId, title, user, readBy]
     )
     .then((queryResult) =>
       res.status(200).json({
         message: "Post created successfully",
-        title: queryResult.rows[0].p_title,
-        body: queryResult.rows[0].p_body,
-        user: queryResult.rows[0].p_user,
+        queryResult,
       })
     )
     .catch((err) => {
+      console.log("err:", err);
+      // en que se basa....?
       if (err.code == "23505") {
         res.status(200).json({
           message: "Post already added",
@@ -77,5 +74,9 @@ const newPost = (req, res, err) => {
       }
     });
 };
+
+function makeImageUrl(req, fileName) {
+  return req.protocol + "://" + req.get("host") + "/images/" + fileName;
+}
 
 module.exports = { getPosts, getSPostById, newPost };
