@@ -31,10 +31,10 @@
     <div class="form-group mb-3">
       <label for="file" class="text-danger form-label">Multimedia</label>
       <input
-        id="file"
-        type="file"
-        class="form-control border-3 border-danger"
-        ref="file"
+      id="file"
+      type="file"
+      class="form-control border-3 border-danger"
+      ref="file"
         @change="handleFile"
       />
     </div>
@@ -76,11 +76,14 @@ export default {
     this.readBy = this.userId;
   },
   methods: {
-    // handleFile() {
-    //   this.file = this.$refs.file.files[0];
-    //   this.file = file;
-    // },
+    handleFile() {
+      this.file = this.$refs.file.files[0].name;
+      // this.file = file;
+      console.log('this.file inside handleFile:', this.file)
+      // console.log('this.file:', this.file.name)
+    },
     handleSubmit() {
+      console.log('this.file inside handleSubmit:', this.file)
       axios
         .post("/posts/newPost", {
           id: this.id,

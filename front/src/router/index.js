@@ -63,10 +63,10 @@ export const router = createRouter({
 //   // redirect to login page if not logged in and trying to access a restricted page
 //   const publicPages = ["/", "/login", "/signup"];
 //   const authRequired = !publicPages.includes(to.path);
-//   const auth = useAuthStore();
+//   // const auth = useAuthStore();
 
-//   if (authRequired && !auth.user) {
-//     auth.returnUrl = to.fullPath;
+//   if (authRequired) {
+//     // auth.returnUrl = to.fullPath;
 //     return "/login";
 //   }
 // });

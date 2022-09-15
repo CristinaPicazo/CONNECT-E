@@ -12,7 +12,7 @@
       <h2 class="display-1 fw-bold">{{ post.p_title }}</h2>
       <h6 class="card-subtitle mb-5 text-muted">by {{ post.fk_user }}</h6>
       <p>{{ post.p_body }}</p>
-      <source class="multimedia" src="{{ post.p_file }}" type="multimedia" />
+      <source class="multimedia" src="{{ post.p_file }}" type="multimedia" />{{post.p_file}}
     </div>
   </div>
 </template>

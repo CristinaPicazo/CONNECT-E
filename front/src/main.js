@@ -1,5 +1,5 @@
 import { createApp, markRaw } from "vue";
-import { createPinia } from "pinia";
+// import { createPinia } from "pinia";
 import App from "./App.vue";
 import { router } from "./router";
 import BootstrapVue3 from "bootstrap-vue-3";
@@ -16,16 +16,16 @@ axios.defaults.baseURL = 'http://localhost:4200';
 // Vue.config.productionTip = false
 
 const app = createApp(App);
-const pinia = createPinia();
-// const multer = require("multer");
+// const pinia = createPinia();
+const multer = require("multer");
 // const upload = multer({ dest: "uploads/" });
 
-pinia.use(({ store }) => {
-  store.router = markRaw(router);
-});
+// pinia.use(({ store }) => {
+//   store.router = markRaw(router);
+// });
 
 app.use(router);
-app.use(pinia);
+// app.use(pinia);
 // app.use(useStore)
 app.use(BootstrapVue3);
 app.component("font-awesome-icon", FontAwesomeIcon);

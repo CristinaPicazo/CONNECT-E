@@ -51,7 +51,7 @@ export default {
   methods: {
     LogOut() {
       localStorage.removeItem(window.localStorage.key(0));
-      // localStorage.removeItem("token");
+      localStorage.removeItem("token");
       this.$router.push("/");
     },
   },

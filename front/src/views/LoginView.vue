@@ -69,9 +69,13 @@ export default {
             let userDetails = {
               user: loginResult.data.user,
               email: loginResult.data.email,
+              token: loginResult.data.token,
             };
-            console.log('userDetails:', userDetails)
-            localStorage.setItem(loginResult.data.id, JSON.stringify(userDetails));
+            console.log("userDetails:", userDetails);
+            localStorage.setItem(
+              loginResult.data.id,
+              JSON.stringify(userDetails)
+            );
             this.$router.push("/posts");
           } else {
             this.errorMessage = loginResult.data.message;
