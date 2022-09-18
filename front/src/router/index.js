@@ -59,14 +59,19 @@ export const router = createRouter({
 
 // ***** TO ACTIVATE AFTER ADDING TOKEN *****
 
-// router.beforeEach(async (to) => {
-//   // redirect to login page if not logged in and trying to access a restricted page
+// router.beforeEach(() => {
+//   redirect to login page if not logged in and trying to access a restricted page
 //   const publicPages = ["/", "/login", "/signup"];
 //   const authRequired = !publicPages.includes(to.path);
-//   // const auth = useAuthStore();
+//   const loggedIn = localStorage.getItem("user");
+//   console.log('loggedIn:', loggedIn)
 
-//   if (authRequired) {
-//     // auth.returnUrl = to.fullPath;
-//     return "/login";
+//   if (loggedIn == null) {
+//     return "/";
 //   }
+
 // });
+// if (authRequired) {
+//   // auth.returnUrl = to.fullPath;
+//   return "/login";
+// }

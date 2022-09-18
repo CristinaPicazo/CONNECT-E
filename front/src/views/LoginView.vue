@@ -65,21 +65,25 @@ export default {
           password: this.password,
         })
         .then((loginResult) => {
-          if (loginResult.data.email != undefined) {
-            let userDetails = {
-              user: loginResult.data.user,
-              email: loginResult.data.email,
-              token: loginResult.data.token,
-            };
-            console.log("userDetails:", userDetails);
-            localStorage.setItem(
-              loginResult.data.id,
-              JSON.stringify(userDetails)
-            );
-            this.$router.push("/posts");
-          } else {
-            this.errorMessage = loginResult.data.message;
-          }
+          console.log('loginResult.data.accessToken:', loginResult.data.accessToken)
+          axios.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${loginResult.data.accessToken}`;
+          // axios.post({headers:{
+          //   Authorization: `Bearer ${loginResult.data.accessToken}`
+          // }})
+          // let userDetails = {
+          //   id: loginResult.data.id,
+          //   user: loginResult.data.user,
+          //   email: loginResult.data.email,
+          //   accessToken: loginResult.data.token,
+          // };
+          localStorage.setItem(
+            "user",
+            JSON.stringify(loginResult.data.accessToken)
+          );
+          // localStorage.setItem("token", JSON.stringify(loginResult.data.token));
+          this.$router.push("/posts");
         });
     },
   },

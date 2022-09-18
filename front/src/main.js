@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 // import Vue from 'vue'
 import axios from "axios";
 import VueAxios from "vue-axios";
+// import multer from "multer";
 
 // Vue.use(VueAxios, axios)
 
@@ -17,7 +18,7 @@ axios.defaults.baseURL = 'http://localhost:4200';
 
 const app = createApp(App);
 // const pinia = createPinia();
-const multer = require("multer");
+// const multer = require("multer");
 // const upload = multer({ dest: "uploads/" });
 
 // pinia.use(({ store }) => {
