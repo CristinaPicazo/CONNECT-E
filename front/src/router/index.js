@@ -60,7 +60,7 @@ export const router = createRouter({
 // ***** TO ACTIVATE AFTER ADDING TOKEN *****
 
 // router.beforeEach(() => {
-//   redirect to login page if not logged in and trying to access a restricted page
+//   // redirect to login page if not logged in and trying to access a restricted page
 //   const publicPages = ["/", "/login", "/signup"];
 //   const authRequired = !publicPages.includes(to.path);
 //   const loggedIn = localStorage.getItem("user");

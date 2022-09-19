@@ -4,6 +4,7 @@
     class="mt-5 m-md-5 p-md-5 bg-white rounded-3 border border-danger text-danger text-center"
   >
     <h2 class="display-1 fw-bold">Posts</h2>
+    {{ this.user }}
     <div
       class="flex-column d-flex flex-md-row flex-md-wrap w-30 justify-content-around"
     >
@@ -45,6 +46,7 @@ export default {
       isLoading: true,
       isPostListEmpty: false,
       errorMessage: "",
+      user: "",
     };
   },
   methods: {
@@ -54,7 +56,6 @@ export default {
         .then((response) => {
           this.posts = response.data.queryResult.rows;
           this.isLoading = false;
-          console.log('response.data.queryResult.rows.length === 0:', response.data.queryResult.rows.length === 0)
           if (response.data.queryResult.rows.length === 0)
             return (this.isPostListEmpty = true);
         })
@@ -63,10 +64,15 @@ export default {
           this.errorMessage = error.message;
         });
     },
+    getUser() {
+      console.log("route.params.user:", this.$router.currentRoute);
+      // this.user = route.params.user
+    },
   },
 
   mounted() {
     this.getPosts();
+    this.getUser();
   },
 };
 </script>

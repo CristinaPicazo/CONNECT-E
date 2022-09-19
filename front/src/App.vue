@@ -10,29 +10,37 @@
       <router-link
         :to="{ name: 'LoginView' }"
         class="text-danger text-decoration-none"
+        v-show="!showIfUser()"
         >Login</router-link
       >
       <router-link
         :to="{ name: 'SignupView' }"
         class="text-danger text-decoration-none"
+        v-show="!showIfUser()"
         >Signup</router-link
       >
       <router-link
         :to="{ name: 'PostsView' }"
         class="text-danger text-decoration-none"
+        v-show="showIfUser()"
         >Post</router-link
       >
       <router-link
         :to="{ name: 'CreatePostView' }"
         class="text-danger text-decoration-none"
+        v-show="showIfUser()"
         >New</router-link
       >
       <router-link
         :to="{ name: 'ProfileView' }"
         class="text-danger text-decoration-none"
+        v-show="showIfUser()"
         >Profile</router-link
       >
-      <a @click="LogOut" class="text-danger text-decoration-none"
+      <a
+        @click="LogOut"
+        class="text-danger text-decoration-none"
+        v-show="showIfUser()"
         >LogOut</a
       >
     </nav>
@@ -44,14 +52,27 @@
 import { RouterLink, RouterView } from "vue-router";
 export default {
   name: "NavBar",
+  // data() {
+  //   return {
+  //     isUser: false,
+  //   };
+  // },
   components: {
     RouterLink,
     RouterView,
   },
   methods: {
+    showIfUser() {
+      console.log(
+        '(localStorage.getItem("user") == null):',
+        localStorage.getItem("user") == null
+      );
+      if (localStorage.getItem("user") == null) {
+        return false;
+      }
+    },
     LogOut() {
-      localStorage.removeItem(window.localStorage.key(0));
-      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       this.$router.push("/");
     },
   },

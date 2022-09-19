@@ -60,7 +60,6 @@ export default {
   name: "CreatePostView",
   data() {
     return {
-      id: Math.floor(Math.random() * 1) + new Date().getTime(),
       body: "",
       file: "",
       userId: "",
@@ -70,7 +69,6 @@ export default {
     };
   },
   mounted() {
-    this.userId = window.localStorage.key(0);
     let localStorageUser = JSON.parse(localStorage.getItem(this.userId));
     this.user = localStorageUser.user;
     this.readBy = this.userId;
@@ -87,7 +85,6 @@ export default {
       console.log("this.file inside handleSubmit:", this.file);
       axios
         .post("/posts/newPost", {
-          id: this.id,
           user: this.user,
           title: this.title,
           body: this.body,
