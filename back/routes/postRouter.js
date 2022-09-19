@@ -12,7 +12,7 @@ const {
   newPost,
 } = require("../controllers/postsController");
 
-// postRouter.use(checkToken);
+postRouter.use(checkToken);
 
 // Routes
 postRouter.get("/", getPosts);

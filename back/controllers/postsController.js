@@ -45,6 +45,9 @@ const getSPostById = (req, res) => {
 const newPost = (req, res, err) => {
   let { body, file, userId, title, user, readBy } = req.body;
   if (file) {
+    console.log("file inside newPost:", file);
+    console.log("file inside newPost.name:", file.name);
+    const { fileName } = file;
     file = makeImageUrl(req, file);
   }
   client

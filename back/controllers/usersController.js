@@ -69,17 +69,18 @@ const login = (req, res, err) => {
             });
           }
           if (result) {
-            const token = createToken(
-              email,
+            const accessToken = createToken(
               emailResult.rows[0].u_id,
-              password
+              emailResult.rows[0].u_user,
+              emailResult.rows[0].u_email,
+              emailResult.rows[0].u_password
             );
             res.status(200).json({
               message: "User logged in successfully",
-              id: emailResult.rows[0].u_id,
-              user: emailResult.rows[0].u_user,
-              email: emailResult.rows[0].u_email,
-              token: token,
+              // id: emailResult.rows[0].u_id,
+              // user: emailResult.rows[0].u_user,
+              // email: emailResult.rows[0].u_email,
+              accessToken: accessToken,
             });
           }
         }
@@ -93,9 +94,10 @@ const login = (req, res, err) => {
     });
 };
 
-function createToken(email, id, password) {
+function createToken(id, user, email) {
   try {
-    return jwt.sign({ email, id }, password, { expiresIn: "24h" });
+    const jwtPassword = process.env.JWT_PASSWORD;
+    return jwt.sign({ id, user, email }, jwtPassword, { expiresIn: "24h" });
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: "Internal error", err });
