@@ -35,7 +35,7 @@
         type="file"
         class="form-control border-3 border-danger"
         ref="file"
-        @change="handleFile"
+        @change="handleFile()"
       />{{ file }}
     </div>
     <div class="form-group align-self-center">
@@ -69,26 +69,32 @@ export default {
     };
   },
   mounted() {
-    let localStorageUser = JSON.parse(localStorage.getItem(this.userId));
+    let localStorageUser = JSON.parse(localStorage.getItem("userDetails"));
+    this.userId = localStorageUser.id;
     this.user = localStorageUser.user;
-    this.readBy = this.userId;
+    this.readBy.push(this.id);
   },
   methods: {
+    checkuser(req, res) {
+      console.log("req.user:", req.user);
+      if (req.user) {
+        this.user = req.user;
+      }
+    },
     handleFile() {
-      // this.file = this.$refs.file.files[0];
-      this.file = this.$refs.file;
-      // this.file = file;
-      console.log("this.file inside handleFile:", this.file);
-      // console.log('this.file:', this.file.name)
+      this.file = this.$refs.file.files[0];
     },
     handleSubmit() {
+      let formData = new FormData();
+      console.log("formData:", formData);
+      formData.append("file", this.file);
       console.log("this.file inside handleSubmit:", this.file);
       axios
         .post("/posts/newPost", {
           user: this.user,
           title: this.title,
           body: this.body,
-          file: this.file,
+          file: formData,
           userId: this.userId,
           readBy: this.readBy,
         })

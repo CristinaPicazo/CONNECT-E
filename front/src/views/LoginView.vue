@@ -65,23 +65,26 @@ export default {
           password: this.password,
         })
         .then((loginResult) => {
-          console.log('loginResult.data.accessToken:', loginResult.data.accessToken)
+          console.log(
+            "loginResult.data.accessToken:",
+            loginResult.data.accessToken
+          );
           axios.defaults.headers.common[
             "Authorization"
           ] = `Bearer ${loginResult.data.accessToken}`;
-          // axios.post({headers:{
-          //   Authorization: `Bearer ${loginResult.data.accessToken}`
-          // }})
-          // let userDetails = {
-          //   id: loginResult.data.id,
-          //   user: loginResult.data.user,
-          //   email: loginResult.data.email,
-          //   accessToken: loginResult.data.token,
-          // };
+          console.log(
+            "loginResult.data.userDetails:",
+            loginResult.data.userDetails
+          );
           localStorage.setItem(
             "user",
             JSON.stringify(loginResult.data.accessToken)
           );
+          localStorage.setItem(
+            "userDetails",
+            JSON.stringify(loginResult.data.userDetails)
+          );
+
           // localStorage.setItem("token", JSON.stringify(loginResult.data.token));
           this.$router.push("/posts");
         });

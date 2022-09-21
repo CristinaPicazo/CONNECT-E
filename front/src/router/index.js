@@ -31,6 +31,9 @@ export const router = createRouter({
       path: "/posts",
       name: "PostsView",
       component: PostsView,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/posts/:id",
@@ -58,6 +61,32 @@ export const router = createRouter({
 });
 
 // ***** TO ACTIVATE AFTER ADDING TOKEN *****
+
+// router.beforeEach((to, from, next) => {
+//   // const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+//   // const currentUser = localStorage.getItem("user");
+
+//   const historyCurrent = history.state.current;
+//   console.log('historyCurrent:', historyCurrent)
+//   const publicPages = ["/", "/login", "/signup"];
+
+//   if(publicPages.includes(historyCurrent)) {
+//     console.log('true:')
+//     next();
+//   } else {
+//     next("/login");
+//   }
+// });
+
+// console.log('history',history)
+// console.log('history.state',history.state.current)
+//   if (requiresAuth && !currentUser) {
+//     console.log("You must be logged in to view this page");
+//     next("/");
+//   } else {
+//     next();
+//   }
+// });
 
 // router.beforeEach(() => {
 //   // redirect to login page if not logged in and trying to access a restricted page

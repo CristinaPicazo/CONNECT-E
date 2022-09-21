@@ -34,29 +34,30 @@ export default {
   },
 
   mounted() {
-    let id = window.localStorage.key(0);
-    let localStorageUser = JSON.parse(localStorage.getItem(id));
-
-    this.id = id;
+    let localStorageUser = JSON.parse(localStorage.getItem("userDetails"));
+    this.id = localStorageUser.id;
     this.user = localStorageUser.user;
     this.email = localStorageUser.email;
   },
   methods: {
-    async deleteAccount() {
+    deleteAccount() {
+      // axios
+      // .delete(`http://localhost:3000/users/${this.userId}`)
+
       console.log("delete account");
       console.log("id", this.id);
-      await fetch("http://localhost:3003/users/" + this.id, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => this.$router.push("/signup"));
+      //   await fetch("http://localhost:3003/users/" + this.id, {
+      //     method: "DELETE",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   })
+      //     .then((response) => {
+      //       return response.json();
+      //     })
+      //     .then((data) => this.$router.push("/signup"));
 
-      localStorage.removeItem(this.id);
+      //   localStorage.removeItem(this.id);
     },
   },
 };

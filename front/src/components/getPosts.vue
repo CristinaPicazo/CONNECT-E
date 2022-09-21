@@ -64,15 +64,10 @@ export default {
           this.errorMessage = error.message;
         });
     },
-    getUser() {
-      console.log("route.params.user:", this.$router.currentRoute);
-      // this.user = route.params.user
-    },
   },
 
   mounted() {
     this.getPosts();
-    this.getUser();
   },
 };
 </script>
