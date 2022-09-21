@@ -81,6 +81,11 @@ const login = (req, res, err) => {
               // user: emailResult.rows[0].u_user,
               // email: emailResult.rows[0].u_email,
               accessToken: accessToken,
+              userDetails: {
+                id: emailResult.rows[0].u_id,
+                user: emailResult.rows[0].u_user,
+                email: emailResult.rows[0].u_email,
+              },
             });
           }
         }
