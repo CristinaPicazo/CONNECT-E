@@ -40,16 +40,32 @@ export const router = createRouter({
       name: "PostDetailsView",
       component: PostDetailsView,
       props: true,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/posts/newPost",
       name: "CreatePostView",
       component: CreatePostView,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
-      path: "/profile",
+      path: "/posts/profile",
       name: "ProfileView",
       component: ProfileView,
+      meta: {
+        requiresAuth: true,
+      },
+
+      // {
+      //   render: () => {
+      //     return getUserDetails().id;
+      //   },
+      // },
+      props: true,
     },
     // catch 404
     {
@@ -60,7 +76,26 @@ export const router = createRouter({
   linkActiveClass: "active-link",
 });
 
+import getUserDetails from "../helpers/getUserDetails.js";
+
+router.beforeEach((to, from, next) => {
+  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  if (userDetails && (to.name === "LoginView" || to.name === "SignupView")) {
+    next({ name: "HomeView" });
+  } else if (
+    to.matched.some((record) => record.meta.requiresAuth) &&
+    !userDetails
+  ) {
+    next({ name: "LoginView" });
+  } else {
+    next();
+  }
+});
 // ***** TO ACTIVATE AFTER ADDING TOKEN *****
+// const user = localStorage.getItem("userDetails");
+// console.log('user:', user)
+// const id = user.id;
+// console.log('id.....:', user[0][0])
 
 // router.beforeEach((to, from, next) => {
 //   // const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);

@@ -12,13 +12,12 @@
 
 @mixin navBar {
   box-shadow: variables.$box-shadow;
-  transition: all 1s;
-  :hover,
-  :focus {
-    transform: translateY(-7px) scale(1.1);
-    cursor: pointer;
-    a {
-      color: variables.$fontColorHover;
+  div {
+    transition: all 1s;
+    :hover,
+    :focus {
+      transform: translateY(-7px) scale(1.1);
+      cursor: pointer;
     }
   }
 }

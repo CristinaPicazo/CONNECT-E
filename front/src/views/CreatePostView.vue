@@ -55,6 +55,7 @@
 <script>
 import { ref } from "vue";
 import axios from "axios";
+import getUserDetails from "../helpers/getUserDetails";
 
 export default {
   name: "CreatePostView",
@@ -62,27 +63,25 @@ export default {
     return {
       body: "",
       file: "",
-      userId: "",
+      userId: getUserDetails().id,
       title: "",
-      user: "",
-      readBy: [],
+      user: getUserDetails().user,
+      readBy: getUserDetails().id,
     };
   },
-  mounted() {
-    let localStorageUser = JSON.parse(localStorage.getItem("userDetails"));
-    this.userId = localStorageUser.id;
-    this.user = localStorageUser.user;
-    this.readBy.push(this.id);
-  },
+  // mounted() {
+  //   console.log("user from getUser id", getUserDetails().id);
+  //   console.log("user from getUser user", getUserDetails().user);
+  //   console.log("user from getUser email", getUserDetails().email);
+  //   let localStorageUser = JSON.parse(localStorage.getItem("userDetails"));
+  //   this.userId = localStorageUser.id;
+  //   this.user = localStorageUser.user;
+  //   this.readBy.push(this.id);
+  // },
   methods: {
-    checkuser(req, res) {
-      console.log("req.user:", req.user);
-      if (req.user) {
-        this.user = req.user;
-      }
-    },
     handleFile() {
       this.file = this.$refs.file.files[0];
+      console.log("this.file:", this.file);
     },
     handleSubmit() {
       let formData = new FormData();
