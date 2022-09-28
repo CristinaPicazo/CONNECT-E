@@ -65,28 +65,36 @@ export default {
           password: this.password,
         })
         .then((loginResult) => {
-          console.log(
-            "loginResult.data.accessToken:",
-            loginResult.data.accessToken
-          );
-          axios.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${loginResult.data.accessToken}`;
-          console.log(
-            "loginResult.data.userDetails:",
-            loginResult.data.userDetails
-          );
-          localStorage.setItem(
-            "user",
-            JSON.stringify(loginResult.data.accessToken)
-          );
-          localStorage.setItem(
-            "userDetails",
-            JSON.stringify(loginResult.data.userDetails)
-          );
+          if (loginResult.data.accessToken) {
+            this.$router.push("/posts");
+            console.log(
+              "loginResult.data.accessToken:",
+              loginResult.data.accessToken
+            );
+            axios.defaults.headers.common[
+              "Authorization"
+            ] = `Bearer ${loginResult.data.accessToken}`;
+            console.log(
+              "loginResult.data.userDetails:",
+              loginResult.data.userDetails
+            );
+            localStorage.setItem(
+              "user",
+              JSON.stringify(loginResult.data.accessToken)
+            );
+            localStorage.setItem(
+              "userDetails",
+              JSON.stringify(loginResult.data.userDetails)
+            );
 
-          // localStorage.setItem("token", JSON.stringify(loginResult.data.token));
-          this.$router.push("/posts");
+            // localStorage.setItem("token", JSON.stringify(loginResult.data.token));
+            this.$router.push("/posts");
+          } else {
+            this.errorMessage = loginResult.data.message;
+          }
+        })
+        .catch((error) => {
+          this.errorMessage = error.message;
         });
     },
   },

@@ -19,6 +19,7 @@
 
 <script>
 import axios from "axios";
+import getUserDetails from "../helpers/getUserDetails";
 
 export default {
   name: "GetPost",
@@ -27,6 +28,7 @@ export default {
       post: [],
       isLoading: false,
       errorMessage: "",
+      id: getUserDetails().id,
     };
   },
   methods: {
@@ -43,9 +45,16 @@ export default {
           this.errorMessage = error.message;
         });
     },
+    // sendUser() {
+    //   axios
+    //     .put("/posts/" + this.$route.params.id,{
+    //       p_readBy: p_readBy.push(this.id)
+    //     })
+    // },
   },
   mounted() {
     this.getPost();
+    // this.sendUser();
   },
 };
 </script>

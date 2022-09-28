@@ -53,18 +53,17 @@ export default {
   data() {
     return {
       isloggedIn: false,
+      publicPages: ["/", "/login", "/signup"],
     };
   },
-  // created() {
-  //   this.isUser();
-  // },
   components: {
     RouterLink,
     RouterView,
   },
   watch: {
-    $route() {
+    $route(event) {
       this.isUserLoggin();
+      this.onunload(event);
     },
   },
   methods: {
@@ -76,9 +75,16 @@ export default {
     },
     isUserLoggin() {
       let userDetails = JSON.parse(localStorage.getItem("userDetails"));
-      console.log("user:", userDetails);
       if (userDetails != null) {
         this.isloggedIn = true;
+      }
+    },
+    onunload(event) {
+      const checkIfPublicPage = this.publicPages.includes(event.fullPath);
+      if (checkIfPublicPage) {
+        localStorage.removeItem("user");
+        localStorage.removeItem("userDetails");
+        this.isloggedIn = false;
       }
     },
   },

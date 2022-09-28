@@ -42,7 +42,7 @@ export default {
   methods: {
     deleteAccount() {
       axios
-        .delete(`http://localhost:3000/posts/profile/`)
+        .delete(`http://localhost:3000/posts/profile/${this.id}`)
 
         .then((response) => {
           return response.json();

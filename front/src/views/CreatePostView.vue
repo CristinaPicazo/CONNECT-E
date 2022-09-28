@@ -1,5 +1,6 @@
 <template>
   <form
+    enctype="multipart/form-data"
     data-new-post
     class="mt-5 m-sm-5 p-5 bg-white mb-5 rounded-3 border border-danger"
     @submit.prevent="handleSubmit"
@@ -33,9 +34,10 @@
       <input
         id="file"
         type="file"
-        class="form-control border-3 border-danger"
+        class="form-control border-3 border-danger input-file"
         ref="file"
-        @change="handleFile()"
+        accept="image/*"
+        @change="handleFile($event.target.files)"
       />{{ file }}
     </div>
     <div class="form-group align-self-center">
@@ -79,15 +81,23 @@ export default {
   //   this.readBy.push(this.id);
   // },
   methods: {
-    handleFile() {
-      this.file = this.$refs.file.files[0];
-      console.log("this.file:", this.file);
-    },
-    handleSubmit() {
-      let formData = new FormData();
+    handleFile(fileList) {
+      console.log("filesList:", fileList);
+      const formData = new FormData();
+
+      if (!fileList.length) return;
+
+      formData.append(fileList, fileList.name);
+      console.log("fileList.name:", fileList[0]);
+      console.log("fileList.name:", fileList[0].name);
       console.log("formData:", formData);
-      formData.append("file", this.file);
-      console.log("this.file inside handleSubmit:", this.file);
+      return formData;
+
+      // this.file = this.$refs.file.files[0];
+      // console.log("this.file:", this.file);
+    },
+    handleSubmit(formData) {
+
       axios
         .post("/posts/newPost", {
           user: this.user,
@@ -96,6 +106,7 @@ export default {
           file: formData,
           userId: this.userId,
           readBy: this.readBy,
+          headers: { "Content-Type": "multipart/form-data" },
         })
         .then((newPostResult) => {
           console.log("newPostResult:", newPostResult);

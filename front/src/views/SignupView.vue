@@ -98,10 +98,6 @@ export default {
               user: signupResult.data.user,
               email: signupResult.data.email,
             };
-            localStorage.setItem(
-              signupResult.data.id,
-              JSON.stringify(userDetails)
-            );
             this.$router.push("/login");
           })
           .catch((error) => {
