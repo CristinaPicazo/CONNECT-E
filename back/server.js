@@ -16,12 +16,14 @@ const app = express();
 
 // app.use("/images", express.static(path.join(__dirname, "images")));
 
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); //true for pictures
 app.use(fileUpload({ useTempFiles: true }));
 app.use(bodyParser.json());
 //app.use(history());
-app.use(express.static(path.join(__dirname, "public")));
+app.use("/images", express.static(path.join(__dirname, "images")));
+// app.use(express.static(path.join(__dirname, "public")));
 
 module.exports = { app };

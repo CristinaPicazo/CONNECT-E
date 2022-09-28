@@ -63,7 +63,7 @@ const login = (req, res, err) => {
         password,
         emailResult.rows[0].u_password,
         (err, result) => {
-          if (err) {
+          if (!result) {
             return res.status(200).json({
               message: "Password is incorrect",
             });
@@ -77,9 +77,6 @@ const login = (req, res, err) => {
             );
             res.status(200).json({
               message: "User logged in successfully",
-              // id: emailResult.rows[0].u_id,
-              // user: emailResult.rows[0].u_user,
-              // email: emailResult.rows[0].u_email,
               accessToken: accessToken,
               userDetails: {
                 id: emailResult.rows[0].u_id,
@@ -109,24 +106,4 @@ function createToken(id, user, email) {
   }
 }
 
-const profile = (req, res) => {
-  const { id, user, email } = req.body;
-  client
-    .query("SELECT * FROM users WHERE u_id=$1", [id])
-    .then((queryResult) => {
-      res.status(200).json({
-        message: "User profile",
-        u_id: queryResult.rows[0].u_id,
-        u_user: queryResult.rows[0].u_user,
-        u_email: queryResult.rows[0].u_email,
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "Error showing profile",
-        err,
-      });
-    });
-};
-
-module.exports = { signup, login, profile };
+module.exports = { signup, login };

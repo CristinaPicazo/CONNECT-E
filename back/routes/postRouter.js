@@ -10,13 +10,15 @@ const {
   getPosts,
   getSPostById,
   newPost,
+  profile,
 } = require("../controllers/postsController");
 
-postRouter.use(checkToken);
+// postRouter.use(checkToken);
 
 // Routes
 postRouter.get("/", getPosts);
 postRouter.get("/:id", upload.single("image"), getSPostById);
 postRouter.post("/newPost", upload.single("image"), newPost);
+postRouter.delete("/profile/:id", profile);
 
 module.exports = { postRouter };

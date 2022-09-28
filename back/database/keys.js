@@ -47,4 +47,7 @@ client.connect();
 //   "INSERT INTO posts (p_id, p_body, p_file, fk_u_id, p_title, fk_user, p_readby) VALUES (5, 'body','', 2, 'title', 'crist', ARRAY['2'])"
 // );
 
+// UPDATE posts SET p_readby = ARRAY['25'] WHERE p_id = '39'
+// INSERT INTO posts(p_readby) VALUES (ARRAY['25']) SELECT * FROM posts WHERE p_id = '39'
+
 module.exports = { client };
