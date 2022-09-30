@@ -39,20 +39,26 @@ export default {
       errorMessage: "",
     };
   },
+  // .delete(`http://localhost:3000/posts/profile/${getUserDetails().id}`, {
   methods: {
     deleteAccount() {
       axios
-        .delete(`http://localhost:3000/posts/profile/${this.id}`)
-
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => this.$router.push("/signup"));
-
-      localStorage.removeItem("user");
-      localStorage.removeItem("userDetails");
+        .delete(
+          `http://localhost:4200/posts/profile/${getUserDetails().id}`,
+          {}
+        )
+        .then(() => this.$router.push("/signup"))
+        .catch((error) => {
+          this.errorMessage = error.message;
+        });
+      // localStorage.removeItem("user");
+      // localStorage.removeItem("userDetails");
     },
   },
+  // headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("user")}`,
+  //         },
+
   //   getUser() {
   //     // console.log("this.$route.params.id:", this.$route.params.id);
   //     axios

@@ -74,10 +74,6 @@ export default {
             axios.defaults.headers.common[
               "Authorization"
             ] = `Bearer ${loginResult.data.accessToken}`;
-            console.log(
-              "loginResult.data.userDetails:",
-              loginResult.data.userDetails
-            );
             localStorage.setItem(
               "user",
               JSON.stringify(loginResult.data.accessToken)

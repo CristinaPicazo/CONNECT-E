@@ -9,8 +9,6 @@ import CreatePostView from "../views/CreatePostView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import getUserDetails from "../helpers/getUserDetails.js";
 
-let id = getUserDetails().id;
-
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   linkActiveClass: "active",
@@ -56,7 +54,7 @@ export const router = createRouter({
       },
     },
     {
-      path: `/posts/profile/${id}`,
+      path: "/posts/profile/:id",
       name: "ProfileView",
       component: ProfileView,
       props: true,
@@ -76,8 +74,6 @@ export const router = createRouter({
 router.beforeEach((to, from, next) => {
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   if (userDetails) {
-    id = userDetails.id;
-    console.log("id inside index.js:", id);
     next();
   }
   if (userDetails && (to.name === "LoginView" || to.name === "SignupView")) {

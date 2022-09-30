@@ -33,12 +33,13 @@
       <label for="file" class="text-danger form-label">Multimedia</label>
       <input
         id="file"
+        name="file"
         type="file"
         class="form-control border-3 border-danger input-file"
         ref="file"
         accept="image/*"
         @change="handleFile($event.target.files)"
-      />{{ file }}
+      />{{ file.name }}
     </div>
     <div class="form-group align-self-center">
       <button
@@ -83,39 +84,62 @@ export default {
   methods: {
     handleFile(fileList) {
       console.log("filesList:", fileList);
-      const formData = new FormData();
+      this.file = fileList[0];
+      console.log("this.file:", this.file);
+      console.log("this.file.name:", this.file.name);
 
-      if (!fileList.length) return;
+      // if (!fileList.length) return;
 
-      formData.append(fileList, fileList.name);
-      console.log("fileList.name:", fileList[0]);
-      console.log("fileList.name:", fileList[0].name);
-      console.log("formData:", formData);
-      return formData;
+      // formData.append(fileList, fileList.name);
+      // console.log("fileList.name:", fileList[0]);
+      // console.log("fileList.name:", fileList[0].name);
+      // console.log("formData:", formData);
+      // return formData;
 
       // this.file = this.$refs.file.files[0];
       // console.log("this.file:", this.file);
     },
-    handleSubmit(formData) {
-
+    handleSubmit() {
+      const formData = new FormData();
+      formData.append("body", this.body);
+      formData.append("file", this.file, this.file.name);
+      formData.append("userId", this.userId);
+      formData.append("title", this.title);
+      formData.append("user", this.user);
+      formData.append("readBy", this.readBy);
+      console.log("formData:", formData);
       axios
-        .post("/posts/newPost", {
-          user: this.user,
-          title: this.title,
-          body: this.body,
-          file: formData,
-          userId: this.userId,
-          readBy: this.readBy,
-          headers: { "Content-Type": "multipart/form-data" },
+        .post("/posts/newPost", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         })
-        .then((newPostResult) => {
-          console.log("newPostResult:", newPostResult);
-          this.$router.push("/posts");
+        .then(function () {
+          console.log("SUCCESS!!");
         })
-        .catch((error) => {
-          console.log(error);
-          this.errorMessage = "Error";
+        .catch(function () {
+          console.log("FAILURE!!");
         });
+
+      // axios
+      //   .post("/posts/newPost", {
+      //     user: this.user,
+      //     title: this.title,
+      //     body: this.body,
+      //     file: this.file,
+      //     userId: this.userId,
+      //     readBy: this.readBy,
+      //     headers: { "Content-Type": "multipart/form-data" },
+      //   })
+      //   .then((newPostResult) => {
+      //     console.log("newPostResult:", newPostResult);
+      //     this.$router.push("/posts");
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     this.errorMessage = "Error";
+      //   });
+
       // const newPost = {
       //   method: "POST",
       //   headers: { "Content-Type": "application/json" },

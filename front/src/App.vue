@@ -32,7 +32,7 @@
           >New</router-link
         >
         <router-link
-          :to="{ name: 'ProfileView' }"
+          :to="{ name: 'ProfileView', params: { id: id } }"
           class="text-danger text-decoration-none"
           >Profile</router-link
         >
@@ -46,12 +46,14 @@
 <script>
 import { createWebHistory, RouterLink, RouterView } from "vue-router";
 import getUserDetails from "./helpers/getUserDetails";
+// :to="{ name: 'ProfileView' }"
 
 export default {
   history: createWebHistory(import.meta.env.BASE_URL),
   name: "NavBar",
   data() {
     return {
+      id: "",
       isloggedIn: false,
       publicPages: ["/", "/login", "/signup"],
     };
@@ -76,6 +78,9 @@ export default {
     isUserLoggin() {
       let userDetails = JSON.parse(localStorage.getItem("userDetails"));
       if (userDetails != null) {
+        console.log("userDetails:", userDetails.id);
+        this.id = userDetails.id;
+
         this.isloggedIn = true;
       }
     },
