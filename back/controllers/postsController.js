@@ -1,8 +1,13 @@
 const { client } = require("../database/keys");
+const FormData = require("form-data");
+const fs = require("fs");
 
 const getPosts = (req, res) => {
   client
-    .query("SELECT * FROM posts")
+    .query(
+      "SELECT p_id,p_title,p_body, CASE WHEN readby.fk_u_id=$1 THEN 1 ELSE 0 END AS isRead FROM posts LEFT JOIN readby ON readby.fk_p_id = posts.p_id",
+      [req.id]
+    )
     .then((queryResult) => {
       if (queryResult.rowCount < 1) {
         res.status(200).json({
@@ -28,7 +33,10 @@ const getSPostById = (req, res) => {
   console.log("by id");
   const id = req.params.id;
   client
-    .query("SELECT * FROM posts WHERE p_id=$1", [id])
+    .query(
+      "SELECT posts.*, users.u_user as author FROM posts INNER JOIN users ON p_id=$1 and users.u_id = posts.fk_u_id",
+      [id]
+    )
     .then((queryResult) => {
       res.status(200).json({
         queryResult,
@@ -45,13 +53,16 @@ const getSPostById = (req, res) => {
 const newPost = (req, res, err) => {
   let { body, file, userId, title, user, readBy } = req.body;
   if (file) {
+    console.log("file inside NewPost L49:", file);
     const { fileName } = file;
-    file = makeImageUrl(req, fileName);
+    file = makeImageUrl(req, file.fileName);
+    console.log("file.fileName:", file.fileName);
   }
   client
     .query(
-      "INSERT INTO posts (p_body, p_file, fk_u_id, p_title, fk_user, p_readby) VALUES ($1, $2, $3, $4, $5, ARRAY[$6])",
-      [body, file, userId, title, user, readBy]
+      "INSERT INTO posts (p_title, p_body, p_file, fk_u_id) VALUES ($1, $2, $3, $4)",
+      [title, body, file, userId]
+      // "INSERT INTO readby ('fk_u_id','fk_p_id') values ($1, $2)",[userId,postId],
     )
     .then((queryResult) =>
       res.status(200).json({
@@ -77,14 +88,6 @@ const newPost = (req, res, err) => {
 };
 
 const profile = (req, res, err) => {
-  // const { id, user, email } = req;
-  // res.status(200).json({
-  //   message: "Profile",
-  //   id,
-  //   user,
-  //   email,
-  // });
-  // const id = req.params.id;
   const id = req.path.split("/").slice(-1)[0];
   console.log("id:", id);
 
@@ -104,26 +107,6 @@ const profile = (req, res, err) => {
       });
     });
 };
-
-//   client
-//     // .query("SELECT * FROM users WHERE u_id=$1", 24)
-//     .query("SELECT * FROM users WHERE u_id=$1", [id])
-//     .then((queryResult) => {
-//       // console.log("u_id:", u_id);
-//       res.status(200).json({
-//         message: "User profile",
-//         u_id: queryResult.rows[0].u_id,
-//         u_user: queryResult.rows[0].u_user,
-//         u_email: queryResult.rows[0].u_email,
-//       });
-//     })
-//     .catch((err) => {
-//       res.status(500).json({
-//         message: "Error showing profile",
-//         err,
-//       });
-//     });
-// };
 
 function makeImageUrl(req, fileName) {
   return req.protocol + "://" + req.get("host") + "/images/" + fileName;

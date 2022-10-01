@@ -1,15 +1,52 @@
 CREATE DATABASE connecte;
 
-CREATE TABLE users(
-    u_id SERIAL PRIMARY KEY,
-    u_user VARCHAR(50) NOT NULL,
-    u_email VARCHAR(50) NOT NULL UNIQUE,
-    u_password VARCHAR(20) NOT NULL
+CREATE TABLE public.users
+(
+    u_id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
+    u_user "char" NOT NULL,
+    u_email "char" NOT NULL,
+    u_password "char" NOT NULL,
+    CONSTRAINT u_id PRIMARY KEY (u_id),
+    CONSTRAINT u_user UNIQUE (u_user),
+    CONSTRAINT u_email UNIQUE (u_email)
 );
 
-CREATE TABLE posts (
-    p_id SERIAL PRIMARY KEY,
-    CONSTRAINT fk_u_id FOREIGN KEY(u_id) REFERENCES users(u_id),
-    p_body VARCHAR(50) NOT NULL,
-    p_file VARCHAR(255)
+ALTER TABLE IF EXISTS public.users
+    OWNER to postgres;
+
+CREATE TABLE public.posts
+(
+    p_id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
+    p_title "char" NOT NULL,
+    p_body "char" NOT NULL,
+    p_file "char",
+    fk_u_id integer,
+    CONSTRAINT p_id PRIMARY KEY (p_id),
+    CONSTRAINT fk_u_id FOREIGN KEY (fk_u_id)
+        REFERENCES public.users (u_id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        NOT VALID
 );
+
+ALTER TABLE IF EXISTS public.posts
+    OWNER to postgres;
+
+CREATE TABLE public.readby
+(
+    fk_u_id integer NOT NULL,
+    fk_p_id integer NOT NULL,
+    CONSTRAINT fk_u_id FOREIGN KEY (fk_u_id)
+        REFERENCES public.users (u_id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        NOT VALID,
+    CONSTRAINT fk_p_id FOREIGN KEY (fk_p_id)
+        REFERENCES public.posts (p_id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        NOT VALID
+);
+
+ALTER TABLE IF EXISTS public.readby
+    OWNER to postgres;

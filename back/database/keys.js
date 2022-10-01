@@ -9,45 +9,15 @@ const client = new Client({
 });
 
 client.connect();
+// FROM NEW DATABASE
+// select posts when user read it = 1 else 0 (27 is user id)
+// SELECT p_id,p_body,p_title, CASE WHEN "readPost".fk_u_id=27 THEN 1 ELSE 0 END AS isRead FROM posts LEFT JOIN "readPost" ON "readPost".fk_p_id = posts.p_id
 
-// client
-//   .connect()
-//   .then(() => console.log('connected'))
-//   .catch(err => console.error('connection error', err.stack))
+// see one post :id with author from users
+//SELECT posts.*, users.u_user as author FROM posts INNER JOIN users ON p_id=40 and users.u_id = posts.fk_u_id
 
-// client.query("SELECT * FROM users", (err, res) => {
-//   console.log(err, res);
-//   // client.end();
-// });
-
-// client.query(
-//   "INSERT INTO users (u_user, u_email, u_password) VALUES ('u_user', 'u_email', 'u_password')"
-// );
-
-// client.query("SELECT * FROM users WHERE u_email = $1 AND u_password = $2",['criss@gmail.com', '2222'], (err, res) => {
-//   console.log(err, res);
-//   client.end();
-// });
-
-// const u_email = 'criss@gmail.com'
-// const u_password = '2222'
-// client.query("SELECT * FROM users WHERE u_email = $1 AND u_password = $2",
-// [u_email, u_password],
-// (err, res) => {
-//   console.log(err, res);
-//   client.end();
-// });
-
-// client.query("SELECT * FROM posts",
-// (err, res) => {
-//   console.log(err, res);
-// });
-
-// client.query(
-//   "INSERT INTO posts (p_id, p_body, p_file, fk_u_id, p_title, fk_user, p_readby) VALUES (5, 'body','', 2, 'title', 'crist', ARRAY['2'])"
-// );
-
-// UPDATE posts SET p_readby = ARRAY['25'] WHERE p_id = '39'
-// INSERT INTO posts(p_readby) VALUES (ARRAY['25']) SELECT * FROM posts WHERE p_id = '39'
+// create new post
+// INSERT INTO posts values ('p_title','p_body','p_file','fk_u_id')
+// INSERT INTO "readPost" values ('fk_u_id','fk_p_id')
 
 module.exports = { client };
