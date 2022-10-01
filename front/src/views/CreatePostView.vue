@@ -64,12 +64,10 @@ export default {
   name: "CreatePostView",
   data() {
     return {
+      title: "",
       body: "",
       file: "",
       userId: getUserDetails().id,
-      title: "",
-      user: getUserDetails().user,
-      readBy: getUserDetails().id,
     };
   },
   // mounted() {

@@ -39,7 +39,6 @@ export default {
       errorMessage: "",
     };
   },
-  // .delete(`http://localhost:3000/posts/profile/${getUserDetails().id}`, {
   methods: {
     deleteAccount() {
       axios
@@ -51,64 +50,8 @@ export default {
         .catch((error) => {
           this.errorMessage = error.message;
         });
-      // localStorage.removeItem("user");
-      // localStorage.removeItem("userDetails");
     },
   },
-  // headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("user")}`,
-  //         },
-
-  //   getUser() {
-  //     // console.log("this.$route.params.id:", this.$route.params.id);
-  //     axios
-  //       .get("/posts/profile/24") //+this.id
-  //       // .get("/posts/profile/" + this.$route.params.id)
-  //       .then((response) => {
-  //         this.user = response.data.queryResult.user;
-  //         this.email = response.data.queryResult.email;
-
-  //         console.log("response:", response.data.queryResult.rows[0]);
-  //         // this.post = response.data.queryResult.rows[0];
-  //         this.isLoading = false;
-  //       })
-  //       .catch((error) => {
-  //         this.isLoading = false;
-  //         this.errorMessage = error.message;
-  //       });
-  //   },
-  // },
-  // mounted() {
-  //   this.getUser();
-  // },
-
-  // mounted() {
-  //   let localStorageUser = JSON.parse(localStorage.getItem("userDetails"));
-  //   this.id = localStorageUser.id;
-  //   this.user = localStorageUser.user;
-  //   this.email = localStorageUser.email;
-  // },
-  // methods: {
-  //   deleteAccount() {
-  //     axios
-  //     .delete(`http://localhost:3000/users/${this.userId}`)
-
-  //     console.log("delete account");
-  //     console.log("id", this.id);
-  //       await fetch("http://localhost:3003/users/" + this.id, {
-  //         method: "DELETE",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       })
-  //         .then((response) => {
-  //           return response.json();
-  //         })
-  //         .then((data) => this.$router.push("/signup"));
-
-  //       localStorage.removeItem(this.id);
-  //   },
-  // },
 };
 </script>
 <style scoped lang="scss">

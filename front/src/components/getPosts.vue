@@ -24,7 +24,6 @@
             <h5 class="card-title">
               <u>{{ post.p_title }}</u>
             </h5>
-            <h6 class="card-subtitle mb-2">by {{ post.fk_user }}</h6>
             <p class="text-truncate">
               {{ post.p_body }}
             </p>

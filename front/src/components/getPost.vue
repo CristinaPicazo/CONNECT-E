@@ -5,14 +5,12 @@
   >
     <p v-if="isLoading">Loading...</p>
     <p v-if="errorMessage != ''">{{ errorMessage }}</p>
-    <div
-      class="form-group mb-3"
-      v-show="!isLoading && errorMessage == ''"
-    >
+    <div class="form-group mb-3" v-show="!isLoading && errorMessage == ''">
       <h2 class="display-1 fw-bold">{{ post.p_title }}</h2>
-      <h6 class="card-subtitle mb-5 text-muted">by {{ post.fk_user }}</h6>
+      <h6 class="card-subtitle mb-5 text-muted">by {{ post.author }}</h6>
       <p>{{ post.p_body }}</p>
-      <source class="multimedia" src="{{ post.p_file }}" type="multimedia" />{{post.p_file}}
+      <source class="multimedia" src="{{ post.p_file }}" type="multimedia" />
+      {{ post.p_file }}
     </div>
   </div>
 </template>
@@ -36,7 +34,7 @@ export default {
       axios
         .get("/posts/" + this.$route.params.id)
         .then((response) => {
-          console.log('response:', response.data.queryResult.rows[0])
+          console.log("response:", response.data.queryResult.rows[0]);
           this.post = response.data.queryResult.rows[0];
           this.isLoading = false;
         })
