@@ -20,4 +20,7 @@ client.connect();
 // INSERT INTO posts values ('p_title','p_body','p_file','fk_u_id')
 // INSERT INTO "readPost" values ('fk_u_id','fk_p_id')
 
+// SELECT p_id,p_title, p_body, u_user, CASE WHEN readby.fk_u_id=2 OR users.u_id=2 THEN 1 ELSE 0 END AS isRead FROM posts LEFT JOIN readby ON readby.fk_p_id = posts.p_id 
+// JOIN users ON posts.fk_u_id = users.u_id
+
 module.exports = { client };

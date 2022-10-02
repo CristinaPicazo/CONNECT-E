@@ -8,6 +8,7 @@ const { upload } = require("../middleware/multer");
 // Controllers
 const {
   getPosts,
+  isRead,
   getSPostById,
   newPost,
   profile,
@@ -17,6 +18,7 @@ postRouter.use(checkToken);
 
 // Routes
 postRouter.get("/", getPosts);
+postRouter.post("/", isRead);
 postRouter.get("/:id", upload.single("image"), getSPostById);
 postRouter.post("/newPost", upload.single("image"), newPost);
 postRouter.delete("/profile/:id", profile);

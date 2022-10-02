@@ -5,7 +5,7 @@ const fs = require("fs");
 const getPosts = (req, res) => {
   client
     .query(
-      "SELECT p_id,p_title,p_body, CASE WHEN readby.fk_u_id=$1 THEN 1 ELSE 0 END AS isRead FROM posts LEFT JOIN readby ON readby.fk_p_id = posts.p_id",
+      "SELECT p_id,p_title,p_body, CASE WHEN readby.fk_u_id=$1 OR posts.fk_u_id=$1 THEN 1 ELSE 0 END AS isRead FROM posts LEFT JOIN readby ON readby.fk_p_id = posts.p_id",
       [req.id]
     )
     .then((queryResult) => {
@@ -29,8 +29,23 @@ const getPosts = (req, res) => {
     });
 };
 
+const isRead = (req, res, err) => {
+  let { fk_user_id, fk_post_id } = req.body;
+  client
+    .query("INSERT INTO readby (fk_u_id, fk_p_id) VALUES ($1, $2)", [
+      fk_user_id,
+      fk_post_id,
+    ])
+    .catch((err) => {
+      console.log("err:", err);
+      res.status(500).json({
+        message: "Error reading the post",
+        err,
+      });
+    });
+};
+
 const getSPostById = (req, res) => {
-  console.log("by id");
   const id = req.params.id;
   client
     .query(
@@ -53,10 +68,11 @@ const getSPostById = (req, res) => {
 const newPost = (req, res, err) => {
   let { body, file, userId, title, user, readBy } = req.body;
   if (file) {
-    console.log("file inside NewPost L49:", file);
+    console.log("file first:", file);
     const { fileName } = file;
     file = makeImageUrl(req, file.fileName);
-    console.log("file.fileName:", file.fileName);
+    console.log("file:", file);
+    console.log("fileName:", fileName);
   }
   client
     .query(
@@ -112,4 +128,4 @@ function makeImageUrl(req, fileName) {
   return req.protocol + "://" + req.get("host") + "/images/" + fileName;
 }
 
-module.exports = { getPosts, getSPostById, newPost, profile };
+module.exports = { getPosts, isRead, getSPostById, newPost, profile };
