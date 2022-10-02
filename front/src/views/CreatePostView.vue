@@ -38,7 +38,7 @@
         class="form-control border-3 border-danger input-file"
         ref="file"
         accept="image/*"
-        @change="handleFile($event.target.files)"
+        @change="handleFile()"
       />{{ file.name }}
     </div>
     <div class="form-group align-self-center">
@@ -80,11 +80,11 @@ export default {
   //   this.readBy.push(this.id);
   // },
   methods: {
-    handleFile(fileList) {
-      console.log("filesList:", fileList);
-      this.file = fileList[0];
+    handleFile() {
+      console.log("this.$refs.file.files:", this.$refs.file.files);
+      return (this.file = this.$refs.file.files);
       console.log("this.file:", this.file);
-      console.log("this.file.name:", this.file.name);
+      console.log("this.file.name:", this.file[0].name);
 
       // if (!fileList.length) return;
 
@@ -99,12 +99,11 @@ export default {
     },
     handleSubmit() {
       const formData = new FormData();
-      formData.append("body", this.body);
-      formData.append("file", this.file, this.file.name);
-      formData.append("userId", this.userId);
       formData.append("title", this.title);
-      formData.append("user", this.user);
-      formData.append("readBy", this.readBy);
+      formData.append("body", this.body);
+      // formData.append("file", this.file, this.file[0].name);
+      formData.append("file", this.file);
+      formData.append("userId", this.userId);
       console.log("formData:", formData);
       axios
         .post("/posts/newPost", formData, {
@@ -112,11 +111,11 @@ export default {
             "Content-Type": "multipart/form-data",
           },
         })
-        .then(function () {
-          console.log("SUCCESS!!");
+        .then((submitResult) => {
+          this.$router.push("/posts");
         })
-        .catch(function () {
-          console.log("FAILURE!!");
+        .catch((error) => {
+          this.errorMessage = error.message;
         });
 
       // axios

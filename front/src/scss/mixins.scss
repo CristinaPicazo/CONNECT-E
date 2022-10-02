@@ -48,12 +48,7 @@
       box-shadow: variables.$box-shadow !important;
       transform: translateY(-7px) scale(1.1) !important;
       color: variables.$fontColorHover !important;
-      a {
-        &:visited {
-          color: variables.$fontColor !important;
-          color: variables.$backgroundColor !important;
-        }
-      }
+      text-decoration: none;
     }
   }
   input:focus,

@@ -17,12 +17,23 @@
         v-for="post in posts"
         v-bind:key="post.p_id"
       >
-        <router-link :to="`/posts/${post.p_id}`">
+        <router-link
+          :to="`/posts/${post.p_id}`"
+          class="text-decoration-none"
+          @click="isRead(post.p_id, post.isread)"
+        >
           <div
-            class="h-100 p-5 rounded-3 border border-danger bg-danger text-white"
+            class="h-100 p-5 rounded-3 border border-danger"
+            :class="{
+              'bg-danger text-white': post.isread == 0,
+              'bg-white text-danger': post.isread == 1,
+            }"
           >
             <h5 class="card-title">
-              <u>{{ post.p_title }}</u>
+              <u
+                >{{ post.p_title }} - is read {{ post.isread }} userid
+                {{ userId }} postuid {{ post.fk_u_id }}</u
+              >
             </h5>
             <p class="text-truncate">
               {{ post.p_body }}
@@ -36,11 +47,13 @@
 
 <script>
 import axios from "axios";
+import getUserDetails from "../helpers/getUserDetails";
 
 export default {
   name: "GetPosts",
   data() {
     return {
+      userId: getUserDetails().id,
       posts: [],
       isLoading: true,
       isPostListEmpty: false,
@@ -63,6 +76,21 @@ export default {
           this.errorMessage = error.message;
         });
     },
+    isRead(postId, isread) {
+      console.log('isread:', isread)
+      console.log("postId:", postId);
+      console.log("user this.id:", getUserDetails().id);
+      if (isread == 1) return;
+      axios
+        .post("/posts/", {
+          fk_user_id: getUserDetails().id,
+          fk_post_id: postId,
+        })
+        .catch((error) => {
+          console.log(error);
+          this.errorMessage = "Error";
+        });
+    },
   },
 
   mounted() {
@@ -75,29 +103,5 @@ export default {
 @use "../scss/mixins.scss";
 [data-posts] {
   @include mixins.forms;
-  // .active-link {
-  //   color: blue;
-  //   background-color: purple;
-  // }
-  // a:visited {
-  //   background-color: aquamarine !important;
-  // }
-  // .active-link:visited {
-  //   color: blue;
-  //   background-color: purple !important;
-  // }
-  // .exact-active-link:visited {
-  //   color: pink;
-  //   background-color: orange !important;
-  // }
-  w-sm-30 router-link {
-    border: 3px solid pink !important;
-    color: pink !important;
-    background-color: orange !important;
-    :visited {
-      color: blue;
-      background-color: purple !important;
-    }
-  }
 }
 </style>

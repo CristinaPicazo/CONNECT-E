@@ -34,7 +34,6 @@ export default {
       axios
         .get("/posts/" + this.$route.params.id)
         .then((response) => {
-          console.log("response:", response.data.queryResult.rows[0]);
           this.post = response.data.queryResult.rows[0];
           this.isLoading = false;
         })
@@ -43,12 +42,6 @@ export default {
           this.errorMessage = error.message;
         });
     },
-    // sendUser() {
-    //   axios
-    //     .put("/posts/" + this.$route.params.id,{
-    //       p_readBy: p_readBy.push(this.id)
-    //     })
-    // },
   },
   mounted() {
     this.getPost();
