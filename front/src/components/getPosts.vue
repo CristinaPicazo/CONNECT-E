@@ -18,6 +18,28 @@
         v-bind:key="post.p_id"
       >
         <router-link
+          v-if="post.isread == 0"
+          :to="`/posts/${post.p_id}`"
+          class="text-decoration-none"
+          @click="isRead(post.p_id, post.isread)"
+        >
+          <div
+            class="h-100 p-5 rounded-3 border border-danger"
+            :class="{
+              'bg-danger text-white': post.isread == 0,
+              'bg-white text-danger': post.isread == 1,
+            }"
+          >
+            <h5 class="card-title">
+              <u>{{ post.p_title }}</u>
+            </h5>
+            <p class="text-truncate">
+              {{ post.p_body }}
+            </p>
+          </div>
+        </router-link>
+        <router-link
+          v-else-if="post.isread == 1"
           :to="`/posts/${post.p_id}`"
           class="text-decoration-none"
           @click="isRead(post.p_id, post.isread)"
@@ -31,8 +53,7 @@
           >
             <h5 class="card-title">
               <u
-                >{{ post.p_title }} - is read {{ post.isread }} userid
-                {{ userId }} postuid {{ post.fk_u_id }}</u
+                >{{ post.p_title }}</u
               >
             </h5>
             <p class="text-truncate">
@@ -54,6 +75,8 @@ export default {
   data() {
     return {
       userId: getUserDetails().id,
+      // disorganised: [],
+      posts: [],
       posts: [],
       isLoading: true,
       isPostListEmpty: false,
@@ -77,9 +100,6 @@ export default {
         });
     },
     isRead(postId, isread) {
-      console.log('isread:', isread)
-      console.log("postId:", postId);
-      console.log("user this.id:", getUserDetails().id);
       if (isread == 1) return;
       axios
         .post("/posts/", {

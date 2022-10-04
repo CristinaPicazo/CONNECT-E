@@ -38,7 +38,7 @@
         class="form-control border-3 border-danger input-file"
         ref="file"
         accept="image/*"
-        @change="handleFile()"
+        @change="handleFile"
       />{{ file.name }}
     </div>
     <div class="form-group align-self-center">
@@ -80,11 +80,13 @@ export default {
   //   this.readBy.push(this.id);
   // },
   methods: {
-    handleFile() {
-      console.log("this.$refs.file.files:", this.$refs.file.files);
-      return (this.file = this.$refs.file.files);
+    handleFile(event) {
+      this.file = event.target.files[0];
+
+      //console.log("this.$refs.file.files:", this.$refs.file.files);
+      //this.file = this.$refs.file.files[0];
       console.log("this.file:", this.file);
-      console.log("this.file.name:", this.file[0].name);
+      console.log("this.file.name:", this.file.name);
 
       // if (!fileList.length) return;
 
@@ -112,9 +114,11 @@ export default {
           },
         })
         .then((submitResult) => {
+          console.log("submitResult:", submitResult);
           this.$router.push("/posts");
         })
         .catch((error) => {
+          console.log("error:", error);
           this.errorMessage = error.message;
         });
 
