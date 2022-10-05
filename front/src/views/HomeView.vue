@@ -21,33 +21,6 @@
         Groupomania believe passionately that our role is to bring sustained
         value that impacts everyone, enriching lives and nurturing communities.
       </p>
-
-      <!-- <img src="../images/icon-above-font.png" alt="icon above" /> -->
-
-      <button
-        @click="goToLogin()"
-        type="button"
-        class="mb-5 p-3 w-50 my-auto btn bg-white rounded rounded-pill"
-      >
-        <router-link
-          to="/login"
-          tag="button"
-          class="text-danger text-decoration-none"
-          >Login</router-link
-        >
-      </button>
-      <button
-        @click="goToSignup()"
-        type="button"
-        class="m-5 p-3 w-50 my-auto btn bg-white rounded rounded-pill"
-      >
-        <router-link
-          to="/signup"
-          tag="button"
-          class="text-danger text-decoration-none mr-1"
-          >Signup</router-link
-        >
-      </button>
     </div>
   </div>
 </template>
