@@ -19,8 +19,8 @@ postRouter.use(checkToken);
 // Routes
 postRouter.get("/", getPosts);
 postRouter.post("/", isRead);
-postRouter.get("/:id", upload.single("image"), getSPostById);
-postRouter.post("/newPost", upload.single("image"), newPost);
+postRouter.get("/:id", upload.single("file"), getSPostById);
+postRouter.post("/newPost", upload.single("file"), newPost);
 postRouter.delete("/profile/:id", profile);
 
 module.exports = { postRouter };

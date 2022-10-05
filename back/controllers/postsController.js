@@ -65,14 +65,18 @@ const getSPostById = (req, res) => {
     });
 };
 
+function makeImageUrl(req, fileName) {
+  return req.protocol + "://" + req.get("host") + "/images/" + fileName;
+}
+
 const newPost = (req, res, err) => {
-  let { body, file, userId, title, user, readBy } = req.body;
+  let { title, body, userId } = req.body;
+  let { file } = req;
+  console.log('file:', file)
+
   if (file) {
-    console.log("file first:", file);
     const { fileName } = file;
     file = makeImageUrl(req, file.fileName);
-    console.log("file:", file);
-    console.log("fileName:", fileName);
   }
   client
     .query(
@@ -80,12 +84,12 @@ const newPost = (req, res, err) => {
       [title, body, file, userId]
       // "INSERT INTO readby ('fk_u_id','fk_p_id') values ($1, $2)",[userId,postId],
     )
-    .then((queryResult) =>
+    .then((queryResult) => {
       res.status(200).json({
         message: "Post created successfully",
         queryResult,
-      })
-    )
+      });
+    })
     .catch((err) => {
       console.log("err:", err);
       // en que se basa....?
@@ -123,9 +127,5 @@ const profile = (req, res, err) => {
       });
     });
 };
-
-function makeImageUrl(req, fileName) {
-  return req.protocol + "://" + req.get("host") + "/images/" + fileName;
-}
 
 module.exports = { getPosts, isRead, getSPostById, newPost, profile };
