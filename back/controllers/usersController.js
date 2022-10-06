@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const signup = (req, res, err) => {
   const { user, email, password } = req.body;
   const hashedPassword = bcrypt.hashSync(password, 10);
-  console.log("user, email, password :", user, email, password);
 
   if (email === "") {
     res.status(400).send("Email is required");

@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 
 function checkToken(req, res, next) {
+  const header = req.header("Authorization");
   try {
-    const header = req.header("Authorization");
     if (header === undefined) {
       return console.log("header === undefined");
     }

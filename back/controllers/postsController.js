@@ -72,8 +72,6 @@ function makeImageUrl(req, fileName) {
 const newPost = (req, res, err) => {
   let { title, body, userId } = req.body;
   let { file } = req;
-  console.log('file:', file)
-
   if (file) {
     const { fileName } = file;
     file = makeImageUrl(req, file.fileName);
@@ -92,7 +90,6 @@ const newPost = (req, res, err) => {
     })
     .catch((err) => {
       console.log("err:", err);
-      // en que se basa....?
       if (err.code == "23505") {
         res.status(200).json({
           message: "Post already added",
@@ -109,7 +106,6 @@ const newPost = (req, res, err) => {
 
 const profile = (req, res, err) => {
   const id = req.path.split("/").slice(-1)[0];
-  console.log("id:", id);
 
   client
     .query("DELETE FROM users WHERE u_id=$1", [id])
