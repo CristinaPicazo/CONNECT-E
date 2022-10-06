@@ -5,48 +5,47 @@
       class="p-4 justify-content-around d-inline-block align-top align-items-center navbar-expand-lg navbar-light bg-light d-flex"
     >
       <div v-if="!isloggedIn" class="d-flex justify-content-around container">
-        <router-link to="/" class="text-danger text-decoration-none"
-          >Home</router-link
-        >
+        <router-link to="/" class="text-decoration-none">Home</router-link>
         <router-link
           :to="{ name: 'LoginView' }"
-          class="text-danger text-decoration-none isLoggedIn"
+          class="text-decoration-none isLoggedIn"
           >Login</router-link
         >
-        <router-link
-          :to="{ name: 'SignupView' }"
-          class="text-danger text-decoration-none"
-          :class="{ 'd-none': isUserAuthenticated }"
+        <router-link :to="{ name: 'SignupView' }" class="text-decoration-none"
           >Signup</router-link
         >
       </div>
       <div v-else class="d-flex justify-content-around container">
-        <router-link
-          :to="{ name: 'PostsView' }"
-          class="text-danger text-decoration-none"
+        <router-link :to="{ name: 'PostsView' }" class="text-decoration-none"
           >Post</router-link
         >
         <router-link
           :to="{ name: 'CreatePostView' }"
-          class="text-danger text-decoration-none"
+          class="text-decoration-none"
           >New</router-link
         >
         <router-link
-          :to="{ name: 'ProfileView', params: { id: id } }"
-          class="text-danger text-decoration-none"
+          :to="{ name: 'ProfileView', params: { id } }"
+          class="text-decoration-none"
           >Profile</router-link
         >
-        <a @click="LogOut" class="text-danger text-decoration-none">LogOut</a>
+        <a @click="LogOut" class="text-decoration-none">LogOut</a>
       </div>
     </nav>
     <router-view />
   </div>
+  <footer class="text-center">
+    <img
+      src="../src/images/icon-left-font-monochrome-black.png"
+      alt="icon"
+      class="col-4 col-md-2"
+    />
+  </footer>
 </template>
 
 <script>
 import { createWebHistory, RouterLink, RouterView } from "vue-router";
 import getUserDetails from "./helpers/getUserDetails";
-// :to="{ name: 'ProfileView' }"
 
 export default {
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,7 +64,8 @@ export default {
   watch: {
     $route(event) {
       this.isUserLoggin();
-      this.onunload(event);
+      this.onunload("event", event);
+      this.onunload("event headers", event.headers);
     },
   },
   methods: {
@@ -78,7 +78,6 @@ export default {
     isUserLoggin() {
       let userDetails = JSON.parse(localStorage.getItem("userDetails"));
       if (userDetails != null) {
-        console.log("userDetails:", userDetails.id);
         this.id = userDetails.id;
 
         this.isloggedIn = true;

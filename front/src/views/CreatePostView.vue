@@ -5,10 +5,10 @@
     class="mt-5 m-sm-5 p-5 bg-white mb-5 rounded-3 border border-danger"
     @submit.prevent="handleSubmit"
   >
-    <h2 class="text-danger text-center display-1 fw-bold">New Post</h2>
+    <h2 class="text-center display-1 fw-bold">New Post</h2>
 
     <div class="form-group mb-3">
-      <label for="title" class="text-danger form-label">Title</label>
+      <label for="title" class="form-label">Title</label>
       <input
         id="title"
         type="text"
@@ -18,7 +18,7 @@
       />
     </div>
     <div class="form-group mb-3">
-      <label for="body" class="text-danger form-label">Body</label>
+      <label for="body" class="form-label">Body</label>
       <textarea
         id="body"
         type="body"
@@ -30,7 +30,7 @@
       ></textarea>
     </div>
     <div class="form-group mb-3">
-      <label for="file" class="text-danger form-label">Multimedia</label>
+      <label for="file" class="form-label">Multimedia</label>
       <input
         id="file"
         name="file"
@@ -41,17 +41,17 @@
         @change="handleFile"
       />
     </div>
-    <div class="form-group align-self-center">
+    <div class="form-group text-center">
       <button
         type="submit"
-        class="text-danger btn buttons bg-white rounded rounded-pill col-12"
+        class="btn buttons bg-white rounded rounded-pill col-6 col-md-4 col-lg-2"
       >
         Submit
       </button>
     </div>
   </form>
-  <div v-if="message" class="alert">
-    {{ message }}
+  <div v-if="this.message" class="alert">
+    {{ this.message }}
   </div>
 </template>
 
@@ -69,6 +69,7 @@ export default {
       file: "",
       filename: "",
       userId: getUserDetails().id,
+      message: "",
     };
   },
   methods: {
@@ -92,11 +93,10 @@ export default {
             "Content-Type": "multipart/form-data",
           },
         })
-        .then((submitResult) => {
+        .then(() => {
           this.$router.push("/posts");
         })
         .catch((error) => {
-          console.log("error:", error);
           this.errorMessage = error.message;
         });
     },

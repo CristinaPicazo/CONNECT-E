@@ -1,11 +1,16 @@
 $geneneralFont: "Trebuchet MS", sans-serif;
 $fontSize: 18px;
-$fontColor: red;
+$fontColor: #ad0000;
 $fontColorHover: white;
-$backgroundColor: rgb(254, 249, 249);
+$backgroundColor: linear-gradient(
+  90deg,
+  rgba(255, 198, 198, 1) 0%,
+  rgba(255, 142, 142, 1) 51%,
+  rgba(255, 108, 108, 1) 100%
+);
 $backgroundButton: white;
-$backgroundImage: url("../assets/icon-above-font.png");
-$buttonBackground: rgb(203, 203, 203);
+// $backgroundImage: url("../assets/icon-above-font.png");
+// $buttonBackground: rgb(203, 203, 203);
 $backgroundButtonHover: red;
 $borderColor: red;
-$box-shadow: 0px 5px 5px 5px darken($backgroundColor, 20%);
+$box-shadow: 0px 5px 5px 5px darken($backgroundButtonHover, 20%);

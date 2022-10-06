@@ -9,9 +9,7 @@
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "post-json": "json-server --watch db/posts.json --port 3002",
-    "user-json": "json-server --watch db/users.json --port 3003"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",

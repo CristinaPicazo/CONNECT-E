@@ -1,24 +1,29 @@
 <template>
   <div
     data-posts
-    class="mt-5 m-md-5 p-md-5 bg-white rounded-3 border border-danger text-danger text-center"
+    class="mt-5 m-md-5 p-md-5 bg-white rounded-3 border border-danger text-center"
   >
     <h2 class="display-1 fw-bold">Posts</h2>
-    {{ this.user }}
+    <p v-if="!isPostListEmpty && !isLoading" class="text-center text-wrap">
+      You have {{ postsNotRead.length }} post to read
+    </p>
+    <p v-if="!isPostListEmpty && !isLoading" class="text-center text-wrap">
+      {{ postsRead.length }} has been already reading
+    </p>
     <div
       class="flex-column d-flex flex-md-row flex-md-wrap w-30 justify-content-around"
     >
       <p v-if="isLoading">Loading...</p>
       <p v-if="isPostListEmpty">There isn't any post</p>
       <p v-if="errorMessage != ''">{{ errorMessage }}</p>
+
       <div
         v-show="!isLoading && !isPostListEmpty && errorMessage == ''"
         class="w-sm-30 p-1 col col-md-4"
-        v-for="post in posts"
+        v-for="post in postsNotRead"
         v-bind:key="post.p_id"
       >
         <router-link
-          v-if="post.isread == 0"
           :to="`/posts/${post.p_id}`"
           class="text-decoration-none"
           @click="isRead(post.p_id, post.isread)"
@@ -27,7 +32,7 @@
             class="h-100 p-5 rounded-3 border border-danger"
             :class="{
               'bg-danger text-white': post.isread == 0,
-              'bg-white text-danger': post.isread == 1,
+              'bg-white  ': post.isread == 1,
             }"
           >
             <h5 class="card-title">
@@ -38,8 +43,15 @@
             </p>
           </div>
         </router-link>
+      </div>
+
+      <div
+        v-show="!isLoading && !isPostListEmpty && errorMessage == ''"
+        class="w-sm-30 p-1 col col-md-4"
+        v-for="post in postsRead"
+        v-bind:key="post.p_id"
+      >
         <router-link
-          v-else-if="post.isread == 1"
           :to="`/posts/${post.p_id}`"
           class="text-decoration-none"
           @click="isRead(post.p_id, post.isread)"
@@ -48,13 +60,11 @@
             class="h-100 p-5 rounded-3 border border-danger"
             :class="{
               'bg-danger text-white': post.isread == 0,
-              'bg-white text-danger': post.isread == 1,
+              'bg-white  ': post.isread == 1,
             }"
           >
             <h5 class="card-title">
-              <u
-                >{{ post.p_title }}</u
-              >
+              <u>{{ post.p_title }}</u>
             </h5>
             <p class="text-truncate">
               {{ post.p_body }}
@@ -75,9 +85,8 @@ export default {
   data() {
     return {
       userId: getUserDetails().id,
-      // disorganised: [],
-      posts: [],
-      posts: [],
+      postsRead: [],
+      postsNotRead: [],
       isLoading: true,
       isPostListEmpty: false,
       errorMessage: "",
@@ -87,9 +96,9 @@ export default {
   methods: {
     getPosts() {
       axios
-        .get("/posts")
+        .get("/posts",)
         .then((response) => {
-          this.posts = response.data.queryResult.rows;
+          this.organisePosts(response.data.queryResult.rows);
           this.isLoading = false;
           if (response.data.queryResult.rows.length === 0)
             return (this.isPostListEmpty = true);
@@ -102,14 +111,28 @@ export default {
     isRead(postId, isread) {
       if (isread == 1) return;
       axios
-        .post("/posts/", {
-          fk_user_id: getUserDetails().id,
-          fk_post_id: postId,
-        })
+        .post(
+          "/posts/",
+          {
+            fk_user_id: getUserDetails().id,
+            fk_post_id: postId,
+          },
+        )
+
         .catch((error) => {
           console.log(error);
           this.errorMessage = "Error";
         });
+    },
+    organisePosts(posts) {
+      posts.forEach((post) => {
+        if (post.isread == 0) {
+          this.postsNotRead.push(post);
+        }
+        if (post.isread == 1) {
+          this.postsRead.push(post);
+        }
+      });
     },
   },
 

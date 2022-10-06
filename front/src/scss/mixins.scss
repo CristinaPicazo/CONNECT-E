@@ -1,13 +1,17 @@
 @use "variables.scss";
 
 @mixin generalView {
+  color: variables.$fontColor;
   margin: 0;
   padding: 0;
-  background-image: variables.$backgroundImage;
-  background-repeat: repeat;
-  background-size: contain;
-  background-position: center;
-  background-size: 300px;
+  background: variables.$backgroundColor;
+  a {
+    text-decoration: none;
+    color: variables.$fontColor;
+    &:hover {
+      color: variables.$fontColor;
+    }
+  }
 }
 
 @mixin navBar {
@@ -25,6 +29,7 @@
 @mixin buttons {
   box-shadow: variables.$box-shadow;
   transition: all 1s;
+  color: variables.$fontColor;
 
   &:hover,
   &:focus {

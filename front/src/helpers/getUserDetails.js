@@ -1,5 +1,4 @@
 const getUserDetails = () => {
-  // const userDetailsRaw = localStorage.getItem("userDetails");
   const userDetailsRaw = localStorage.getItem("userDetails");
   const userDetails = JSON.parse(userDetailsRaw);
   const user = {

@@ -3,43 +3,47 @@
     data-sign
     class="mt-5 m-sm-5 p-5 bg-white mb-5 rounded-3 border border-danger"
     @submit.prevent="handleSubmit"
+    autocomplete="on"
   >
-    <h2 class="text-danger text-center display-1 fw-bold">Sign up</h2>
+    <h2 class="text-center display-1 fw-bold">Sign up</h2>
 
     <div class="form-group mb-3">
-      <label for="user" class="text-danger form-label">User</label>
+      <label for="user" class="form-label">User</label>
       <input
         id="user"
         type="text"
         class="form-control border-3 border-danger"
         v-model="user"
+        autocomplete="username"
         required
       />
     </div>
     <div class="form-group mb-3">
-      <label for="email" class="text-danger form-label">Email</label>
+      <label for="email" class="form-label">Email</label>
       <input
         id="email"
         type="email"
         class="form-control border-3 border-danger"
         v-model="email"
+        autocomplete="email"
         required
       />
     </div>
     <div class="form-group mb-3">
-      <label for="password" class="text-danger form-label">Password</label>
+      <label for="password" class="form-label">Password</label>
       <input
         id="password"
         type="password"
         class="form-control border-3 border-danger"
         v-model="password"
+        autocomplete="current-password"
         required
       />
     </div>
-    <div class="form-group align-self-center">
+    <div class="form-group text-center">
       <button
         type="submit"
-        class="text-danger btn bg-white rounded rounded-pill col-12"
+        class="btn bg-white rounded rounded-pill col-6 col-md-4 col-lg-2"
       >
         Sign Up
       </button>
@@ -55,9 +59,6 @@
 <script>
 import { ref } from "vue";
 import axios from "axios";
-
-// import { useAuthStore } from "../store/auth";
-// const authSore = useAuthStore();
 
 export default {
   name: "SignupView",
@@ -75,11 +76,6 @@ export default {
       ),
     };
   },
-  // mounted() {
-  //   if (this.loggedIn) {
-  //     this.$router.push("/posts");
-  //   }
-  // },
   methods: {
     handleSubmit() {
       const isEmailValid = this.emailRegex.test(this.email);
@@ -93,11 +89,11 @@ export default {
             password: this.password,
           })
           .then((signupResult) => {
-            let userDetails = {
-              id: signupResult.data.id,
-              user: signupResult.data.user,
-              email: signupResult.data.email,
-            };
+            // let userDetails = {
+            //   id: signupResult.data.id,
+            //   user: signupResult.data.user,
+            //   email: signupResult.data.email,
+            // };
             this.$router.push("/login");
           })
           .catch((error) => {
