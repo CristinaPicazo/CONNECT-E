@@ -1,7 +1,7 @@
 <template>
   <div>
     <p v-if="isLoading">Loading...</p>
-    <p v-if="errorMessage != ''">{{ errorMessage }}</p>
+    <p v-if="errorMessage != ''">{{ this.errorMessage }}</p>
   </div>
   <form
     data-profile
@@ -25,14 +25,13 @@
 </template>
 
 <script>
-import axios from "axios";
+import axiosHelper from "../helpers/axios.helper";
 import getUserDetails from "../helpers/getUserDetails";
 
 export default {
   name: "ProfileView",
   data() {
     return {
-      // id: getUserDetails().id,
       id: this.$route.params.id,
       user: getUserDetails().user,
       email: getUserDetails().email,
@@ -42,13 +41,12 @@ export default {
   },
   methods: {
     deleteAccount() {
-      axios
+      axiosHelper
         .delete(
-          "http://localhost:4200/posts/profile/" + this.$route.params.id,
-          // `http://localhost:4200/posts/profile/${getUserDetails().id}`,
+          "http://localhost:4200/posts/profile/" + this.id,
           {}
         )
-        .then(() => this.$router.push("/signup"))
+        .then(() => this.$router.push("/"))
         .catch((error) => {
           this.errorMessage = error.message;
         });

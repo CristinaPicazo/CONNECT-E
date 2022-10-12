@@ -45,7 +45,6 @@
 
 <script>
 import { createWebHistory, RouterLink, RouterView } from "vue-router";
-import getUserDetails from "./helpers/getUserDetails";
 
 export default {
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,13 +63,12 @@ export default {
   watch: {
     $route(event) {
       this.isUserLoggin();
-      this.onunload("event", event);
-      this.onunload("event headers", event.headers);
+      this.onunload();
     },
   },
   methods: {
     LogOut() {
-      localStorage.removeItem("user");
+      localStorage.removeItem("token");
       localStorage.removeItem("userDetails");
       this.isloggedIn = false;
       this.$router.push("/");
@@ -83,10 +81,13 @@ export default {
         this.isloggedIn = true;
       }
     },
-    onunload(event) {
-      const checkIfPublicPage = this.publicPages.includes(event.fullPath);
+    onunload() {
+      const publicPages = ["/", "/login", "/signup"];
+      let checkIfPublicPage = this.publicPages.includes(
+        window.location.pathname
+      );
       if (checkIfPublicPage) {
-        localStorage.removeItem("user");
+        localStorage.removeItem("token");
         localStorage.removeItem("userDetails");
         this.isloggedIn = false;
       }

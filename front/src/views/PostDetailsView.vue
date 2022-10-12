@@ -9,7 +9,6 @@ export default {
   name: "PostDetailsView",
   components: { GetPost },
 };
-// import GetPosts from "../components/getPosts.vue";
 </script>
 
 <style scoped lang="scss">

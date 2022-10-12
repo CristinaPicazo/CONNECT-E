@@ -77,8 +77,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import getUserDetails from "../helpers/getUserDetails";
+import axiosHelper from "../helpers/axios.helper";
 
 export default {
   name: "GetPosts",
@@ -95,13 +95,13 @@ export default {
   },
   methods: {
     getPosts() {
-      axios
-        .get("/posts",)
+      axiosHelper
+        .get("/posts")
         .then((response) => {
-          this.organisePosts(response.data.queryResult.rows);
           this.isLoading = false;
           if (response.data.queryResult.rows.length === 0)
-            return (this.isPostListEmpty = true);
+          return (this.isPostListEmpty = true);
+          this.organisePosts(response.data.queryResult.rows);
         })
         .catch((error) => {
           this.isLoading = false;
@@ -110,15 +110,11 @@ export default {
     },
     isRead(postId, isread) {
       if (isread == 1) return;
-      axios
-        .post(
-          "/posts/",
-          {
-            fk_user_id: getUserDetails().id,
-            fk_post_id: postId,
-          },
-        )
-
+      axiosHelper
+        .post("/posts/", {
+          fk_user_id: getUserDetails().id,
+          fk_post_id: postId,
+        })
         .catch((error) => {
           console.log(error);
           this.errorMessage = "Error";

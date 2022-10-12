@@ -52,7 +52,9 @@
 
 <script>
 import { ref } from "vue";
-import axios from "axios";
+// import axios from "axios";
+import axiosHelper from "../helpers/axios.helper";
+
 
 export default {
   name: "LoginView",
@@ -64,25 +66,21 @@ export default {
   },
   methods: {
     onSubmit() {
-      axios
+      axiosHelper
         .post("/login", {
           email: this.email,
           password: this.password,
         })
         .then((loginResult) => {
           if (loginResult.data.accessToken) {
-            axios.defaults.headers.common[
-              "Authorization"
-            ] = `Bearer ${loginResult.data.accessToken}`;
             localStorage.setItem(
-              "user",
+              "token",
               JSON.stringify(loginResult.data.accessToken)
             );
             localStorage.setItem(
               "userDetails",
               JSON.stringify(loginResult.data.userDetails)
             );
-
             this.$router.push("/posts");
           } else {
             this.errorMessage = loginResult.data.message;

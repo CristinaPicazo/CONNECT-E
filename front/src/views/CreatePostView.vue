@@ -57,7 +57,7 @@
 
 <script>
 import { ref } from "vue";
-import axios from "axios";
+import axiosHelper from "../helpers/axios.helper";
 import getUserDetails from "../helpers/getUserDetails";
 
 export default {
@@ -73,7 +73,7 @@ export default {
     };
   },
   methods: {
-    handleFile(event) {
+    handleFile() {
       this.file = this.$refs.file.files[0];
       this.filename = this.file.name;
     },
@@ -87,7 +87,7 @@ export default {
         formData.append("file", this.file, this.filename);
       }
       formData.append("userId", this.userId);
-      axios
+      axiosHelper
         .post("/posts/newPost", formData, {
           headers: {
             "Content-Type": "multipart/form-data",

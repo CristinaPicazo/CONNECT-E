@@ -58,7 +58,7 @@
 </template>
 <script>
 import { ref } from "vue";
-import axios from "axios";
+import axiosHelper from "../helpers/axios.helper";
 
 export default {
   name: "SignupView",
@@ -82,18 +82,13 @@ export default {
       if (!isEmailValid || this.user.length < 3 || this.password.length < 3) {
         return (this.errorMessage = "Minimum 3 characters required");
       } else {
-        axios
+        axiosHelper
           .post("/signup", {
             user: this.user,
             email: this.email,
             password: this.password,
           })
-          .then((signupResult) => {
-            // let userDetails = {
-            //   id: signupResult.data.id,
-            //   user: signupResult.data.user,
-            //   email: signupResult.data.email,
-            // };
+          .then(() => {
             this.$router.push("/login");
           })
           .catch((error) => {

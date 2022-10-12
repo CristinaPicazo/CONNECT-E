@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { router } from "../router";
 import GetPosts from "../components/getPosts.vue";
 
 export default {

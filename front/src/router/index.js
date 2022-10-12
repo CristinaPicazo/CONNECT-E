@@ -7,7 +7,6 @@ import PostsView from "../views/PostsView.vue";
 import PostDetailsView from "../views/PostDetailsView.vue";
 import CreatePostView from "../views/CreatePostView.vue";
 import ProfileView from "../views/ProfileView.vue";
-import getUserDetails from "../helpers/getUserDetails.js";
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,7 +36,7 @@ export const router = createRouter({
       },
     },
     {
-      path: "/posts",
+      path: "/posts/:id",
       name: "PostDetailsView",
       component: PostDetailsView,
       meta: {
@@ -56,7 +55,6 @@ export const router = createRouter({
       path: "/posts/profile/:id",
       name: "ProfileView",
       component: ProfileView,
-      props: true,
       meta: {
         requiresAuth: true,
       },
@@ -70,16 +68,18 @@ export const router = createRouter({
   linkActiveClass: "active-link",
 });
 
-router.beforeEach((to, from, next) => {
-  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-  if (userDetails && (to.name === "LoginView" || to.name === "SignupView")) {
-    next({ name: "HomeView" });
-  } else if (
-    to.matched.some((record) => record.meta.requiresAuth) &&
-    !userDetails
-  ) {
-    next({ name: "LoginView" });
-  } else {
-    next();
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   console.log('from:', from)
+//   console.log('to:', to)
+//   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+//   if (userDetails && (to.name === "LoginView" || to.name === "SignupView")) {
+//     next({ name: "HomeView" });
+//   } else if (
+//     to.matched.some((record) => record.meta.requiresAuth) &&
+//     !userDetails
+//   ) {
+//     next({ name: "LoginView" });
+//   } else {
+//     next();
+//   }
+// });
