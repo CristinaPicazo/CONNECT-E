@@ -14,6 +14,7 @@ const {
   profile,
 } = require("../controllers/postsController");
 
+// Check token everytime before access to the routes
 postRouter.use(checkToken);
 
 // Routes

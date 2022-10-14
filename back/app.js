@@ -2,14 +2,14 @@ const { app } = require("./server");
 const { userRouter } = require("./routes/userRouter");
 const { postRouter } = require("./routes/postRouter");
 
-// settings
+// Settings
 const port = process.env.PORT || 4200;
 
-// routes
+// Routes
 app.use("/", userRouter);
 app.use("/posts", postRouter);
 
-// listen
+// Listen
 app.listen(port, () => {
   console.log(`Server on port ${port}`);
 });

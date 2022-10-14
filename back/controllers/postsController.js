@@ -2,6 +2,7 @@ const { client } = require("../database/keys");
 const FormData = require("form-data");
 const fs = require("fs");
 
+// Show all posts
 const getPosts = (req, res) => {
   client
     .query(
@@ -9,6 +10,7 @@ const getPosts = (req, res) => {
       [req.id]
     )
     .then((queryResult) => {
+      // Check if there is any post
       if (queryResult.rowCount < 1) {
         res.status(200).json({
           message: "There isn't any post",
@@ -29,6 +31,7 @@ const getPosts = (req, res) => {
     });
 };
 
+// Onclick in frontend, mark post as read in readby table
 const isRead = (req, res, err) => {
   let { fk_user_id, fk_post_id } = req.body;
   client
@@ -39,12 +42,13 @@ const isRead = (req, res, err) => {
     .catch((err) => {
       console.log("err:", err);
       res.status(500).json({
-        message: "Error reading the post",
+        message: "Error inserting within readby",
         err,
       });
     });
 };
 
+// Show all details fron one post by id
 const getSPostById = (req, res) => {
   const id = req.params.id;
   client
@@ -65,13 +69,16 @@ const getSPostById = (req, res) => {
     });
 };
 
+// Create a unique name for the image
 function makeImageUrl(req, fileName) {
   return req.protocol + "://" + req.get("host") + "/images/" + fileName;
 }
 
+// Create a new post
 const newPost = (req, res, err) => {
   let { title, body, userId } = req.body;
   let { file } = req;
+  // If there is any picture, create url and save it
   if (file) {
     const { fileName } = file;
     file = makeImageUrl(req, file.fileName);
@@ -80,7 +87,6 @@ const newPost = (req, res, err) => {
     .query(
       "INSERT INTO posts (p_title, p_body, p_file, fk_u_id) VALUES ($1, $2, $3, $4)",
       [title, body, file, userId]
-      // "INSERT INTO readby ('fk_u_id','fk_p_id') values ($1, $2)",[userId,postId],
     )
     .then((queryResult) => {
       res.status(200).json({
@@ -90,23 +96,16 @@ const newPost = (req, res, err) => {
     })
     .catch((err) => {
       console.log("err:", err);
-      if (err.code == "23505") {
-        res.status(200).json({
-          message: "Post already added",
-          err,
-        });
-      } else {
-        res.status(500).json({
-          message: "Error creating the post",
-          err,
-        });
-      }
+      res.status(500).json({
+        message: "Error creating the post",
+        err,
+      });
     });
 };
 
+// Delete user
 const profile = (req, res, err) => {
   const id = req.path.split("/").slice(-1)[0];
-
   client
     .query("DELETE FROM users WHERE u_id=$1", [id])
     .then((queryResult) =>

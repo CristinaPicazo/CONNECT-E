@@ -1,5 +1,6 @@
 const multer = require("multer");
 
+// Save file in images file
 const storage = multer.diskStorage({
   destination: "images/",
   filename: function (req, file, cb) {
@@ -7,6 +8,7 @@ const storage = multer.diskStorage({
   },
 });
 
+// Create a unique name for the file
 function makeFilename(file) {
   try {
     const fileName = `${Date.now()}-${file.originalname}`.replace(/\s/g, "-");

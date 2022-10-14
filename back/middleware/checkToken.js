@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
+// const app = require("../app");
 
 function checkToken(req, res, next) {
+  // Check if token is sent
   const header = req.header("Authorization");
   try {
     if (header === undefined) {
@@ -14,6 +16,7 @@ function checkToken(req, res, next) {
       return res.status(401).send({ message: "No token provided" });
     }
 
+    // Verify token
     jwt.verify(token, process.env.JWT_PASSWORD, (err, decoded) => {
       if (err) {
         return res.status(401).send({ message: "Invalid token" + err });

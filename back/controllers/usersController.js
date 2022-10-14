@@ -4,18 +4,17 @@ const jwt = require("jsonwebtoken");
 
 const signup = (req, res, err) => {
   const { user, email, password } = req.body;
+  // Encrypt password
   const hashedPassword = bcrypt.hashSync(password, 10);
-
+  // Check if all form is filled
   if (email === "") {
     res.status(400).send("Email is required");
     return;
   }
-
   if (password === "") {
     res.status(400).send("Password is required");
     return;
   }
-
   client
     .query(
       "INSERT INTO users (u_user, u_email, u_password) VALUES ($1, $2, $3)",
@@ -27,6 +26,7 @@ const signup = (req, res, err) => {
         queryResult,
       })
     )
+    // Email and user must be unique
     .catch((err) => {
       if (err.code == "23505") {
         return res.status(200).json({
@@ -58,6 +58,7 @@ const login = (req, res, err) => {
           message: "User not found",
         });
       }
+      // Check if encrypted password is correct
       bcrypt.compare(
         password,
         emailResult.rows[0].u_password,
@@ -68,11 +69,11 @@ const login = (req, res, err) => {
             });
           }
           if (result) {
+            // Create new token with user details
             const accessToken = createToken(
               emailResult.rows[0].u_id,
               emailResult.rows[0].u_user,
-              emailResult.rows[0].u_email,
-              emailResult.rows[0].u_password
+              emailResult.rows[0].u_email
             );
             res.status(200).json({
               message: "User logged in successfully",
@@ -95,6 +96,7 @@ const login = (req, res, err) => {
     });
 };
 
+// Create new token with user details
 function createToken(id, user, email) {
   try {
     const jwtPassword = process.env.JWT_PASSWORD;
