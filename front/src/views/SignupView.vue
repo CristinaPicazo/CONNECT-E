@@ -71,6 +71,7 @@ export default {
   },
   data() {
     return {
+      // Check correct email format
       emailRegex: RegExp(
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       ),
@@ -78,6 +79,7 @@ export default {
   },
   methods: {
     handleSubmit() {
+      // Check if email with regex
       const isEmailValid = this.emailRegex.test(this.email);
       if (!isEmailValid || this.user.length < 3 || this.password.length < 3) {
         return (this.errorMessage = "Minimum 3 characters required");
@@ -89,6 +91,7 @@ export default {
             password: this.password,
           })
           .then(() => {
+            // Redirect to login page after signup to create token
             this.$router.push("/login");
           })
           .catch((error) => {

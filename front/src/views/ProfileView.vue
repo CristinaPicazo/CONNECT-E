@@ -32,6 +32,7 @@ export default {
   name: "ProfileView",
   data() {
     return {
+      // Get user id from url
       id: this.$route.params.id,
       user: getUserDetails().user,
       email: getUserDetails().email,
@@ -42,10 +43,8 @@ export default {
   methods: {
     deleteAccount() {
       axiosHelper
-        .delete(
-          "http://localhost:4200/posts/profile/" + this.id,
-          {}
-        )
+        .delete("http://localhost:4200/posts/profile/" + this.id, {})
+        // Redirect to home page after removing user
         .then(() => this.$router.push("/"))
         .catch((error) => {
           this.errorMessage = error.message;

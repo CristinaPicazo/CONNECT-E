@@ -67,21 +67,24 @@ export default {
     },
   },
   methods: {
+    // Remove all from the local storage (user details and token)
     LogOut() {
       localStorage.removeItem("token");
       localStorage.removeItem("userDetails");
       this.isloggedIn = false;
+      // Send user to the main page
       this.$router.push("/");
     },
+    // Check if the user is logged in to send user id to ProfileView
     isUserLoggin() {
       let userDetails = JSON.parse(localStorage.getItem("userDetails"));
       if (userDetails != null) {
         this.id = userDetails.id;
-
         this.isloggedIn = true;
       }
     },
     onunload() {
+      // In case user hasn't logged out, remove all from the local storage
       const publicPages = ["/", "/login", "/signup"];
       let checkIfPublicPage = this.publicPages.includes(
         window.location.pathname

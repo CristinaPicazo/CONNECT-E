@@ -73,14 +73,17 @@ export default {
     };
   },
   methods: {
+    // Everytime the file input changes, set the file and filename
     handleFile() {
       this.file = this.$refs.file.files[0];
       this.filename = this.file.name;
     },
+    // Create form data and send it to the backend
     handleSubmit() {
       const formData = new FormData();
       formData.append("title", this.title);
       formData.append("body", this.body);
+      // If there is a file, add it to the form data, if not, send it empty
       if (this.file == "") {
         formData.append("file", this.file);
       } else {
@@ -94,6 +97,7 @@ export default {
           },
         })
         .then(() => {
+          // If the post was created successfully, redirect to the posts page
           this.$router.push("/posts");
         })
         .catch((error) => {

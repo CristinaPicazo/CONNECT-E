@@ -9,8 +9,6 @@ $backgroundColor: linear-gradient(
   rgba(255, 108, 108, 1) 100%
 );
 $backgroundButton: white;
-// $backgroundImage: url("../assets/icon-above-font.png");
-// $buttonBackground: rgb(203, 203, 203);
-$backgroundButtonHover: red;
+$backgroundButtonHover: #ad0000;
 $borderColor: red;
 $box-shadow: 0px 5px 5px 5px darken($backgroundButtonHover, 20%);

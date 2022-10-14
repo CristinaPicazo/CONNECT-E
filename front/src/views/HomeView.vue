@@ -4,7 +4,7 @@
     class="vh-100 d-flex flex-column flex-sm-row align-items-center"
   >
     <div
-      class="mb-5 mt-5 m-sm-5 pt-5 pb-5 bg-white rounded-3 border border-danger text-center  "
+      class="mb-5 mt-5 m-sm-5 pt-5 pb-5 bg-white rounded-3 border border-danger text-center"
     >
       <h2 class="text-center display-1 fw-bold pb-3">Groupomania</h2>
       <p class="p-2">
@@ -30,20 +30,14 @@ export default {
   name: "HomeView",
   methods: {
     goToLogin() {
+      // Redirect to login page
       this.$router.push("/login");
     },
     goToSignup() {
+      // Redirect to signup page
       this.$router.push("/signup");
     },
   },
 };
 </script>
-<style scoped lang="scss">
-@use "../scss/mixins.scss";
-[data-home] {
-  button {
-    @include mixins.buttons;
-    font-size: 18px;
-  }
-}
-</style>
+<style scoped lang="scss"></style>

@@ -67,19 +67,3 @@ export const router = createRouter({
   ],
   linkActiveClass: "active-link",
 });
-
-// router.beforeEach((to, from, next) => {
-//   console.log('from:', from)
-//   console.log('to:', to)
-//   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-//   if (userDetails && (to.name === "LoginView" || to.name === "SignupView")) {
-//     next({ name: "HomeView" });
-//   } else if (
-//     to.matched.some((record) => record.meta.requiresAuth) &&
-//     !userDetails
-//   ) {
-//     next({ name: "LoginView" });
-//   } else {
-//     next();
-//   }
-// });

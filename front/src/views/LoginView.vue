@@ -55,7 +55,6 @@ import { ref } from "vue";
 // import axios from "axios";
 import axiosHelper from "../helpers/axios.helper";
 
-
 export default {
   name: "LoginView",
   setup() {
@@ -65,6 +64,7 @@ export default {
     return { email, password, errorMessage };
   },
   methods: {
+    // Send user details to backend
     onSubmit() {
       axiosHelper
         .post("/login", {
@@ -73,14 +73,17 @@ export default {
         })
         .then((loginResult) => {
           if (loginResult.data.accessToken) {
+            // Store token in local storage
             localStorage.setItem(
               "token",
               JSON.stringify(loginResult.data.accessToken)
             );
+            // Store user details in local storage
             localStorage.setItem(
               "userDetails",
               JSON.stringify(loginResult.data.userDetails)
             );
+            // Redirect to posts page when login is successful
             this.$router.push("/posts");
           } else {
             this.errorMessage = loginResult.data.message;
