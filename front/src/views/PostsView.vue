@@ -26,7 +26,7 @@
         <router-link
           :to="`/posts/${post.p_id}`"
           class="text-decoration-none"
-          @click="isRead(post.p_id, post.isread)"
+          @click="isPostRead(post.p_id, post.isread)"
         >
           <div
             class="h-100 p-5 rounded-3 border border-danger"
@@ -54,7 +54,7 @@
         <router-link
           :to="`/posts/${post.p_id}`"
           class="text-decoration-none"
-          @click="isRead(post.p_id, post.isread)"
+          @click="isPostRead(post.p_id, post.isread)"
         >
           <div
             class="h-100 p-5 rounded-3 border border-danger"
@@ -113,9 +113,9 @@ export default {
         });
     },
     // Onclick send a request to the server to update the post as read if it's not the author or if user hasn't read it
-    isRead(postId, isread) {
+    isPostRead(postId, isread) {
       // 1  is author or had read it
-      if (isread == 1) return;
+      if (isread === 1) return;
       axiosHelper
         .post("/posts", {
           fk_user_id: getUserDetails().id,
