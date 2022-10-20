@@ -39,10 +39,12 @@
               <u>{{ post.p_title }}</u>
             </h5>
             <p
-              :class="{ 'text-truncate': post.p_file }"
+              :class="{
+                'text-truncate': post.p_file,
+              }"
               class="overflow-hidden"
             >
-              {{ post.p_body }}
+              {{ isPostBodyIsTooLong(post.p_body, post.p_file) }}
             </p>
             <img
               v-if="post.p_file"
@@ -78,10 +80,12 @@
               <u>{{ post.p_title }}</u>
             </h5>
             <p
-              :class="{ 'text-truncate': post.p_file }"
+              :class="{
+                'text-truncate': post.p_file,
+              }"
               class="overflow-hidden"
             >
-              {{ post.p_body }}
+              {{ isPostBodyIsTooLong(post.p_body, post.p_file) }}
             </p>
             <img
               v-if="post.p_file"
@@ -157,6 +161,13 @@ export default {
           this.postsRead.push(post);
         }
       });
+    },
+    // Check if the body of the post contain a file or if the title is too long or the body is too long (less then 100characters)
+    isPostBodyIsTooLong(body, file) {
+      if (body.length > 100 && !file) {
+        return body.slice(0, 100) + "...";
+      }
+      return body;
     },
   },
 
