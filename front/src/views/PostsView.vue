@@ -19,7 +19,7 @@
 
       <div
         v-show="!isLoading && !isPostListEmpty && errorMessage == ''"
-        class="w-sm-30 p-1 col col-md-4"
+        class="w-sm-30 p-3 col col-md-5"
         v-for="post in postsNotRead"
         v-bind:key="post.p_id"
       >
@@ -29,46 +29,67 @@
           @click="isPostRead(post.p_id, post.isread)"
         >
           <div
-            class="h-100 p-5 rounded-3 border border-danger"
+            class="h-100 text-center p-5 rounded-3 border border-danger"
             :class="{
               'bg-danger text-white': post.isread == 0,
               'bg-white  ': post.isread == 1,
             }"
           >
-            <h5 class="card-title">
+            <h5 class="card-title text-truncate">
               <u>{{ post.p_title }}</u>
             </h5>
-            <p class="text-truncate">
+            <p
+              :class="{ 'text-truncate': post.p_file }"
+              class="overflow-hidden"
+            >
               {{ post.p_body }}
             </p>
+            <img
+              v-if="post.p_file"
+              width="100"
+              height="100"
+              class="rounded mx-auto d-block col-12 col-md-10 col-lg-8"
+              v-bind:src="post.p_file"
+              alt="{{ post.p_title }}"
+            />
           </div>
         </router-link>
       </div>
 
       <div
         v-show="!isLoading && !isPostListEmpty && errorMessage == ''"
-        class="w-sm-30 p-1 col col-md-4"
+        class="h-100 w-sm-30 p-3 col col-md-5 col-lg-4 col-d-flex"
         v-for="post in postsRead"
         v-bind:key="post.p_id"
       >
         <router-link
           :to="`/posts/${post.p_id}`"
-          class="text-decoration-none"
+          class="text-decoration-none cards"
           @click="isPostRead(post.p_id, post.isread)"
         >
           <div
-            class="h-100 p-5 rounded-3 border border-danger"
+            class="p-5 rounded-3 border border-danger"
             :class="{
               'bg-danger text-white': post.isread == 0,
               'bg-white  ': post.isread == 1,
             }"
           >
-            <h5 class="card-title">
+            <h5 class="card-title text-truncate">
               <u>{{ post.p_title }}</u>
             </h5>
-            <p class="text-truncate">
+            <p
+              :class="{ 'text-truncate': post.p_file }"
+              class="overflow-hidden"
+            >
               {{ post.p_body }}
             </p>
+            <img
+              v-if="post.p_file"
+              height="100"
+              class="cover rounded mx-auto d-block"
+              v-bind:src="post.p_file"
+              alt="{{ post.p_title }}"
+            />
           </div>
         </router-link>
       </div>
@@ -79,7 +100,7 @@
 <script>
 import getUserDetails from "../helpers/getUserDetails";
 import axiosHelper from "../helpers/axios.helper";
-
+// col-6 col-md-10 col-lg-8
 export default {
   name: "PostsView",
   data() {

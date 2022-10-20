@@ -44,15 +44,17 @@
 }
 
 @mixin forms {
-  box-shadow: variables.$box-shadow;
+  // box-shadow: variables.$box-shadow;
   transition: all 1s;
+  align-content: center;
   div > div {
     &:hover,
     &:focus {
+      border-color: 10rem solid black !important;
+      background-size: contain;
       background-color: variables.$backgroundButtonHover !important;
-      box-shadow: variables.$box-shadow !important;
-      transform: translateY(-7px) scale(1.1) !important;
-      color: variables.$fontColorHover !important;
+      transform: translateY(-7px) scale(1) !important;
+      border-radius: 1rem;
       text-decoration: none;
     }
   }
