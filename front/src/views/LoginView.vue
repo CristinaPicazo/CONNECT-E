@@ -1,7 +1,7 @@
 <template>
   <form
     data-login
-    class="mt-5 m-sm-5 p-5 bg-white mb-5 rounded-3 border border-danger"
+    class="col col-md-8 mx-auto mt-5 p-5 bg-white mb-5 rounded-3 border border-danger text-break text-center"
     @submit.prevent="onSubmit"
     autocomplete="on"
   >

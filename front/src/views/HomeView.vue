@@ -1,7 +1,7 @@
 <template>
   <div
     data-home
-    class="vh-100 d-flex flex-column flex-sm-row align-items-center"
+    class="vh-100 d-flex flex-column flex-sm-row align-items-center justify-content-center"
   >
     <div
       class="mb-5 mt-5 m-sm-5 pt-5 pb-5 bg-white rounded-3 border border-danger text-center"

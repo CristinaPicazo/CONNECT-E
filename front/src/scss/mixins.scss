@@ -5,6 +5,8 @@
   margin: 0;
   padding: 0;
   background: variables.$backgroundColor;
+  font-size: variables.$fontSize;
+  font-family: variables.$geneneralFont;
   a {
     text-decoration: none;
     color: variables.$fontColor;
