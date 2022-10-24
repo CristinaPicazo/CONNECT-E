@@ -6,7 +6,7 @@ const fs = require("fs");
 const getPosts = (req, res) => {
   client
     .query(
-      "SELECT p_id,p_title,p_body, CASE WHEN readby.fk_u_id=$1 OR posts.fk_u_id=$1 THEN 1 ELSE 0 END AS isRead FROM posts LEFT JOIN readby ON readby.fk_p_id = posts.p_id",
+      "SELECT p_id,p_title,p_body,p_file, CASE WHEN readby.fk_u_id=$1 OR posts.fk_u_id=$1 THEN 1 ELSE 0 END AS isRead FROM posts LEFT JOIN readby ON readby.fk_p_id = posts.p_id",
       [req.id]
     )
     .then((queryResult) => {
