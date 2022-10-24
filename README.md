@@ -20,7 +20,8 @@ Build an internal social network.
   * JWT
 
 # Initialize the API
+  * Create database with file "database/database.sql", I have used pgAdmin4
+  * There is a .env.example file to see and example of the data needed for the database (to be added PASSWORD and JWT_PASSWORD)
   * Run "npm run dev" within front and back folders
   * Navigate to http://localhost:3000/ (frontend)
   * Backend run in http://localhost:4200/
-  * There is a .env.example file to see and example of the data needed for the database
